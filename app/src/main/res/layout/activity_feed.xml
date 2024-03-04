@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Feed.Feed">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="90dp"
+        app:layout_constraintTop_toBottomOf="@+id/secondLayoutFeed"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLayoutFeed"
+        tools:layout_editor_absoluteX="56dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstPosts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/secondLayoutFeed"
+            app:layout_constraintBottom_toTopOf="@+id/bottomLayoutFeed"
+            android:background="@android:color/darker_gray" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/topLayoutFeed"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingEnd="10dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/facebook_logo"
+            android:padding="15dp"
+            android:paddingStart="-60dp"
+            android:src="@drawable/facebook_logo" />
+
+        <Switch
+            android:id="@+id/theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="#000000"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            app:backgroundTint="#CCCCCC"
+            app:layout_constraintEnd_toEndOf="@id/topLayoutFeed"
+            android:text="@string/logout"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondLayoutFeed"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/topLayoutFeed">
+
+        <ImageView
+            android:id="@+id/profileImageFeed"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/picture"
+            android:src="@drawable/man" />
+
+        <EditText
+            android:id="@+id/addPostText"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/add_post_hint"
+            android:autofillHints=""
+            android:inputType="text"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/addPostBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_add_photo"
+            android:layout_gravity="center"
+            android:contentDescription="@string/add_photo" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottomLayoutFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/home"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/home_btn"
+            android:drawableTop="@drawable/ic_home_btn"
+            android:drawableBottom="@drawable/home_txt" />
+
+        <Button
+            android:id="@+id/watch"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/watch_btn"
+            android:drawableTop="@drawable/ic_watch"
+            android:drawableBottom="@drawable/watch_txt" />
+
+        <Button
+            android:id="@+id/friends"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/friends_btn"
+            android:drawableTop="@drawable/ic_friends"
+            android:drawableBottom="@drawable/friends_txt" />
+
+        <Button
+            android:id="@+id/marketplace"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/marketplace_btn"
+            android:drawableTop="@drawable/ic_marketplace"
+            android:drawableBottom="@drawable/marketplace_txt" />
+
+        <Button
+            android:id="@+id/notifications"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/notifications_btn"
+            android:drawableTop="@drawable/ic_notifications"
+            android:drawableBottom="@drawable/notifications_txt" />
+
+        <Button
+            android:id="@+id/menu"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/menu_btn"
+            android:drawableTop="@drawable/ic_menu"
+            android:drawableBottom="@drawable/menu_txt" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

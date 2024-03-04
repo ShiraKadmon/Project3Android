@@ -1,0 +1,104 @@
+package com.example.project3android;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class BitMapClass {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int width, int height, int pixels) {
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(Color.BLACK); // Set border color if needed
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, null, rect, paint); // Draw the bitmap into the specified rectangle
+
+        return output;
+    }
+    public static Bitmap resizeBitmap(Bitmap bitmap, float newWidth, float newHeight) {
+        // Get the current dimensions of the bitmap
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        // Calculate the scale factors
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // Create a matrix for the manipulation
+        android.graphics.Matrix matrix = new android.graphics.Matrix();
+
+        // Resize the bitmap
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // Recreate the new bitmap with the resized dimensions
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
+    }
+
+    public static String bitmapToString(Bitmap bitmap) {
+        /*
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+         */
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static int bitmapToInt(Bitmap bitmap) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(bitmapToByteArray(bitmap));
+            int result = 0;
+            for (int i = 0; i < 4; i++) {
+                result += ((int) hash[i] & 0xFF) << (24 - i * 8);
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private static byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public static Drawable bitmapToDrawable(Context context, Bitmap bitmap) {
+        return new BitmapDrawable(context.getResources(), bitmap);
+    }
+}

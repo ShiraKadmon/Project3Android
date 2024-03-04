@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "likes": 25,
+    "pic": "https://www.gstatic.com/webp/gallery/1.jpg",
+    "comments": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "comment": "Great shot! I love the beach."
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "comment": "Beautiful view! Wish I could be there."
+      }
+    ],
+    "text": "Exciting day at the beach!",
+    "name": "John Doe",
+    "profileImage": "https://randomuser.me/api/portraits/men/1.jpg",
+    "date": "2024-01-28 12:30:00"
+  },
+  {
+    "id": 2,
+    "likes": 15,
+    "pic": "https://www.gstatic.com/webp/gallery/2.jpg",
+    "comments": [
+      {
+        "id": 3,
+        "name": "Chris Johnson",
+        "comment": "Amazing! Where is this place?"
+      },
+      {
+        "id": 4,
+        "name": "Emily Davis",
+        "comment": "Absolutely stunning view!"
+      }
+    ],
+    "text": "Exploring new places!",
+    "name": "Jane Smith",
+    "profileImage": "https://randomuser.me/api/portraits/women/2.jpg",
+    "date": "2024-01-28 14:45:00"
+  },
+  {
+    "id": 3,
+    "likes": 30,
+    "pic": "https://www.gstatic.com/webp/gallery/3.jpg",
+    "comments": [
+      {
+        "id": 5,
+        "name": "Alex Turner",
+        "comment": "Lovely city lights! I miss the night walks."
+      },
+      {
+        "id": 6,
+        "name": "Sophie White",
+        "comment": "Great shot! The colors are mesmerizing."
+      }
+    ],
+    "text": "City lights at night!",
+    "name": "Chris Johnson",
+    "profileImage": "https://randomuser.me/api/portraits/men/3.jpg",
+    "date": "2024-01-29 08:20:00"
+  },
+  {
+    "id": 4,
+    "likes": 18,
+    "pic": "https://www.gstatic.com/webp/gallery/4.jpg",
+    "comments": [
+      {
+        "id": 7,
+        "name": "Michael Brown",
+        "comment": "Wow, sunset vibes indeed! I love it."
+      },
+      {
+        "id": 8,
+        "name": "John Doe",
+        "comment": "Fantastic colors! Nature is amazing."
+      }
+    ],
+    "text": "Sunset vibes!",
+    "name": "Emily Davis",
+    "profileImage": "https://randomuser.me/api/portraits/women/4.jpg",
+    "date": "2024-01-29 18:10:00"
+  },
+  {
+    "id": 5,
+    "likes": 12,
+    "pic": "https://www.gstatic.com/webp/gallery/5.jpg",
+    "comments": [
+      {
+        "id": 1,
+        "name": "Jane Smith",
+        "comment": "Beautiful nature walk! Is this a forest?"
+      },
+      {
+        "id": 2,
+        "name": "Chris Johnson",
+        "comment": "Great capture! I can almost feel the fresh air."
+      }
+    ],
+    "text": "Nature walk 🌳",
+    "name": "Alex Turner",
+    "profileImage": "https://randomuser.me/api/portraits/men/5.jpg",
+    "date": "2024-01-30 09:55:00"
+  },
+  {
+    "id": 6,
+    "likes": 22,
+    "pic": "https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "comments": [
+      {
+        "id": 3,
+        "name": "Emily Davis",
+        "comment": "Stunning view! Where is this weekend getaway?"
+      },
+      {
+        "id": 4,
+        "name": "Emily Davis",
+        "comment": "Love this! Perfect place for relaxation."
+      }
+    ],
+    "text": "Weekend getaway!",
+    "name": "Sophie White",
+    "profileImage": "https://randomuser.me/api/portraits/women/6.jpg",
+    "date": "2024-01-30 16:40:00"
+  },
+  {
+    "id": 7,
+    "likes": 28,
+    "pic": "https://images.unsplash.com/photo-1707147671059-94dd36708ca7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "comments": [
+      {
+        "id": 5,
+        "name": "Sophie White",
+        "comment": "The food looks amazing! Where did you go?"
+      },
+      {
+        "id": 6,
+        "name": "Michael Brown",
+        "comment": "Incredible foodie adventures! I'm hungry now."
+      }
+    ],
+    "text": "Foodie adventures!",
+    "name": "Michael Brown",
+    "profileImage": "https://randomuser.me/api/portraits/men/7.jpg",
+    "date": "2024-01-31 11:15:00"
+  },
+  {
+    "id": 8,
+    "likes": 10,
+    "pic": "https://images.unsplash.com/photo-1682687982298-c7514a167088?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "comments": [
+      {
+        "id": 7,
+        "name": "John Doe",
+        "comment": "Chilling at home! Looks cozy."
+      },
+      {
+        "id": 8,
+        "name": "Jane Smith",
+        "comment": "Nice one! I wish I could relax like this."
+      }
+    ],
+    "text": "Chilling at home 🏡",
+    "name": "Emma Wilson",
+    "profileImage": "https://randomuser.me/api/portraits/women/8.jpg",
+    "date": "2024-02-01 13:20:00"
+  },
+  {
+    "id": 9,
+    "likes": 35,
+    "pic": "https://images.unsplash.com/photo-1707145301260-8d5c3dc9f015?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "comments": [
+      {
+        "id": 1,
+        "name": "Emily Davis",
+        "comment": "Adorable furry friends! I love pets."
+      },
+      {
+        "id": 2,
+        "name": "Alex Turner",
+        "comment": "Sweet! What are their names?"
+      }
+    ],
+    "text": "Furry friends 🐾",
+    "name": "David Lee",
+    "profileImage": "https://randomuser.me/api/portraits/men/9.jpg",
+    "date": "2024-02-02 09:00:00"
+  },
+  {
+    "id": 10,
+    "likes": 19,
+    "pic": "https://images.unsplash.com/photo-1682687220431-81a76ec65505?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "comments": [
+      {
+        "id": 3,
+        "name": "Sophie White",
+        "comment": "Lovely artistic vibes! Is this your artwork?"
+      },
+      {
+        "id": 4,
+        "name": "Michael Brown",
+        "comment": "Great picture! I love the colors."
+      }
+    ],
+    "text": "Artistic vibes!",
+    "name": "Olivia Miller",
+    "profileImage": "https://randomuser.me/api/portraits/women/10.jpg",
+    "date": "2024-02-02 17:30:00"
+  }
+]

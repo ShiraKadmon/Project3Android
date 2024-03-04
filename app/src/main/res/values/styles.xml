@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="btn_sToFeed">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#1955CC</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+</resources>
