@@ -16,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.Image.GetImageFromUser;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class NewPost extends AppCompatActivity {
@@ -66,7 +70,7 @@ public class NewPost extends AppCompatActivity {
                 // if both username and password are valid - log in
                 //GetImageFromUser.saveImageToGallery(this, selectedBitmap);
                 Post newPost = new Post(username, postText.getText().toString(),
-                        selectedBitmap, "2024-15-02 15:23",
+                        selectedBitmap, DateFormat.getDateInstance().format(new Date()),
                         profileImage, new ArrayList<>());
                 if (getIntent().getIntExtra("position" , -1) != -1) {
                     FeedData.getInstance().replacePost(getIntent().getIntExtra(

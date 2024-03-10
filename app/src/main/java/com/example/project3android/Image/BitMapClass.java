@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Image;
 
 import android.content.Context;
 import android.graphics.Bitmap;

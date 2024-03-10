@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Image;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.project3android.Image.BitMapClass;
 
 import java.io.File;
 import java.io.IOException;

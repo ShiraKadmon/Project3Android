@@ -1,10 +1,10 @@
-package com.example.project3android;
+package com.example.project3android.Validation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.example.project3android.Validation;
+import com.example.project3android.Validation.Validation;
 
 public class UserNameValidator implements TextWatcher {
     private EditText userName;

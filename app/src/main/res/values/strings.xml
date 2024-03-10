@@ -50,4 +50,5 @@
     <string name="mode">Mode</string>
     <string name="edit">edit</string>
     <string name="edit_your_comment">Edit Your Comment</string>
+    <string name="BaseUrl">http://10.02.2:3000/api/</string>
 </resources>

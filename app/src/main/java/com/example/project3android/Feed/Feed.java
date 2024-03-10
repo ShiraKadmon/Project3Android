@@ -16,12 +16,18 @@ import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.project3android.API.PostAPI;
 import com.example.project3android.Feed.Comments;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.NewPost;
@@ -35,11 +41,14 @@ public class Feed extends AppCompatActivity {
     private Activity currentActivity;
     private PostListAdapter adapter;
     private boolean isNightMode = false;
+    private PostsViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         currentActivity = this;
+
+        viewModel = new ViewModelProvider(this).get(PostsViewModel.class);
 
         if (FeedData.getInstance().getProfileImage() == null) {
             FeedData.getInstance().setProfileImage(BitmapFactory.decodeResource(
@@ -57,15 +66,7 @@ public class Feed extends AppCompatActivity {
 
         FeedData.getInstance().setAdapter(adapter);
 
-        // Read the JSON file from the raw directory
-        InputStream inputStream = getResources().openRawResource(R.raw.posts);
-
-        // Convert InputStream to String
-        String jsonString = convertStreamToString(inputStream);
-        PostConverter postConverter = new PostConverter(jsonString);
-        List<Post> posts = postConverter.convertJsonToPostList();
-        FeedData.getInstance().setPosts(posts);
-        adapter.setPosts(FeedData.getInstance().getPosts());
+        viewModel.get().observe(this, posts -> adapter.setPosts(posts));
 
         Button logoutButton = findViewById(R.id.logoutBtn);
         logoutButton.setOnClickListener(v -> {
@@ -117,6 +118,11 @@ public class Feed extends AppCompatActivity {
                 adapter.setNightMode(false);
                 this.isNightMode = false;
             }
+        });
+
+        SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(() -> {
+            viewModel.reload();
         });
     }
 
