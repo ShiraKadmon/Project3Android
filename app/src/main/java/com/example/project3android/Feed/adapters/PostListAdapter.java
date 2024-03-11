@@ -58,7 +58,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             editBtn = itemView.findViewById(R.id.edit_post);
             postView = itemView;
             likeBtn = itemView.findViewById(R.id.likeBtn);
-            likeBtn.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.add_like_selector, 0, 0);
+            likeBtn.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.add_like_selector,
+                    0, 0);
 
         }
     }
@@ -105,7 +106,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             });
 
             holder.likeBtn.setOnClickListener(view -> {
-                int imageLike = current.isLiked() ? R.drawable.add_like_selector : R.drawable.ic_like_pressed;
+                int imageLike = current.isLiked() ?
+                        R.drawable.add_like_selector : R.drawable.ic_like_pressed;
                 current.toggleLike(holder.likeBtn, imageLike);
                 holder.likeBtn.setPressed(current.isLiked());
                 notifyDataSetChanged();
@@ -114,7 +116,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.shareBtn.setOnClickListener(v -> {
                 // Create and show the share popup window
                 View popupView = mInflater.inflate(R.layout.share_layout, null);
-                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                PopupWindow popupWindow = new PopupWindow(popupView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);

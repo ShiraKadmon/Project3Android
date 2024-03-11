@@ -3,7 +3,6 @@ package com.example.project3android.Feed.Post;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.room.Entity;
@@ -47,7 +46,8 @@ public class Post implements Serializable {
         this.commentsSize = 0;
     }
 
-    public Post(String author, String content, Bitmap pic, String date, Bitmap profilePic, List<Comment> comments) {
+    public Post(String author, String content, Bitmap pic, String date, Bitmap profilePic,
+                List<Comment> comments) {
         this.name = author;
         this.text = content;
         //this.pic = pic;
@@ -58,7 +58,8 @@ public class Post implements Serializable {
         this.commentsSize = comments.size();
     }
 
-    public Post(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
+    public Post(String author, String content, String pic, String date, String profilePic,
+                List<Comment> comments) {
         this.name = author;
         this.text = content;
         this.pic = pic;

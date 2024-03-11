@@ -79,9 +79,11 @@ public class SignUp extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions,
+                grantResults);
     }
 
 
@@ -100,7 +102,8 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-    private boolean checkContentDetails(EditText userName, EditText password, EditText confirmPass, EditText name, Bitmap image) {
+    private boolean checkContentDetails(EditText userName, EditText password, EditText confirmPass,
+                                        EditText name, Bitmap image) {
         String inputUserName = userName.getText().toString(); // get the username and the password
         String inputPassword = password.getText().toString();
         String inputConfirmPassword = confirmPass.getText().toString();

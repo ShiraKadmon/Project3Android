@@ -129,13 +129,9 @@ public class GetImageFromUser {
                 // Convert the Uri to a Bitmap
                 selectedBitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(),
                         selectedImageUri);
-                selectedBitmap = BitMapClass.getRoundedCornerBitmap(selectedBitmap,
-                        selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
-                selectedBitmap = BitMapClass.compressBitmap(selectedBitmap, 70);
-                selectedBitmap = BitMapClass.resizeBitmap2(selectedBitmap, 400, 400);
-                return selectedBitmap;
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         } else {
             // The image is from the camera
@@ -144,11 +140,16 @@ public class GetImageFromUser {
             if (extras != null) {
                 // Use the thumbnail as a Bitmap
                 selectedBitmap = (Bitmap) extras.get("data");
-                return BitMapClass.getRoundedCornerBitmap(selectedBitmap,
-                        selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
+            } else {
+                return null;
             }
         }
-        return null;
+
+        selectedBitmap = BitMapClass.getRoundedCornerBitmap(selectedBitmap,
+                selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
+        selectedBitmap = BitMapClass.compressBitmap(selectedBitmap, 70);
+        selectedBitmap = BitMapClass.resizeBitmap(selectedBitmap, 400, 400);
+        return selectedBitmap;
     }
 
 }
