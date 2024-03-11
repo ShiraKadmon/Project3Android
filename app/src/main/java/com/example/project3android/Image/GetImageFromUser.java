@@ -36,16 +36,21 @@ public class GetImageFromUser {
     public static final int PERMISSION_REQUEST_CODE = 100;
 
     // Method to handle permission results
-    public static void onRequestPermissionsResult(Activity activity, int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public static void onRequestPermissionsResult(Activity activity, int requestCode, @NonNull
+    String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0) {
                 for (int i = 0; i < permissions.length; i++) {
-                    if (permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(activity, "Need permission to access photos to continue", Toast.LENGTH_SHORT).show();
+                    if (permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                            grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(activity, "Need permission to access photos to " +
+                                "continue", Toast.LENGTH_SHORT).show();
 
                     }
-                    if (permissions[i].equals(Manifest.permission.CAMERA) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(activity, "Need permission to access camera to continue", Toast.LENGTH_SHORT).show();
+                    if (permissions[i].equals(Manifest.permission.CAMERA) && grantResults[i] ==
+                            PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(activity, "Need permission to access camera to " +
+                                "continue", Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -56,8 +61,10 @@ public class GetImageFromUser {
     // Method to check and request permissions
     public static void checkReadExternalStoragePermission(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int readStoragePermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-            int cameraPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+            int readStoragePermission = ContextCompat.checkSelfPermission(activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+            int cameraPermission = ContextCompat.checkSelfPermission(activity,
+                    Manifest.permission.CAMERA);
 
             List<String> permissionsToRequest = new ArrayList<>();
             if (readStoragePermission != PackageManager.PERMISSION_GRANTED) {
@@ -68,7 +75,8 @@ public class GetImageFromUser {
             }
 
             if (!permissionsToRequest.isEmpty()) {
-                ActivityCompat.requestPermissions(activity, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(activity, permissionsToRequest.toArray(
+                        new String[0]), PERMISSION_REQUEST_CODE);
             }
         }
     }
@@ -82,14 +90,17 @@ public class GetImageFromUser {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "Image_" + ".jpg");
                 contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "ImagesFolder");
-                Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH,
+                        Environment.DIRECTORY_PICTURES + File.separator + "ImagesFolder");
+                Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        contentValues);
                 fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 0, fos);
                 Objects.requireNonNull(fos);
             }
         } catch (Exception e) {
-            Toast.makeText(context, "Image Not Saved \n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Image Not Saved \n" + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -116,8 +127,13 @@ public class GetImageFromUser {
             Uri selectedImageUri = data.getData();
             try {
                 // Convert the Uri to a Bitmap
-                selectedBitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), selectedImageUri);
-                return BitMapClass.getRoundedCornerBitmap(selectedBitmap, selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
+                selectedBitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(),
+                        selectedImageUri);
+                selectedBitmap = BitMapClass.getRoundedCornerBitmap(selectedBitmap,
+                        selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
+                selectedBitmap = BitMapClass.compressBitmap(selectedBitmap, 70);
+                selectedBitmap = BitMapClass.resizeBitmap2(selectedBitmap, 400, 400);
+                return selectedBitmap;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -128,7 +144,8 @@ public class GetImageFromUser {
             if (extras != null) {
                 // Use the thumbnail as a Bitmap
                 selectedBitmap = (Bitmap) extras.get("data");
-                return BitMapClass.getRoundedCornerBitmap(selectedBitmap, selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
+                return BitMapClass.getRoundedCornerBitmap(selectedBitmap,
+                        selectedBitmap.getWidth(), selectedBitmap.getHeight(), cornerRadius);
             }
         }
         return null;

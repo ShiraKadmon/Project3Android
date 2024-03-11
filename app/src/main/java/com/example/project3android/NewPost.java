@@ -1,9 +1,14 @@
 package com.example.project3android;
 
+import static com.example.project3android.BitMapClass.bitmapToBase64;
+import static com.example.project3android.BitMapClass.bitmapToString;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,12 +21,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Image.BitMapClass;
-import com.example.project3android.Image.GetImageFromUser;
 
-import java.text.DateFormat;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public class NewPost extends AppCompatActivity {
@@ -68,10 +73,16 @@ public class NewPost extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(postText, selectedBitmap)) {
                 // if both username and password are valid - log in
-                //GetImageFromUser.saveImageToGallery(this, selectedBitmap);
+                String selectedBase64 = bitmapToString(selectedBitmap);
+                String profileBase64 = bitmapToString(profileImage);
                 Post newPost = new Post(username, postText.getText().toString(),
-                        selectedBitmap, DateFormat.getDateInstance().format(new Date()),
+                        selectedBase64, "2024-15-02 15:23",
+                        profileBase64, new ArrayList<>());
+                /*
+                Post newPost = new Post(username, postText.getText().toString(),
+                        selectedBitmap, "2024-15-02 15:23",
                         profileImage, new ArrayList<>());
+                */
                 if (getIntent().getIntExtra("position" , -1) != -1) {
                     FeedData.getInstance().replacePost(getIntent().getIntExtra(
                                                         "position" , 0), newPost);
@@ -127,6 +138,37 @@ public class NewPost extends AppCompatActivity {
                 !image.isRecycled() &&
                 image.getWidth() > 0 &&
                 image.getHeight() > 0);
+    }
+
+
+    private String loadImageAsync(Bitmap bitmap) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        Future<String> future = executorService.submit(() -> convertBitmapToUrl(bitmap));
+
+        try {
+            return future.get();
+        } catch (Exception e) {
+            // Handle exceptions during image loading
+            Log.e("TAG", "Error loading image: " + e.getMessage());
+            return null;
+        } finally {
+            // Shutdown the executor to release resources
+            executorService.shutdown();
+        }
+    }
+    public String convertBitmapToUrl(Bitmap bitmap) {
+        String base64;
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            base64 =  Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.e("TempPost", "Error downloading image: " + e.getMessage());
+            e.printStackTrace();
+            base64 = null;
+        }
+        return base64;
     }
 }
 
