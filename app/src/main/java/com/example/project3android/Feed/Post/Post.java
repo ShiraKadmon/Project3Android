@@ -18,14 +18,14 @@ import java.util.List;
 public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private Bitmap profileImage;
+    private String profileImage;
     private String name;
     private String date;
     private String text;
     private int likes;
     private boolean isLiked = false;
     private int commentsSize;
-    private Bitmap pic;
+    private String pic;
     private List<Comment> comments = new ArrayList<>();
 
 
@@ -43,6 +43,17 @@ public class Post implements Serializable {
     public Post(String author, String content, Bitmap pic, String date, Bitmap profilePic, List<Comment> comments) {
         this.name = author;
         this.text = content;
+        //this.pic = pic;
+        this.likes = 0;
+        this.date = date;
+        //this.profileImage = profilePic;
+        this.comments = comments;
+        this.commentsSize = comments.size();
+    }
+
+    public Post(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
+        this.name = author;
+        this.text = content;
         this.pic = pic;
         this.likes = 0;
         this.date = date;
@@ -51,27 +62,16 @@ public class Post implements Serializable {
         this.commentsSize = comments.size();
     }
 
-    public Post(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
-        this.name = author;
-        this.text = content;
-        this.pic = BitmapFactory.decodeFile(pic);
-        this.likes = 0;
-        this.date = date;
-        this.profileImage = BitmapFactory.decodeFile(profilePic);
-        this.comments = comments;
-        this.commentsSize = comments.size();
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setProfileImage(Bitmap profileImage) {
+    /* public void setProfileImage(Bitmap profileImage) {
         this.profileImage = profileImage;
-    }
+    } */
 
-    public void setProfileImage(String url) {
-        this.profileImage = BitmapFactory.decodeFile(url);
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public void setName(String name) {
@@ -94,12 +94,12 @@ public class Post implements Serializable {
         this.commentsSize = commentsSize;
     }
 
-    public void setPic(Bitmap pic) {
+    /* public void setPic(Bitmap pic) {
         this.pic = pic;
-    }
+    } */
 
-    public void setPic(String url) {
-        this.pic = BitmapFactory.decodeFile(url);
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     public void setComments(List<Comment> comments) {
@@ -131,8 +131,12 @@ public class Post implements Serializable {
         return comments;
     }
 
-    public Bitmap getPic() {
+    public String getPic() {
         return pic;
+    }
+
+    public Bitmap getBitmapPic() {
+        return BitmapFactory.decodeFile(pic);
     }
 
     public void addLike() {
@@ -152,8 +156,12 @@ public class Post implements Serializable {
         return date;
     }
 
-    public Bitmap getProfileImage() {
+    public String getProfileImage() {
         return profileImage;
+    }
+
+    public Bitmap getBitmapProfileImage() {
+        return BitmapFactory.decodeFile(profileImage);
     }
 
     public void addComment(String author, String text) {

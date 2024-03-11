@@ -89,10 +89,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.tvAuthor.setText(current.getName());
             holder.date.setText(current.getDate());
             holder.tvContent.setText(current.getText());
-            holder.ivPic.setImageBitmap(current.getPic());
+            holder.ivPic.setImageBitmap(current.getBitmapPic());
             holder.likesNum.setText(current.getLikes());
             holder.commentsNum.setText(current.getCommentsSize());
-            holder.profilePic.setImageBitmap(current.getProfileImage());
+            holder.profilePic.setImageBitmap(current.getBitmapProfileImage());
             if (isNightMode()) {
                 holder.postView.setBackgroundColor(Color.BLACK);
             } else {
