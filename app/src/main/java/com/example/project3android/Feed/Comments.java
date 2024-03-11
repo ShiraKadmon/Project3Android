@@ -69,7 +69,7 @@ public class Comments extends AppCompatActivity {
 
         tvAuthor.setText(post.getName());
         date.setText(post.getDate());
-        profilePic.setImageBitmap(post.getProfileImage());
+        profilePic.setImageBitmap(post.getBitmapProfileImage());
 
         // Close button
         ImageButton closeBtn = findViewById(R.id.close_comments);

@@ -23,13 +23,7 @@ public class PostConverter {
     public List<Post> convertJsonToPostList() {
         Gson gson = new Gson();
         //List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
-        List<TempPost> tempPosts = gson.fromJson(jsonString, new TypeToken<List<TempPost>>() {}.getType());
-
-        List<Post> posts = new ArrayList<>();
-        for (TempPost temp : tempPosts) {
-            // Download images asynchronously
-            posts.add(temp.convertToPost());
-        }
+        List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
 
         for (Post post : posts) {
             post.setComments(new CommentConverter(gson.

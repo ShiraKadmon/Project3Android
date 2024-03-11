@@ -54,8 +54,8 @@ public class NewPost extends AppCompatActivity {
                                                             "position" , 0));
             postText.setText(post.getText());
             ImageView userImage = findViewById(R.id.user_post_image);
-            userImage.setImageBitmap(post.getPic());
-            selectedBitmap = post.getPic();
+            userImage.setImageBitmap(post.getBitmapPic());
+            selectedBitmap = post.getBitmapPic();
         }
 
         GetImageFromUser.checkReadExternalStoragePermission(this);
