@@ -1,14 +1,11 @@
 package com.example.project3android;
 
-import static com.example.project3android.BitMapClass.bitmapToBase64;
 import static com.example.project3android.BitMapClass.bitmapToString;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,11 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 
 public class NewPost extends AppCompatActivity {
@@ -101,9 +94,11 @@ public class NewPost extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        GetImageFromUser.onRequestPermissionsResult(this, requestCode,
+                permissions, grantResults);
     }
 
 
@@ -140,35 +135,5 @@ public class NewPost extends AppCompatActivity {
                 image.getHeight() > 0);
     }
 
-
-    private String loadImageAsync(Bitmap bitmap) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        Future<String> future = executorService.submit(() -> convertBitmapToUrl(bitmap));
-
-        try {
-            return future.get();
-        } catch (Exception e) {
-            // Handle exceptions during image loading
-            Log.e("TAG", "Error loading image: " + e.getMessage());
-            return null;
-        } finally {
-            // Shutdown the executor to release resources
-            executorService.shutdown();
-        }
-    }
-    public String convertBitmapToUrl(Bitmap bitmap) {
-        String base64;
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            base64 =  Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-        } catch (Exception e) {
-            Log.e("TempPost", "Error downloading image: " + e.getMessage());
-            e.printStackTrace();
-            base64 = null;
-        }
-        return base64;
-    }
 }
 
