@@ -2,10 +2,13 @@ package com.example.project3android.Repositories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.room.Room;
 
 import com.example.project3android.API.PostAPI;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
@@ -15,15 +18,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PostRepository {
-    //private PostDao dao;
+    private PostDao dao;
     private PostListData postListData;
     private PostAPI api;
 
     public PostRepository() {
-        //LocalDatabase db = LocalDatabase.getInstance();
-        //dao = db.postDao();
+        AppDB db = Room.databaseBuilder(MyApplication.context,
+                        AppDB.class, "FeedDB")
+                .allowMainThreadQueries().build();
+        dao = db.postDao();
         postListData = new PostListData();
-        //api = new PostAPI(postListData, dao);
+        api = new PostAPI(postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
@@ -44,13 +49,10 @@ public class PostRepository {
     @Override
     protected void onActive() {
         super.onActive();
-/*
-        new Thread(() -> {
-            postListData.postValue(dao.get());
-            }).start(); */
 
-        PostAPI postAPI = new PostAPI();
-        postAPI.get(this);
+        new Thread(() -> postListData.postValue(dao.index())).start();
+
+        api.get();
         }
     }
     public LiveData<List<Post>> getAll() {
@@ -58,15 +60,15 @@ public class PostRepository {
     }
 
     public void add(final Post post) {
-        //api.add(post);
+        api.add(post);
     }
 
     public void delete(final Post post) {
-        //api.delete(post);
+        api.delete(post);
     }
 
     public void reload() {
-        //api.get();
+        api.get();
     }
 
     private String convertStreamToString(InputStream inputStream) {

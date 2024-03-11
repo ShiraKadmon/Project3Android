@@ -22,12 +22,6 @@ public class PostAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public PostAPI() {
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        webServiceAPI = retrofit.create(WebServiceAPI.class);
-    }
-
     public PostAPI(MutableLiveData<List<Post>> postListData, PostDao dao) {
         this.postListData = postListData;
         this.dao = dao;
@@ -36,17 +30,25 @@ public class PostAPI {
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-    public void get(MutableLiveData<List<Post>> posts) {
+    public void get() {
         Call<List<Post>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<Post>>() {
         @Override
         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                posts.setValue(response.body());
+                postListData.setValue(response.body());
                 // posts.postValue(response.body());
                 }
 
         @Override
         public void onFailure(Call<List<Post>> call, Throwable t) {}
         });
+    }
+
+    public void add(Post post) {
+        dao.insert(post);
+    }
+
+    public void delete(Post post) {
+        dao.delete(post);
     }
 }
