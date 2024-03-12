@@ -14,12 +14,12 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface WebServiceAPI {
-    @GET("posts")
+    @GET("api/posts")
     Call<List<Post>> getPosts();
 
-    @POST("posts")
+    @POST("api/posts/{id}/posts")
     Call<Void> createPost(@Body Post post);
 
-    @DELETE("post/{id}")
+    @DELETE("api/post/{id}/posts")
     Call<Void> deletePost(@Path("id") int id);
 }
