@@ -1,5 +1,7 @@
 package com.example.project3android;
 
+import static com.example.project3android.Image.BitMapClass.bitmapToString;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -68,10 +70,16 @@ public class NewPost extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(postText, selectedBitmap)) {
                 // if both username and password are valid - log in
-                //GetImageFromUser.saveImageToGallery(this, selectedBitmap);
+                String selectedBase64 = bitmapToString(selectedBitmap);
+                String profileBase64 = bitmapToString(profileImage);
+                Post newPost = new Post(username, postText.getText().toString(),
+                        selectedBase64, "2024-15-02 15:23",
+                        profileBase64, new ArrayList<>());
+                /*
                 Post newPost = new Post(username, postText.getText().toString(),
                         selectedBitmap, DateFormat.getDateInstance().format(new Date()),
                         profileImage, new ArrayList<>());
+                */
                 if (getIntent().getIntExtra("position" , -1) != -1) {
                     FeedData.getInstance().replacePost(getIntent().getIntExtra(
                                                         "position" , 0), newPost);
@@ -90,9 +98,11 @@ public class NewPost extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        GetImageFromUser.onRequestPermissionsResult(this, requestCode,
+                permissions, grantResults);
     }
 
 
@@ -128,5 +138,6 @@ public class NewPost extends AppCompatActivity {
                 image.getWidth() > 0 &&
                 image.getHeight() > 0);
     }
+
 }
 
