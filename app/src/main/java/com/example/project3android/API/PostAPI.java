@@ -36,7 +36,7 @@ public class PostAPI {
         @Override
         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 postListData.setValue(response.body());
-                // posts.postValue(response.body());
+                // postListData.postValue(response.body());
                 }
 
         @Override
