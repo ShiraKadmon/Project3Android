@@ -55,7 +55,7 @@ public class UserRepository {
     }
 
     public void getJwt(final User user) {
-        api.createUser(user);
+        api.getJwt(user);
     }
 
     public void delete(final User user) {

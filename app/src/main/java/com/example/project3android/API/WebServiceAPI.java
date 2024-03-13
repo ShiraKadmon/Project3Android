@@ -16,14 +16,14 @@ import retrofit2.http.Path;
 
 public interface WebServiceAPI {
     @GET("api/posts")
-    Call<List<Post>> getPosts(@Body String token);
+    Call<List<Post>> getPosts();
 
     @POST("api/users/{id}/posts")
-    Call<Void> createPost(@Body Post post, @Body String token);
+    Call<Void> createPost(@Body Post post);
 
     @PUT("api/users/{id}/posts/{pid}")
-    Call<Void> updatePost(@Path("id") int id, @Path("pid") int pid, @Body String token);
+    Call<Void> updatePost(@Path("id") int id, @Path("pid") int pid);
 
     @DELETE("api/users/{id}/posts/{pid}")
-    Call<Void> deletePost(@Path("id") int id, @Path("pid") int pid, @Body String token);
+    Call<Void> deletePost(@Path("id") int id, @Path("pid") int pid);
 }
