@@ -9,10 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
-import com.example.project3android.PasswordValidator;
-import com.example.project3android.SignUp;
-import com.example.project3android.UserNameValidator;
-import com.example.project3android.Validation;
+import com.example.project3android.Validation.PasswordValidator;
+import com.example.project3android.Validation.UserNameValidator;
+import com.example.project3android.Validation.Validation;
 
 public class MainActivity extends AppCompatActivity {
     Validation validator = new Validation();

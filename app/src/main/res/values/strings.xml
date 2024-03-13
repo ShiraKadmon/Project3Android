@@ -30,7 +30,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="have_an_account_log_in">do you have an account? Log in</string>
     <string name="password_authentication">Password Authentication</string>
-    <string name="name">Name</string>
+    <string name="first_name">First Name</string>
     <string name="add_a_profile_image">Add a profile image</string>
     <string name="add_image_description">camera icon</string>
     <string name="add_from_gallery">Add from gallery</string>
@@ -50,4 +50,6 @@
     <string name="mode">Mode</string>
     <string name="edit">edit</string>
     <string name="edit_your_comment">Edit Your Comment</string>
+    <string name="BaseUrl">http://10.0.2.2:3000/</string>
+    <string name="last_name">Last Name</string>
 </resources>

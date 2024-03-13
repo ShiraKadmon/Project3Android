@@ -16,16 +16,24 @@ import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.project3android.API.PostAPI;
 import com.example.project3android.Feed.Comments;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.NewPost;
 import com.example.project3android.R;
+import com.example.project3android.User.CurrentUser;
+import com.example.project3android.User.UserViewModel;
 
 import java.io.InputStream;
 import java.util.List;
@@ -35,43 +43,36 @@ public class Feed extends AppCompatActivity {
     private Activity currentActivity;
     private PostListAdapter adapter;
     private boolean isNightMode = false;
+    private PostsViewModel postViewModel;
+    private UserViewModel userViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         currentActivity = this;
 
-        if (FeedData.getInstance().getProfileImage() == null) {
-            FeedData.getInstance().setProfileImage(BitmapFactory.decodeResource(
-                                                            getResources(), R.drawable.profile));
-        }
-        Bitmap profileImage = FeedData.getInstance().getProfileImage();
+        postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.add(CurrentUser.getInstance().getCurrentUser());
+        userViewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
 
         ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
-        ivProfileImage.setImageBitmap(profileImage);
+        ivProfileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage());
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapter = new PostListAdapter(this);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        FeedData.getInstance().setAdapter(adapter);
+        postViewModel.get().observe(this, posts -> adapter.setPosts(posts));
 
-        // Read the JSON file from the raw directory
-        InputStream inputStream = getResources().openRawResource(R.raw.posts);
-
-        // Convert InputStream to String
-        String jsonString = convertStreamToString(inputStream);
-        PostConverter postConverter = new PostConverter(jsonString);
-        List<Post> posts = postConverter.convertJsonToPostList();
-        FeedData.getInstance().setPosts(posts);
-        adapter.setPosts(FeedData.getInstance().getPosts());
-
+        //logout
         Button logoutButton = findViewById(R.id.logoutBtn);
         logoutButton.setOnClickListener(v -> {
             finish();
         });
 
+        //add post
         ImageButton addPost = findViewById(R.id.addPostBtn);
         addPost.setOnClickListener(v -> {
             Intent i = new Intent(this, NewPost.class);
@@ -98,6 +99,7 @@ public class Feed extends AppCompatActivity {
             }
         });
 
+        // theme
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch theme = findViewById(R.id.theme);
         theme.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -118,24 +120,29 @@ public class Feed extends AppCompatActivity {
                 this.isNightMode = false;
             }
         });
+
+        // refresh
+        SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(() -> {
+            postViewModel.reload();
+        });
     }
 
-    private String convertStreamToString(InputStream inputStream) {
-        Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-        return scanner.hasNext() ? scanner.next() : "";
-    }
-
-    public void editPost(Post post, int position) {
+    public void editPost(int id) {
         Intent i = new Intent(this, NewPost.class);
-        i.putExtra("position", position);
+        i.putExtra("position", id);
         startActivity(i);
     }
 
-    public void addComment(Post post, int position) {
+    public void addComment(int id) {
         Intent i = new Intent(this, Comments.class);
-        i.putExtra("position", position);
+        i.putExtra("position", id);
         i.putExtra("nightMode", isNightMode);
         startActivity(i);
+    }
+
+    public void deletePost(Post post) {
+        postViewModel.delete(post);
     }
 }
 

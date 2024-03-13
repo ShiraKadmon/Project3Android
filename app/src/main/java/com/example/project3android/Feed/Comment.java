@@ -3,29 +3,34 @@ package com.example.project3android.Feed;
 import java.io.Serializable;
 
 public class Comment implements Serializable {
-    private int id;
-    private final String name;
+    private int authorId;
+    //private final String name;
     private String comment;
 
     public Comment(String author, String content) {
-        this.name = author;
+        //this.authorId = author;
+        this.comment = content;
+    }
+
+    public Comment(String content) {
+        //this.authorId = author;
         this.comment = content;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.authorId = id;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public int getId() {
-        return id;
+    public int getAuthorId() {
+        return authorId;
     }
 
     public String getName() {
-        return this.name;
+        return "John Doe";
     }
 
     public String getComment() {

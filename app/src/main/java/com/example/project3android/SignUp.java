@@ -1,5 +1,7 @@
 package com.example.project3android;
 
+import static com.example.project3android.Image.BitMapClass.bitmapToString;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
-import com.example.project3android.UserNameValidator;
-import com.example.project3android.Validation;
+import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.User.CurrentUser;
+import com.example.project3android.Validation.PasswordValidator;
+import com.example.project3android.Validation.UserNameValidator;
+import com.example.project3android.Validation.Validation;
 
 
 public class SignUp extends AppCompatActivity {
@@ -39,7 +44,8 @@ public class SignUp extends AppCompatActivity {
         EditText userName = findViewById(R.id.login_etUsername); // get the entered username
         EditText password = findViewById(R.id.login_etPassword); // get the entered password
         EditText confirmPassword = findViewById(R.id.confirm_password); // get confirm password
-        EditText name = findViewById(R.id.name_of_user); // get confirm password
+        EditText firstName = findViewById(R.id.first_name_of_user); // get confirm password
+        EditText lastName = findViewById(R.id.last_name_of_user);
 
         GetImageFromUser.checkReadExternalStoragePermission(this);
 
@@ -55,11 +61,12 @@ public class SignUp extends AppCompatActivity {
 
         signUpBtn.setOnClickListener(v -> {
             // check input validity before logging in
-            if (checkContentDetails(userName, password, confirmPassword, name, selectedBitmap)) {
+            if (checkContentDetails(userName, password, confirmPassword, firstName, lastName, selectedBitmap)) {
                 // if both username and password are valid - log in
-                GetImageFromUser.saveImageToGallery(this, selectedBitmap);
-                FeedData.getInstance().setUserName(userName.getText().toString());
-                FeedData.getInstance().setProfileImage(selectedBitmap);
+                CurrentUser.getInstance().setCurrentUser(firstName.getText().toString(),
+                        lastName.getText().toString(), userName.getText().toString(),
+                        password.getText().toString(), bitmapToString(selectedBitmap));
+
                 Intent i = new Intent(this, Feed.class);
                 startActivity(i);
             } else if (selectedBitmap == null) {
@@ -77,9 +84,11 @@ public class SignUp extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions,
+                grantResults);
     }
 
 
@@ -98,15 +107,18 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-    private boolean checkContentDetails(EditText userName, EditText password, EditText confirmPass, EditText name, Bitmap image) {
+    private boolean checkContentDetails(EditText userName, EditText password, EditText confirmPass,
+                                        EditText firstName, EditText lastName, Bitmap image) {
         String inputUserName = userName.getText().toString(); // get the username and the password
         String inputPassword = password.getText().toString();
         String inputConfirmPassword = confirmPass.getText().toString();
-        String inputName = name.getText().toString();
+        String inputFirstName = firstName.getText().toString();
+        String inputLastName = lastName.getText().toString();
         return ((validator.isValidUN(inputUserName)) &&
                 (validator.isValidPass(inputPassword)) &&
                 inputPassword.equals(inputConfirmPassword) &&
-                !inputName.equals("") &&
+                !inputFirstName.equals("") &&
+                !inputLastName.equals("") &&
                 image != null &&
                 !image.isRecycled() &&
                 image.getWidth() > 0 &&
