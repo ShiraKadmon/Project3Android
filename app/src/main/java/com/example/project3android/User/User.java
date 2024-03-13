@@ -26,6 +26,14 @@ public class User {
         this.profileImage = profileImage;
     }
 
+    public User(String username, String password) {
+        this.firstName = null;
+        this.lastName = null;
+        this.username = username;
+        this.password = password;
+        this.profileImage = null;
+    }
+
     public int getId() {
         return id;
     }
