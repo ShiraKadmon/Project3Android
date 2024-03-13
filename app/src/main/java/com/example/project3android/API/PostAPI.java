@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,13 +30,25 @@ public class PostAPI {
         this.postListData = postListData;
         this.dao = dao;
 
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
-                .callbackExecutor(Executors.newSingleThreadExecutor())
-                .addConverterFactory(GsonConverterFactory.create()).build();
+        TokenInterceptor tokenInterceptor = new TokenInterceptor(
+                CurrentUser.getInstance().getJwtToken());
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(tokenInterceptor)
+                .build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+        //        .callbackExecutor(Executors.newSingleThreadExecutor())
+        //        .addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
     public void get() {
-        Call<List<Post>> call = webServiceAPI.getPosts(CurrentUser.getInstance().getJwtToken());
+        Call<List<Post>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<Post>>() {
         @Override
         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
@@ -52,7 +65,7 @@ public class PostAPI {
 
     public void add(Post post) {
         // dao.insert(post);
-        Call<Void> call = webServiceAPI.createPost(post, CurrentUser.getInstance().getJwtToken());
+        Call<Void> call = webServiceAPI.createPost(post);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -76,8 +89,7 @@ public class PostAPI {
     public void delete(Post post) {
         //dao.delete(post);
         Call<Void> call = webServiceAPI.deletePost(
-                CurrentUser.getInstance().getCurrentUser().getId(), post.getId(),
-                CurrentUser.getInstance().getJwtToken());
+                CurrentUser.getInstance().getCurrentUser().getId(), post.getId());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
