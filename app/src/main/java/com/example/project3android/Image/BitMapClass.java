@@ -99,10 +99,21 @@ public class BitMapClass {
     }
 
     public static String bitmapToString(Bitmap bitmap) {
+        /*
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
+         */
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream); // Compress Bitmap
+        byte[] byteArray = outputStream.toByteArray();
+        String base64Image = "";
+        if (byteArray != null && byteArray.length > 0) {
+            String base64EncodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+            base64Image = "data:image/jpeg;base64," + base64EncodedImage;
+        }
+        return base64Image;
     }
 
     public static int bitmapToInt(Bitmap bitmap) {

@@ -26,7 +26,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public void getJWT(User user) {
-        repository.add(user);
+        repository.getJwt(user);
     }
 
     public void delete(User user) {

@@ -50,6 +50,7 @@ android {
 
 dependencies {
 
+
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -75,4 +76,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("androidx.room:room-runtime:2.6.1")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
+
 }
