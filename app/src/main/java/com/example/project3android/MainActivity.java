@@ -6,9 +6,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
+import com.example.project3android.User.CurrentUser;
+import com.example.project3android.User.User;
+import com.example.project3android.User.UserViewModel;
 import com.example.project3android.Validation.PasswordValidator;
 import com.example.project3android.Validation.UserNameValidator;
 import com.example.project3android.Validation.Validation;
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         EditText userName = findViewById(R.id.login_etUsername); // get the entered username
         EditText password = findViewById(R.id.login_etPassword); // get the entered password
@@ -38,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             // get the username and the password
             String inputUserName = userName.getText().toString();
             String inputPassword = password.getText().toString();
+
+            CurrentUser.getInstance().setCurrentUser(new User(inputUserName, inputPassword));
+            userViewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
             // check input validity before logging in
             if ((validator.isValidUN(inputUserName)) && (validator.isValidPass(inputPassword))) {
                 // if both username and password are valid - log in
