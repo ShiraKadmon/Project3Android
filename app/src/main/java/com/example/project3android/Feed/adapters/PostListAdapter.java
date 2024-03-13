@@ -101,7 +101,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             }
 
             holder.commentsBtn.setOnClickListener(view -> {
-                this.context.addComment(current, position);
+                this.context.addComment(current.getId());
                 notifyDataSetChanged();
             });
 
@@ -130,11 +130,11 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {
-                    context.editPost(current, position);
+                    context.editPost(current.getId());
                     notifyDataSetChanged();
                 });
                 holder.deleteBtn.setOnClickListener(v -> {
-                    posts.remove(current);
+                    context.deletePost(current);
                     notifyDataSetChanged();
                 });
             } else {

@@ -1,5 +1,7 @@
 package com.example.project3android.Repositories;
 
+import android.os.AsyncTask;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
@@ -14,6 +16,8 @@ import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,14 +40,14 @@ public class PostRepository {
             super();
 
             // Read the JSON file from the raw directory
-            InputStream inputStream = MyApplication.context.getResources().openRawResource(R.raw.posts);
+            /* InputStream inputStream = MyApplication.context.getResources().openRawResource(R.raw.posts);
 
             // Convert InputStream to String
             String jsonString = convertStreamToString(inputStream);
             PostConverter postConverter = new PostConverter(jsonString);
             List<Post> posts = postConverter.convertJsonToPostList();
-            FeedData.getInstance().setPosts(posts);
-            setValue(posts);
+            //FeedData.getInstance().setPosts(posts); */
+            setValue(dao.index());
         }
 
     @Override
@@ -51,9 +55,8 @@ public class PostRepository {
         super.onActive();
 
         new Thread(() -> postListData.postValue(dao.index())).start();
-
         api.get();
-        }
+    }
     }
     public LiveData<List<Post>> getAll() {
         return postListData;
