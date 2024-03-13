@@ -1,24 +1,20 @@
 package com.example.project3android.Feed.Post;
 
 
+import static com.example.project3android.Image.BitMapClass.loadImageAsync;
+
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.Button;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
+import com.example.project3android.Image.BitMapClass;
 
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+
 
 @Entity
 public class Post implements Serializable {
@@ -196,35 +192,5 @@ public class Post implements Serializable {
 
     public void refreshCommentsSize(){
         this.commentsSize = comments.size();
-    }
-
-
-    private Bitmap loadImageAsync(String imageUrl) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
-
-        try {
-            return future.get();
-        } catch (Exception e) {
-            // Handle exceptions during image loading
-            return null;
-        } finally {
-            // Shutdown the executor to release resources
-            executorService.shutdown();
-        }
-    }
-
-    public Bitmap convertUrlToBitmap(String image) {
-        Bitmap bitmap;
-        try {
-            URL url = new URL(image);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = conn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(inputStream);
-        } catch (Exception e) {
-            bitmap = null;
-        }
-        return bitmap;
     }
 }

@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="6"
-                    android:text="@string/name"
+                    android:text="@string/first_name"
                     android:textStyle="bold" />
             </LinearLayout>
 

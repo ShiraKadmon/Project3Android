@@ -17,8 +17,14 @@ import android.provider.MediaStore;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public class BitMapClass {
@@ -130,5 +136,34 @@ public class BitMapClass {
 
     public static Drawable bitmapToDrawable(Context context, Bitmap bitmap) {
         return new BitmapDrawable(context.getResources(), bitmap);
+    }
+
+    public static Bitmap loadImageAsync(String imageUrl) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
+
+        try {
+            return future.get();
+        } catch (Exception e) {
+            // Handle exceptions during image loading
+            return null;
+        } finally {
+            // Shutdown the executor to release resources
+            executorService.shutdown();
+        }
+    }
+
+    public static Bitmap convertUrlToBitmap(String image) {
+        Bitmap bitmap;
+        try {
+            URL url = new URL(image);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            InputStream inputStream = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (Exception e) {
+            bitmap = null;
+        }
+        return bitmap;
     }
 }
