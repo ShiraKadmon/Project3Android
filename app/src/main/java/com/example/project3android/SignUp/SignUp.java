@@ -1,23 +1,37 @@
-package com.example.project3android;
+package com.example.project3android.SignUp;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.MainActivity;
+import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
+import com.example.project3android.User.User;
+import com.example.project3android.User.UserViewModel;
 import com.example.project3android.Validation.PasswordValidator;
 import com.example.project3android.Validation.UserNameValidator;
 import com.example.project3android.Validation.Validation;
@@ -63,12 +77,36 @@ public class SignUp extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(userName, password, confirmPassword, firstName, lastName, selectedBitmap)) {
                 // if both username and password are valid - log in
-                CurrentUser.getInstance().setCurrentUser(firstName.getText().toString(),
+                SignUpViewModel signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+                User user = new User(firstName.getText().toString(),
                         lastName.getText().toString(), userName.getText().toString(),
                         password.getText().toString(), bitmapToString(selectedBitmap));
+                signUpViewModel.add(user);
+                if (signUpViewModel.get().toString().equals("succeeded")) {
+                    CurrentUser.getInstance().setCurrentUser(user);
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                }
+                else if(signUpViewModel.get().toString().equals("There is User With this name")) {
 
-                Intent i = new Intent(this, Feed.class);
-                startActivity(i);
+                }
+                else {
+                    // internet problem
+                    View popupView = LayoutInflater.from(this).inflate(
+                                                R.layout.signup_popup_window, null);
+                    PopupWindow popupWindow = new PopupWindow(popupView,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                    TextView textView = popupView.findViewById(R.id.problem_description);
+
+                    // Update TextView content if needed
+                    textView.setText(signUpViewModel.get().toString());
+                    // Set touch listener to dismiss the popup window when tapped outside of it
+                    ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+                    closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
+                }
             } else if (selectedBitmap == null) {
                 //  error message to the user
                 Toast.makeText(this, "Please add an image", Toast.LENGTH_SHORT).show();
