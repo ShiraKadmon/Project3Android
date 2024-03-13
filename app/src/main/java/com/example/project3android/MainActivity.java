@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
+import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;

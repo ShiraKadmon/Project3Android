@@ -40,7 +40,7 @@
             android:name=".Feed.Feed"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".SignUp.SignUp"
             android:exported="false" />
         <activity android:name=".NewPost"
             android:exported="false"/>

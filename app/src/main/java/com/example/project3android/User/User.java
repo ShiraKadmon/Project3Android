@@ -5,6 +5,7 @@ import static com.example.project3android.Image.BitMapClass.loadImageAsync;
 import android.graphics.Bitmap;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -26,6 +27,7 @@ public class User {
         this.profileImage = profileImage;
     }
 
+    @Ignore
     public User(String username, String password) {
         this.firstName = null;
         this.lastName = null;
