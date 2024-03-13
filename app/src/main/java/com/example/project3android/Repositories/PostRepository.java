@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class PostRepository {
     private PostDao dao;
     private PostListData postListData;
@@ -31,13 +32,16 @@ public class PostRepository {
                         AppDB.class, "FeedDB")
                 .allowMainThreadQueries().build();
         dao = db.postDao();
-        postListData = new PostListData();
+        postListData = new PostListData(this);
         api = new PostAPI(postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
-        public PostListData() {
+        private final PostRepository mRepository;
+
+        public PostListData(PostRepository repository) {
             super();
+            this.mRepository = repository;
 
             // Read the JSON file from the raw directory
             /* InputStream inputStream = MyApplication.context.getResources().openRawResource(R.raw.posts);

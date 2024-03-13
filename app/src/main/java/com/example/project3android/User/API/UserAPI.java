@@ -2,6 +2,7 @@ package com.example.project3android.User.API;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.project3android.API.TokenInterceptor;
 import com.example.project3android.API.WebServiceAPI;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
@@ -14,6 +15,7 @@ import com.example.project3android.User.UserDao;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +64,7 @@ public class UserAPI {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         dao.insert(user);
+
                         //friendsListData.postValue(dao.index());
                     }).start();
                 } else {
