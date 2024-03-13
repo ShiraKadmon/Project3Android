@@ -27,4 +27,8 @@ public class CurrentUser {
     public void setCurrentUser(String firstName, String lastName, String username, String password, String profileImage) {
         this.currentUser = new User(firstName, lastName, username, password, profileImage);
     }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
 }

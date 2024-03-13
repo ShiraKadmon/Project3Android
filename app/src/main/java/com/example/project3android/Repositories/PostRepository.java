@@ -50,13 +50,15 @@ public class PostRepository {
             setValue(dao.index());
         }
 
-    @Override
-    protected void onActive() {
-        super.onActive();
+        @Override
+        protected void onActive() {
+            super.onActive();
 
-        new Thread(() -> postListData.postValue(dao.index())).start();
-        api.get();
-    }
+            new Thread(() -> {
+                postListData.postValue(dao.index());
+                api.get();
+            }).start();
+        }
     }
     public LiveData<List<Post>> getAll() {
         return postListData;
