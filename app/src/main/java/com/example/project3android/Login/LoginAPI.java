@@ -2,6 +2,7 @@ package com.example.project3android.Login;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.API.UserWebServiceAPI;
@@ -34,9 +35,7 @@ public class LoginAPI {
     }
 
     public void getJwt(User user) {
-        HashMap<String, String> hash = new HashMap<>();
-        hash.put("email", user.getUsername());
-        hash.put("password", user.getPassword());
+        HashMap<String, String> hash = HashMapConverter.loginHashMap(user);
         Call<LoginResponse> call = webServiceAPI.getJwt(hash);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
