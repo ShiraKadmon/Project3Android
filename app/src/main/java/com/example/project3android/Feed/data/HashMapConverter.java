@@ -12,4 +12,14 @@ public class HashMapConverter {
         hash.put("password", user.getPassword());
         return hash;
     }
+
+    public static HashMap<String, String> signUpHashMap(User user) {
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put("first_name", user.getFirstName());
+        hash.put("last_name", user.getLastName());
+        hash.put("email", user.getUsername());
+        hash.put("password", user.getPassword());
+        hash.put("profile_picture", user.getPassword());
+        return hash;
+    }
 }

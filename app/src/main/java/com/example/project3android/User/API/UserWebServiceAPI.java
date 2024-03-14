@@ -22,13 +22,13 @@ public interface UserWebServiceAPI {
     Call<LoginResponse> getJwt(@Body HashMap<String, String> body);
 
     @POST("api/users")
-    Call<Void> createUser(@Body User user);
+    Call<Void> createUser(@Body HashMap<String, String> body);
 
     @GET("api/users/{id}")
     Call<User> getUser(@Path("id") int id);
 
     @PUT("api/users/{id}")
-    Call<Void> updateUser(@Body User user);
+    Call<Void> updateUser(@Body HashMap<String, String> body);
 
     @DELETE("api/users/{id}")
     Call<Void> deleteUser(@Path("id") int id);
