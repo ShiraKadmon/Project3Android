@@ -20,6 +20,7 @@ import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.User.CurrentUser;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -72,8 +73,9 @@ public class NewPost extends AppCompatActivity {
                 // if both username and password are valid - log in
                 String selectedBase64 = bitmapToString(selectedBitmap);
                 String profileBase64 = bitmapToString(profileImage);
-                Post newPost = new Post(username, postText.getText().toString(),
-                        selectedBase64, "2024-15-02 15:23",
+                Post newPost = new Post(CurrentUser.getInstance().getJwtToken(),
+                        username, postText.getText().toString(),
+                        selectedBase64, DateFormat.getDateInstance().format(new Date()),
                         profileBase64, new ArrayList<>());
                 /*
                 Post newPost = new Post(username, postText.getText().toString(),

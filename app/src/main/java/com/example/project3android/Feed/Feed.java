@@ -126,13 +126,13 @@ public class Feed extends AppCompatActivity {
         });
     }
 
-    public void editPost(int id) {
+    public void editPost(String id) {
         Intent i = new Intent(this, NewPost.class);
         i.putExtra("position", id);
         startActivity(i);
     }
 
-    public void addComment(int id) {
+    public void addComment(String id) {
         Intent i = new Intent(this, Comments.class);
         i.putExtra("position", id);
         i.putExtra("nightMode", isNightMode);
