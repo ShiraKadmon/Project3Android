@@ -2,6 +2,7 @@ package com.example.project3android.SignUp;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.API.UserWebServiceAPI;
@@ -34,7 +35,7 @@ public class SignUpAPI {
 
     public void createUser(User user) {
         // dao.insert(post);
-        Call<Void> call = webServiceAPI.createUser(user);
+        Call<Void> call = webServiceAPI.createUser(HashMapConverter.signUpHashMap(user));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
