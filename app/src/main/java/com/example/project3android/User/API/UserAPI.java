@@ -40,7 +40,7 @@ public class UserAPI {
     }
     public void getFriends() {
         Call<List<User>> call = webServiceAPI.getUserFriends(
-                CurrentUser.getInstance().getCurrentUser().getId());
+                CurrentUser.getInstance().getCurrentUser().getUsername());
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -52,6 +52,20 @@ public class UserAPI {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {}
+        });
+    }
+
+    public void setUser(String username) {
+        Call<User> call = webServiceAPI.getUser(
+                CurrentUser.getInstance().getCurrentUser().getUsername());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                CurrentUser.getInstance().setCurrentUser(dao.get(username));
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {}
         });
     }
 }

@@ -53,7 +53,7 @@ public class PostAPI {
         @Override
         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
             new Thread(() -> {
-                dao.insert(response.body());
+                //dao.insert(response.body());
                 postListData.postValue(dao.index());
             }).start();
         }

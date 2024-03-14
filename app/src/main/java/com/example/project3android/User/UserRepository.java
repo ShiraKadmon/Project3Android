@@ -50,6 +50,10 @@ public class UserRepository {
         return userListData;
     }
 
+    public void setUser() {
+        api.setUser(CurrentUser.getInstance().getCurrentUser().getUsername());
+    }
+
     public void delete(final User user) {
         //api.delete(post);
     }

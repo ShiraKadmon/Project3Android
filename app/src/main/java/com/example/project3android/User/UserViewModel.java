@@ -12,13 +12,18 @@ public class UserViewModel extends ViewModel {
     private UserRepository repository;
     private LiveData<List<User>> friends;
 
+
     public UserViewModel() {
         this.repository = new UserRepository();
         this.friends = repository.getAll();
     }
 
-    public LiveData<List<User>> get() {
+    public LiveData<List<User>> getFriends() {
         return friends;
+    }
+
+    public void getUser() {
+        repository.setUser();
     }
 
     public void delete(User user) {
