@@ -12,7 +12,6 @@ import androidx.room.PrimaryKey;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
     private String firstName;
     private String lastName;
     private String username;
@@ -34,10 +33,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.profileImage = null;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -62,10 +57,6 @@ public class User {
 
     public Bitmap getBitmapProfileImage() {
         return loadImageAsync(profileImage);
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setFirstName(String firstName) {
