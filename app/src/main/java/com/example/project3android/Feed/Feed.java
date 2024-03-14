@@ -55,7 +55,8 @@ public class Feed extends AppCompatActivity {
         postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
 
         ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
-        ivProfileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage());
+        ivProfileImage.setImageBitmap(CurrentUser.getInstance()
+                .getCurrentUser().getBitmapProfileImage());
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapter = new PostListAdapter(this);

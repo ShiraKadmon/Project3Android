@@ -52,4 +52,5 @@
     <string name="edit_your_comment">Edit Your Comment</string>
     <string name="BaseUrl">http://10.0.2.2:3000/</string>
     <string name="last_name">Last Name</string>
+    <string name="profile_page">Profile Page</string>
 </resources>
