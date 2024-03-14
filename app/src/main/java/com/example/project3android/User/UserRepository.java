@@ -50,14 +50,6 @@ public class UserRepository {
         return userListData;
     }
 
-    public void add(final User user) {
-        api.createUser(user);
-    }
-
-    public void getJwt(final User user) {
-        api.getJwt(user);
-    }
-
     public void delete(final User user) {
         //api.delete(post);
     }

@@ -21,14 +21,6 @@ public class UserViewModel extends ViewModel {
         return friends;
     }
 
-    public void add(User user) {
-        repository.add(user);
-    }
-
-    public void getJWT(User user) {
-        repository.getJwt(user);
-    }
-
     public void delete(User user) {
         repository.delete(user);
     }
