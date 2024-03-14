@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.project3android.MyApplication;
-import com.example.project3android.SignUp.SignUpAPI;
-import com.example.project3android.SignUp.SignUpRepository;
-import com.example.project3android.User.Data.UsersAppDB;
+import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
 
@@ -18,9 +16,9 @@ public class LoginRepository {
     private LoginAPI api;
 
     public LoginRepository() {
-        UsersAppDB db = Room.databaseBuilder(MyApplication.context,
-                        UsersAppDB.class, "LoginDB")
-                .allowMainThreadQueries().build();
+        UserAppDB db = Room.databaseBuilder(MyApplication.context,
+                        UserAppDB.class, "LoginDB")
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         dao = db.userDao();
         state = new State();
         api = new LoginAPI(state, dao);

@@ -30,7 +30,7 @@ public class PostRepository {
     public PostRepository() {
         AppDB db = Room.databaseBuilder(MyApplication.context,
                         AppDB.class, "FeedDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         dao = db.postDao();
         postListData = new PostListData(this);
         api = new PostAPI(postListData, dao);

@@ -21,8 +21,8 @@ import java.util.List;
 public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String profileImage;
     private String name;
+    private String profileImage;
     private String date;
     private String text;
     private int likes;
