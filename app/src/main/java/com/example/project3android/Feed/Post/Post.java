@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.widget.Button;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
@@ -20,16 +21,15 @@ import java.util.List;
 public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String profileImage;
     private String name;
+    private String profileImage;
     private String date;
     private String text;
     private int likes;
-    private boolean isLiked = false;
+    private boolean isLiked;
     private int commentsSize;
     private String pic;
-    private List<Comment> comments = new ArrayList<>();
-
+    //private List<Comment> comments;
 
     public Post(){
         this.name = null;
@@ -38,8 +38,9 @@ public class Post implements Serializable {
         this.likes = 0;
         this.date = null;
         this.profileImage = null;
-        this.comments= null;
+        //this.comments = new ArrayList<>();
         this.commentsSize = 0;
+        this.isLiked = false;
     }
 
     public Post(String author, String content, Bitmap pic, String date, Bitmap profilePic,
@@ -50,19 +51,20 @@ public class Post implements Serializable {
         this.likes = 0;
         this.date = date;
         //this.profileImage = profilePic;
-        this.comments = comments;
+        //this.comments = comments;
         this.commentsSize = comments.size();
     }
 
-    public Post(String author, String content, String pic, String date, String profilePic,
-                List<Comment> comments) {
+    public Post(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
         this.name = author;
         this.text = content;
         this.pic = pic;
         this.likes = 0;
         this.date = date;
         this.profileImage = profilePic;
-        this.comments = comments;
+        //this.comments = comments;
+        this.commentsSize = comments.size();
+        this.isLiked = false;
         this.commentsSize = comments.size();
     }
 
@@ -102,13 +104,16 @@ public class Post implements Serializable {
         this.pic = pic;
     } */
 
+    public void setComments(List<Comment> comments) {
+        //this.comments = comments;
+        this.commentsSize = comments.size();
+    }
     public void setPic(String pic) {
         this.pic = pic;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-        this.commentsSize = comments.size();
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 
     public int getId() {
@@ -123,17 +128,25 @@ public class Post implements Serializable {
         return this.text;
     }
 
-    public String getLikes() {
+    public String getLikesString() {
         return Integer.toString(likes) + " Likes";
     }
 
-    public String getCommentsSize() {
+    public int getLikes() {
+        return this.likes;
+    }
+
+    public String getCommentsSizeString() {
         return Integer.toString(commentsSize) + " Comments";
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public int getCommentsSize() {
+        return this.commentsSize;
     }
+
+    /*public List<Comment> getComments() {
+        return comments;
+    }*/
 
     public String getPic() {
         return pic;
@@ -148,7 +161,7 @@ public class Post implements Serializable {
     }
 
     public void addComment(Comment comment) {
-        comments.add(comment);
+        //comments.add(comment);
         this.commentsSize++;
     }
 
@@ -162,20 +175,23 @@ public class Post implements Serializable {
 
     public Bitmap getBitmapPic() {
         return loadImageAsync(this.pic);
-        //return BitmapFactory.decodeFile(pic);
     }
 
     public Bitmap getBitmapProfileImage() {
         return loadImageAsync(this.profileImage);
-        //return BitmapFactory.decodeFile(profileImage);
     }
 
     public void addComment(String author, String text) {
-        comments.add(new Comment(author, text));
+        //comments.add(new Comment(author, text));
         this.commentsSize++;
     }
 
+    @Ignore
     public boolean isLiked() {
+        return isLiked;
+    }
+
+    public boolean getIsLiked() {
         return isLiked;
     }
 
@@ -191,6 +207,6 @@ public class Post implements Serializable {
     }
 
     public void refreshCommentsSize(){
-        this.commentsSize = comments.size();
+        //this.commentsSize = comments.size();
     }
 }

@@ -22,10 +22,10 @@ public class PostConverter {
         Gson gson = new Gson();
         List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
 
-        for (Post post : posts) {
+        /*for (Post post : posts) {
             post.setComments(new CommentConverter(gson.
                     toJson(post.getComments())).convertJsonToCommentList());
-        }
+        }*/
 
         return posts;
     }

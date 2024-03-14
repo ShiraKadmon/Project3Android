@@ -10,27 +10,15 @@ import java.util.List;
 
 public class UserViewModel extends ViewModel {
     private UserRepository repository;
-    private LiveData<List<User>> friends;
+    private LiveData<User> user;
 
 
     public UserViewModel() {
         this.repository = new UserRepository();
-        this.friends = repository.getAll();
+        this.user = repository.get();
     }
 
-    public LiveData<List<User>> getFriends() {
-        return friends;
-    }
-
-    public void getUser() {
-        repository.setUser();
-    }
-
-    public void delete(User user) {
-        repository.delete(user);
-    }
-
-    public void reload() {
-        repository.reload();
+    public LiveData<User> getUser() {
+        return user;
     }
 }
