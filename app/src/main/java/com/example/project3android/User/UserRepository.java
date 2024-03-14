@@ -26,7 +26,7 @@ public class UserRepository {
         public UserData() {
             super();
 
-            setValue(dao.get(CurrentUser.getInstance().getJwtToken()));
+            setValue(dao.get(CurrentUser.getInstance().getId()));
         }
 
         @Override
@@ -34,10 +34,9 @@ public class UserRepository {
             super.onActive();
 
             new Thread(() -> {
-                userData.postValue(dao.get(CurrentUser.getInstance().getJwtToken()));
+                userData.postValue(dao.get(CurrentUser.getInstance().getId()));
                 api.get();
-            }).
-                    start();
+            }).start();
         }
     }
     public LiveData<User> get() {

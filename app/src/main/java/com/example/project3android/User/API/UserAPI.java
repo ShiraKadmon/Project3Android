@@ -48,7 +48,7 @@ public class UserAPI {
     }
     public void get() {
         Call<User> call = webServiceAPI.getUser(
-                CurrentUser.getInstance().getJwtToken());
+                CurrentUser.getInstance().getId());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
