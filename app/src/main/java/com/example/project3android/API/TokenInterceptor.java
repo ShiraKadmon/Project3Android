@@ -20,7 +20,7 @@ public class TokenInterceptor implements Interceptor {
         if (token != null && !token.isEmpty()) {
             // Add Authorization header with Bearer token
             Request newRequest = originalRequest.newBuilder()
-                    .header("Authorization", "Bearer " + token)
+                    .header("Authorization", token)
                     .build();
             return chain.proceed(newRequest);
         }

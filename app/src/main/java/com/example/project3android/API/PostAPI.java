@@ -50,12 +50,13 @@ public class PostAPI {
     public void get() {
         Call<List<Post>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<Post>>() {
-        @Override
-        public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-            new Thread(() -> {
-                //dao.insert(response.body());
-                postListData.postValue(dao.index());
-            }).start();
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                new Thread(() -> {
+                    //dao.clear();
+                    dao.insert(response.body());
+                    postListData.postValue(dao.index());
+                }).start();
         }
 
         @Override
