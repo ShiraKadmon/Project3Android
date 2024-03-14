@@ -55,7 +55,7 @@ public class UserAPI {
                 new Thread(() -> {
                     //dao.clear();
                     //dao.insert(response.body());
-                    user.postValue(dao.get(response.body().get_id()));
+                    user.postValue(response.body());
                 }).start();
             }
 

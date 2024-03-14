@@ -16,7 +16,7 @@ public class UserRepository {
     public UserRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
                         UserAppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().addMigrations(UserAppDB.MIGRATION_1_2).build();
         dao = db.userDao();
         userData = new UserRepository.UserData();
         api = new UserAPI(userData, dao);
@@ -33,9 +33,11 @@ public class UserRepository {
         protected void onActive() {
             super.onActive();
 
-            new Thread(() -> userData.postValue(dao.get(CurrentUser.getInstance().getJwtToken()))).
+            new Thread(() -> {
+                userData.postValue(dao.get(CurrentUser.getInstance().getJwtToken()));
+                api.get();
+            }).
                     start();
-            api.get();
         }
     }
     public LiveData<User> get() {
