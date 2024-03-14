@@ -52,8 +52,6 @@ public class Feed extends AppCompatActivity {
         currentActivity = this;
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.add(CurrentUser.getInstance().getCurrentUser());
-        userViewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
         postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
 
         ImageView ivProfileImage = findViewById(R.id.profileImageFeed);

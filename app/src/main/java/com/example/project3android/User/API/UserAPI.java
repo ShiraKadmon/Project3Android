@@ -54,49 +54,4 @@ public class UserAPI {
             public void onFailure(Call<List<User>> call, Throwable t) {}
         });
     }
-
-    public void createUser(User user) {
-        // dao.insert(post);
-        Call<Void> call = webServiceAPI.createUser(user);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    new Thread(() -> {
-                        dao.insert(user);
-
-                        //friendsListData.postValue(dao.index());
-                    }).start();
-                } else {
-                    // Handle unsuccessful response
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
-            }
-        });
-    }
-
-    public void getJwt(User user) {
-        Call<String> call = webServiceAPI.getJwt(user.getUsername(), user.getPassword());
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful()) {
-                    String jwtResponse = response.body();
-                    CurrentUser.getInstance().setJwtToken(jwtResponse);
-                } else {
-                    // Handle error
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                // Handle network errors
-            }
-        });
-    }
-
 }

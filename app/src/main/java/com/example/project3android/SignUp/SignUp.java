@@ -22,12 +22,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Image.GetImageFromUser;
 import com.example.project3android.MainActivity;
+import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
@@ -82,31 +84,32 @@ public class SignUp extends AppCompatActivity {
                         lastName.getText().toString(), userName.getText().toString(),
                         password.getText().toString(), bitmapToString(selectedBitmap));
                 signUpViewModel.add(user);
-                if (signUpViewModel.get().toString().equals("succeeded")) {
-                    CurrentUser.getInstance().setCurrentUser(user);
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                }
-                else if(signUpViewModel.get().toString().equals("There is User With this name")) {
+                signUpViewModel.get().observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                            // internet problem
+                        View popupView = LayoutInflater.from(MyApplication.context).
+                                inflate(R.layout.signup_popup_window, null);
+                        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
+                                LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                        TextView textView = popupView.findViewById(R.id.problem_description);
 
-                }
-                else {
-                    // internet problem
-                    View popupView = LayoutInflater.from(this).inflate(
-                                                R.layout.signup_popup_window, null);
-                    PopupWindow popupWindow = new PopupWindow(popupView,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-                    TextView textView = popupView.findViewById(R.id.problem_description);
-
-                    // Update TextView content if needed
-                    textView.setText(signUpViewModel.get().toString());
-                    // Set touch listener to dismiss the popup window when tapped outside of it
-                    ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
-                    closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
-                }
+                        // Update TextView content if needed
+                        textView.setText(s);
+                        // Set touch listener to dismiss the popup window when tapped outside of it
+                        ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+                        closeButton.setOnClickListener(closeView -> {
+                            popupWindow.dismiss();
+                            if (s.equals("Welcome! \n please Login")) {
+                                Intent i = new Intent(MyApplication.context, MainActivity.class);
+                                startActivity(i);
+                            }
+                        });
+                    }
+                });
             } else if (selectedBitmap == null) {
                 //  error message to the user
                 Toast.makeText(this, "Please add an image", Toast.LENGTH_SHORT).show();

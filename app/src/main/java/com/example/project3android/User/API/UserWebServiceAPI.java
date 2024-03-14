@@ -1,8 +1,11 @@
 package com.example.project3android.User.API;
 
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Login.LoginRequest;
+import com.example.project3android.Login.LoginResponse;
 import com.example.project3android.User.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -16,7 +19,7 @@ import retrofit2.http.Path;
 
 public interface UserWebServiceAPI {
     @POST("api/tokens")
-    Call<String> getJwt(@Body String username, @Body String password);
+    Call<LoginResponse> getJwt(@Body HashMap<String, String> body);
 
     @POST("api/users")
     Call<Void> createUser(@Body User user);
