@@ -45,13 +45,17 @@ public class SignUpAPI {
                         isSucceeded.postValue("Welcome! \n please Login");
                     }).start();
                 } else {
-                    isSucceeded.postValue("Failed to add data: " + response.message());
+                    if (response.code() == 403) {
+                        isSucceeded.postValue("Username already exist");
+                    } else {
+                        isSucceeded.postValue("Registration failed");
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                isSucceeded.postValue("Failed to add data1: " + t.getMessage());
+                isSucceeded.postValue("Internet Connection Problem");
             }
         });
     }

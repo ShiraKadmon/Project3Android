@@ -45,13 +45,17 @@ public class LoginAPI {
                     CurrentUser.getInstance().setJwtToken(jwtResponse.getToken());
                     isSucceeded.postValue("succeeded");
                 } else {
-                    isSucceeded.postValue("Failed to add data:1 " + response.message());
+                    if (response.code() == 401) {
+                        isSucceeded.postValue("Wrong Username or Password");
+                    } else {
+                        isSucceeded.postValue("Login Failed");
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                isSucceeded.postValue("Failed to add data: " + t.getMessage());
+                isSucceeded.postValue("Internet Connection Problem");
             }
         });
     }
