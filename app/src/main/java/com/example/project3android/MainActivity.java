@@ -57,16 +57,15 @@ public class MainActivity extends AppCompatActivity {
             String inputUserName = userName.getText().toString();
             String inputPassword = password.getText().toString();
 
-            CurrentUser.getInstance().setCurrentUser(new User(inputUserName, inputPassword));
-            viewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
             // check input validity before logging in
             if ((validator.isValidUN(inputUserName)) && (validator.isValidPass(inputPassword))) {
+                CurrentUser.getInstance().setCurrentUser(new User(inputUserName, inputPassword));
+                viewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
                 viewModel.get().observe(this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
                         if (s.equals("succeeded")) {
                             // if both username and password are valid - log in
-                            FeedData.getInstance().setUserName(inputUserName);
                             Intent i = new Intent(MyApplication.context, Feed.class);
                             startActivity(i);
                         }

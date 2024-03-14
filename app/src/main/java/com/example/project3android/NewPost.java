@@ -1,6 +1,6 @@
 package com.example.project3android;
 
-import static com.example.project3android.BitMapClass.bitmapToString;
+import static com.example.project3android.Image.BitMapClass.bitmapToString;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,8 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.User.CurrentUser;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class NewPost extends AppCompatActivity {
@@ -32,12 +37,13 @@ public class NewPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
-        String username = FeedData.getInstance().getUserName();
+        String userName = CurrentUser.getInstance().getCurrentUser().getFirstName() +
+                CurrentUser.getInstance().getCurrentUser().getLastName();
         Bitmap profileImage = FeedData.getInstance().getProfileImage();
 
         // set the username
         TextView tvUsername = findViewById(R.id.username);
-        tvUsername.setText(username);
+        tvUsername.setText(userName);
         ImageView ivProfileImage = findViewById(R.id.image_profile_new_post);
         ivProfileImage.setImageBitmap(profileImage);
 
@@ -68,12 +74,12 @@ public class NewPost extends AppCompatActivity {
                 // if both username and password are valid - log in
                 String selectedBase64 = bitmapToString(selectedBitmap);
                 String profileBase64 = bitmapToString(profileImage);
-                Post newPost = new Post(username, postText.getText().toString(),
+                Post newPost = new Post(userName, postText.getText().toString(),
                         selectedBase64, "2024-15-02 15:23",
                         profileBase64, new ArrayList<>());
                 /*
                 Post newPost = new Post(username, postText.getText().toString(),
-                        selectedBitmap, "2024-15-02 15:23",
+                        selectedBitmap, DateFormat.getDateInstance().format(new Date()),
                         profileImage, new ArrayList<>());
                 */
                 if (getIntent().getIntExtra("position" , -1) != -1) {
