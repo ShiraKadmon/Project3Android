@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(String s) {
                         if (s.equals("succeeded")) {
                             // if both username and password are valid - log in
-                            FeedData.getInstance().setUserName(inputUserName);
                             Intent i = new Intent(MyApplication.context, Feed.class);
                             startActivity(i);
                         }

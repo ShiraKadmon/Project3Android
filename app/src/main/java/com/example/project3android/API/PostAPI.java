@@ -89,7 +89,7 @@ public class PostAPI {
     public void delete(Post post) {
         //dao.delete(post);
         Call<Void> call = webServiceAPI.deletePost(
-                CurrentUser.getInstance().getCurrentUser().getId(), post.getId());
+                CurrentUser.getInstance().getCurrentUser().getUsername(), post.getId());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
