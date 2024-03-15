@@ -13,6 +13,7 @@ public class User {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private String _id;
     private String firstName;
     private String lastName;
     private String username;
@@ -62,6 +63,14 @@ public class User {
 
     public Bitmap getBitmapProfileImage() {
         return loadImageAsync(profileImage);
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public void setId(int id) {

@@ -29,6 +29,10 @@ public class PostsViewModel extends ViewModel {
         mRepository.delete(post);
     }
 
+    public void update(Post post) {
+        mRepository.update(post);
+    }
+
     public void reload() {
         mRepository.reload();
     }

@@ -17,15 +17,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.R;
+import com.example.project3android.User.CurrentUser;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostViewHolder>
-                                                                        implements Serializable{
+        implements Serializable{
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
@@ -91,8 +91,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.date.setText(current.getDate());
             holder.tvContent.setText(current.getText());
             holder.ivPic.setImageBitmap(current.getBitmapPic());
-            holder.likesNum.setText(current.getLikes());
-            holder.commentsNum.setText(current.getCommentsSize());
+            holder.likesNum.setText(current.getLikesString());
+            holder.commentsNum.setText(current.getCommentsSizeString());
             holder.profilePic.setImageBitmap(current.getBitmapProfileImage());
             if (isNightMode()) {
                 holder.postView.setBackgroundColor(Color.BLACK);
@@ -100,8 +100,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.postView.setBackgroundColor(Color.WHITE);
             }
 
+            //holder.tvAuthor.onTouchEvent(context.profilePage(current.getName());)
+
             holder.commentsBtn.setOnClickListener(view -> {
-                this.context.addComment(current.getId());
+                this.context.addComment(current);
                 notifyDataSetChanged();
             });
 
@@ -126,11 +128,11 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
             });
 
-            if (current.getName().equals(FeedData.getInstance().getUserName())) {
+            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {
-                    context.editPost(current.getId());
+                    context.editPost(current);
                     notifyDataSetChanged();
                 });
                 holder.deleteBtn.setOnClickListener(v -> {

@@ -5,13 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.project3android.MyApplication;
-import com.example.project3android.User.API.UserAPI;
-import com.example.project3android.User.Data.UsersAppDB;
+import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
-import com.example.project3android.User.UserRepository;
-
-import java.util.List;
 
 public class SignUpRepository {
     private UserDao dao;
@@ -20,8 +16,8 @@ public class SignUpRepository {
     private SignUpAPI api;
 
     public SignUpRepository() {
-        UsersAppDB db = Room.databaseBuilder(MyApplication.context,
-                        UsersAppDB.class, "UsersDB")
+        UserAppDB db = Room.databaseBuilder(MyApplication.context,
+                        UserAppDB.class, "UsersDB")
                 .allowMainThreadQueries().build();
         dao = db.userDao();
         state = new State();

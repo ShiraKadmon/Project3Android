@@ -7,13 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.project3android.API.PostAPI;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
 import com.example.project3android.Feed.data.AppDB;
-import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.MyApplication;
-import com.example.project3android.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,7 +27,9 @@ public class PostRepository {
     public PostRepository() {
         AppDB db = Room.databaseBuilder(MyApplication.context,
                         AppDB.class, "FeedDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2,
+                        AppDB.MIGRATION_2_3).build();
+                //.fallbackToDestructiveMigration().build();
         dao = db.postDao();
         postListData = new PostListData(this);
         api = new PostAPI(postListData, dao);
@@ -76,12 +75,12 @@ public class PostRepository {
         api.delete(post);
     }
 
-    public void reload() {
-        api.get();
+    public void update(final Post post) {
+        api.update(post);
     }
 
-    private String convertStreamToString(InputStream inputStream) {
-        Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-        return scanner.hasNext() ? scanner.next() : "";
+
+    public void reload() {
+        api.get();
     }
 }

@@ -30,4 +30,8 @@ public class TokenInterceptor implements Interceptor {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getToken() {
+        return token;
+    }
 }

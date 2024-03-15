@@ -25,14 +25,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.project3android.API.PostAPI;
 import com.example.project3android.Feed.Comments;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.NewPost;
+import com.example.project3android.ProfilePage;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
+import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
 
 import java.io.InputStream;
@@ -54,10 +55,12 @@ public class Feed extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
 
-        userViewModel.getUser();
+        userViewModel.getUser().observe(this, user ->
+                CurrentUser.getInstance().setCurrentUser(user));
 
         ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
-        ivProfileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage());
+        ivProfileImage.setImageBitmap(CurrentUser.getInstance()
+                .getCurrentUser().getBitmapProfileImage());
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapter = new PostListAdapter(this);
@@ -128,15 +131,15 @@ public class Feed extends AppCompatActivity {
         });
     }
 
-    public void editPost(int id) {
+    public void editPost(Post post) {
         Intent i = new Intent(this, NewPost.class);
-        i.putExtra("position", id);
+        i.putExtra("post", post);
         startActivity(i);
     }
 
-    public void addComment(int id) {
+    public void addComment(Post post) {
         Intent i = new Intent(this, Comments.class);
-        i.putExtra("position", id);
+        i.putExtra("post", post);
         i.putExtra("nightMode", isNightMode);
         startActivity(i);
     }
@@ -144,5 +147,10 @@ public class Feed extends AppCompatActivity {
     public void deletePost(Post post) {
         postViewModel.delete(post);
     }
-}
 
+    public void profilePage(User user) {
+        Intent i = new Intent(this, ProfilePage.class);
+        i.putExtra("userId", user.get_id());
+        startActivity(i);
+    }
+}
