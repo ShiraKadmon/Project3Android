@@ -90,7 +90,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
                     context.editComment(v, position);
                 });
                 holder.deleteComment.setOnClickListener(v -> {
-                    context.deleteComment(position);
+                    context.deleteComment(current);
                     notifyDataSetChanged();
                 });
             } else {

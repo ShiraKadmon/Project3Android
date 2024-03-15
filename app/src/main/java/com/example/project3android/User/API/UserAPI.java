@@ -54,7 +54,7 @@ public class UserAPI {
             public void onResponse(Call<User> call, Response<User> response) {
                 new Thread(() -> {
                     //dao.clear();
-                    //dao.insert(response.body());
+                    dao.insert(response.body());
                     user.postValue(response.body());
                 }).start();
             }

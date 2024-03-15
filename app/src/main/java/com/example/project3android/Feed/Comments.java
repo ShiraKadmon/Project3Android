@@ -51,8 +51,7 @@ public class Comments extends AppCompatActivity {
         // Retrieve post from post list in data
         post = (Post) getIntent().getSerializableExtra("post");
         // Retrieve post's comments
-        //List<Comment> comments = post.getComments();
-        List<Comment> comments = new ArrayList<>();
+        List<Comment> comments = post.getComments();
 
         // Show user profile image from data
         Bitmap profileImage = CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage();
@@ -131,9 +130,7 @@ public class Comments extends AppCompatActivity {
         addCommentBtn.setOnClickListener(v -> {
             String commentText = comment.getText().toString();
             if (commentText.length() > 0) {
-                //FeedData.getInstance().addComment(new Comment(username, commentText),
-                 //       getIntent().getIntExtra("position", 0));
-                //post.addComment(new Comment(username, commentText));
+                post.addComment(new Comment(username, commentText));
                 commentsAdapter.notifyDataSetChanged();
             }
         });
@@ -184,7 +181,7 @@ public class Comments extends AppCompatActivity {
             String commentText = editText.getText().toString();
             if (!commentText.isEmpty()) {
                 // Set the comment text
-                // post.setComment(commentText);
+                post.editComment(position, commentText);
                 // Dismiss the popup window
                 popupWindow.dismiss();
                 isEditing = false;
@@ -195,8 +192,8 @@ public class Comments extends AppCompatActivity {
 
     }
 
-    public void deleteComment(int position) {
-        //post.deleteComment(position);
+    public void deleteComment(Comment comment) {
+        post.deleteComment(comment);
     }
 }
 

@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.User.CurrentUser;

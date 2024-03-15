@@ -25,7 +25,8 @@ public class PostRepository {
     public PostRepository() {
         AppDB db = Room.databaseBuilder(MyApplication.context,
                         AppDB.class, "FeedDB")
-                .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2).build();
+                .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2,
+                        AppDB.MIGRATION_2_3).build();
                 //.fallbackToDestructiveMigration().build();
         dao = db.postDao();
         postListData = new PostListData(this);
