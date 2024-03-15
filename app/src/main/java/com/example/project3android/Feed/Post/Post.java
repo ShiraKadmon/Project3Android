@@ -12,8 +12,12 @@ import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
 import com.example.project3android.Image.BitMapClass;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,55 +25,69 @@ import java.util.List;
 public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String name;
-    private String profileImage;
+    private String user_id;
+    private String author_image;
+    private String author_name;
+    private String content;
+    private String title;
+    private int likes_count;
+    private int share_count;
+    private String commentsJson; // Store comments as JSON string
+    private String postId;
     private String date;
-    private String text;
-    private int likes;
     private boolean isLiked;
     private int commentsSize;
     private String pic;
-    //private List<Comment> comments;
 
     public Post(){
-        this.name = null;
-        this.text = null;
+        this.user_id = null;
+        this.author_name = null;
+        this.content = null;
         this.pic = null;
-        this.likes = 0;
         this.date = null;
-        this.profileImage = null;
-        //this.comments = new ArrayList<>();
+        this.author_image = null;
+        this.title = null;
+        this.likes_count = 0;
         this.commentsSize = 0;
         this.isLiked = false;
     }
 
-    public Post(String author, String content, Bitmap pic, String date, Bitmap profilePic,
-                List<Comment> comments) {
-        this.name = author;
-        this.text = content;
+    public Post(String user_id, String author, String content, Bitmap pic,
+                String date, Bitmap profilePic, List<Comment> comments) {
+        this.user_id = user_id;
+        this.author_name = author;
+        this.content = content;
+        this.title = author;
         //this.pic = pic;
-        this.likes = 0;
+        this.likes_count = 0;
+        this.share_count = 0;
         this.date = date;
         //this.profileImage = profilePic;
-        //this.comments = comments;
+        setComments(comments);
         this.commentsSize = comments.size();
     }
 
-    public Post(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
-        this.name = author;
-        this.text = content;
+    public Post(String user_id, String author, String content, String pic, String date,
+                String profilePic, List<Comment> comments) {
+        this.user_id = user_id;
+        this.author_name = author;
+        this.content = content;
         this.pic = pic;
-        this.likes = 0;
+        this.title = author;
+        this.likes_count = 0;
+        this.share_count = 0;
         this.date = date;
-        this.profileImage = profilePic;
-        //this.comments = comments;
+        this.author_image = profilePic;
+        setComments(comments);
         this.commentsSize = comments.size();
         this.isLiked = false;
-        this.commentsSize = comments.size();
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void setUserId(String user_id) {
+        this.user_id = user_id;
     }
 
     /* public void setProfileImage(Bitmap profileImage) {
@@ -77,11 +95,11 @@ public class Post implements Serializable {
     } */
 
     public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+        this.author_image = profileImage;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.author_name = name;
     }
 
     public void setDate(String date) {
@@ -89,11 +107,11 @@ public class Post implements Serializable {
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.content = text;
     }
 
     public void setLikes(int likes) {
-        this.likes = likes;
+        this.likes_count = likes;
     }
 
     public void setCommentsSize(int commentsSize) {
@@ -105,9 +123,17 @@ public class Post implements Serializable {
     } */
 
     public void setComments(List<Comment> comments) {
-        //this.comments = comments;
+        Gson gson = new Gson();
+        this.commentsJson = gson.toJson(comments);
         this.commentsSize = comments.size();
     }
+
+    public List<Comment> getComments() {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Comment>>() {}.getType();
+        return gson.fromJson(commentsJson, listType);
+    }
+
     public void setPic(String pic) {
         this.pic = pic;
     }
@@ -116,24 +142,67 @@ public class Post implements Serializable {
         isLiked = liked;
     }
 
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setAuthor_image(String author_image) {
+        this.author_image = author_image;
+    }
+
+    public void setAuthor_name(String author_name) {
+        this.author_name = author_name;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setLikes_count(int likes_count) {
+        this.likes_count = likes_count;
+    }
+
+    public void setShare_count(int share_count) {
+        this.share_count = share_count;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public void setCommentsJson(String commentsJson) {
+        this.commentsJson = commentsJson;
+    }
+
+    public String getCommentsJson() {
+        return commentsJson;
+    }
+
     public int getId() {
         return this.id;
     }
+    public String getUserId() {
+        return this.user_id;
+    }
 
     public String getName() {
-        return this.name;
+        return this.author_name;
     }
 
     public String getText() {
-        return this.text;
+        return this.content;
     }
 
     public String getLikesString() {
-        return Integer.toString(likes) + " Likes";
+        return Integer.toString(likes_count) + " Likes";
     }
 
     public int getLikes() {
-        return this.likes;
+        return this.likes_count;
     }
 
     public String getCommentsSizeString() {
@@ -153,11 +222,11 @@ public class Post implements Serializable {
     }
 
     public void addLike() {
-        this.likes++;
+        this.likes_count++;
     }
 
     public void removeLike() {
-        this.likes--;
+        this.likes_count--;
     }
 
     public void addComment(Comment comment) {
@@ -170,7 +239,7 @@ public class Post implements Serializable {
     }
 
     public String getProfileImage() {
-        return profileImage;
+        return author_image;
     }
 
     public Bitmap getBitmapPic() {
@@ -178,7 +247,39 @@ public class Post implements Serializable {
     }
 
     public Bitmap getBitmapProfileImage() {
-        return loadImageAsync(this.profileImage);
+        return loadImageAsync(this.author_image);
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getAuthor_image() {
+        return author_image;
+    }
+
+    public String getAuthor_name() {
+        return author_name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getLikes_count() {
+        return likes_count;
+    }
+
+    public int getShare_count() {
+        return share_count;
+    }
+
+    public String getPostId() {
+        return postId;
     }
 
     public void addComment(String author, String text) {

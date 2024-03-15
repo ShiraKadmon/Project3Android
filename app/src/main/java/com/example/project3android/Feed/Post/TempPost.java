@@ -1,3 +1,4 @@
+/*
 package com.example.project3android.Feed.Post;
 
 import android.graphics.Bitmap;
@@ -139,4 +140,4 @@ public class TempPost implements Serializable {
         return bitmap;
 
     }
-}
+}*/
