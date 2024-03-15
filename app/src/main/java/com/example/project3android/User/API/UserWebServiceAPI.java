@@ -25,26 +25,26 @@ public interface UserWebServiceAPI {
     Call<Void> createUser(@Body HashMap<String, String> body);
 
     @GET("api/users/{id}")
-    Call<User> getUser(@Path("id") int id);
+    Call<User> getUser(@Path("id") String id);
 
     @PUT("api/users/{id}")
     Call<Void> updateUser(@Body HashMap<String, String> body);
 
     @DELETE("api/users/{id}")
-    Call<Void> deleteUser(@Path("id") int id);
+    Call<Void> deleteUser(@Path("id") String username);
 
     @GET("api/users/{id}/posts")
-    Call<List<Post>> getUserPosts(@Path("id") int id);
+    Call<List<Post>> getUserPosts(@Path("id") String username);
 
     @GET("api/users/{id}/friends")
-    Call<List<User>> getUserFriends(@Path("id") int id);
+    Call<List<User>> getUserFriends(@Path("id") String username);
 
     @POST("api/users/{id}/friends")
-    Call<Void> newFriendsRequest(@Path("id") int id);
+    Call<Void> newFriendsRequest(@Path("id") String username);
 
     @PATCH("api/users/{id}/friends/{fid}")
-    Call<Void> approveRequest(@Path("id") int id, @Path("fid") int fid);
+    Call<Void> approveRequest(@Path("id") String username, @Path("fid") String fUsername);
 
     @DELETE("api/users/{id}/friends/{fid}")
-    Call<Void> deleteFriend(@Path("id") int id, @Path("fid") int fid);
+    Call<Void> deleteFriend(@Path("id") String username, @Path("fid") String fUsername);
 }

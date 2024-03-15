@@ -5,6 +5,7 @@ public class CurrentUser {
     private final static CurrentUser INSTANCE = new CurrentUser();
     private User currentUser;
     private String jwtToken;
+    private String id;
 
     public static CurrentUser getInstance() {
         return INSTANCE;
@@ -30,5 +31,13 @@ public class CurrentUser {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

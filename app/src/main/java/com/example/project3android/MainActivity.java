@@ -19,7 +19,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Login.LoginViewModel;
 import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
@@ -57,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
             String inputUserName = userName.getText().toString();
             String inputPassword = password.getText().toString();
 
-            CurrentUser.getInstance().setCurrentUser(new User(inputUserName, inputPassword));
-            viewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
             // check input validity before logging in
             if ((validator.isValidUN(inputUserName)) && (validator.isValidPass(inputPassword))) {
+                CurrentUser.getInstance().setCurrentUser(new User(inputUserName, inputPassword));
+                viewModel.getJWT(CurrentUser.getInstance().getCurrentUser());
                 viewModel.get().observe(this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {

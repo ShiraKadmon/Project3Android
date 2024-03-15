@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -101,8 +100,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.postView.setBackgroundColor(Color.WHITE);
             }
 
+            //holder.tvAuthor.onTouchEvent(context.profilePage(current.getName());)
+
             holder.commentsBtn.setOnClickListener(view -> {
-                this.context.addComment(current.getUserId());
+                this.context.addComment(current);
                 notifyDataSetChanged();
             });
 
@@ -131,7 +132,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {
-                    context.editPost(current.getUserId());
+                    context.editPost(current);
                     notifyDataSetChanged();
                 });
                 holder.deleteBtn.setOnClickListener(v -> {
