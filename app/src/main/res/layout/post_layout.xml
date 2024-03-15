@@ -21,12 +21,12 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
-            <ImageView
+            <ImageButton
                 android:id="@+id/profileImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/rainbow_cake_20402_16x9"
-                android:contentDescription="@string/picture" />
+                android:contentDescription="@string/picture"/>
         </LinearLayout>
 
         <LinearLayout
