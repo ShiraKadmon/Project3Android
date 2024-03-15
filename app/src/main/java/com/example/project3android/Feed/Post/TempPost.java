@@ -1,6 +1,5 @@
+/*
 package com.example.project3android.Feed.Post;
-
-
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,13 +10,9 @@ import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
-import java.net.JarURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +46,8 @@ public class TempPost implements Serializable {
         this.commentsSize = 0;
     }
 
-    public TempPost(String author, String content, String pic, String date, String profilePic, List<Comment> comments) {
+    public TempPost(String author, String content, String pic, String date, String profilePic,
+                    List<Comment> comments) {
         this.name = author;
         this.text = content;
         this.pic = pic;
@@ -144,4 +140,4 @@ public class TempPost implements Serializable {
         return bitmap;
 
     }
-}
+}*/

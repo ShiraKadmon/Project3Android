@@ -20,6 +20,7 @@ import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.adapters.CommentListAdapter;
 import com.example.project3android.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comments extends AppCompatActivity {
@@ -36,7 +37,8 @@ public class Comments extends AppCompatActivity {
         post = FeedData.getInstance().getPosts().get(
                 getIntent().getIntExtra("position", 0));
         // Retrieve post's comments
-        List<Comment> comments = post.getComments();
+        //List<Comment> comments = post.getComments();
+        List<Comment> comments = new ArrayList<>();
 
         // Show user profile image from data
         Bitmap profileImage = FeedData.getInstance().getProfileImage();
@@ -69,7 +71,7 @@ public class Comments extends AppCompatActivity {
 
         tvAuthor.setText(post.getName());
         date.setText(post.getDate());
-        profilePic.setImageBitmap(post.getProfileImage());
+        profilePic.setImageBitmap(post.getBitmapProfileImage());
 
         // Close button
         ImageButton closeBtn = findViewById(R.id.close_comments);

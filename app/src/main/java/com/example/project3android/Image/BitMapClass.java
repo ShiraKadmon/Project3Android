@@ -1,7 +1,8 @@
-package com.example.project3android;
+package com.example.project3android.Image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,8 +17,15 @@ import android.provider.MediaStore;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 
 public class BitMapClass {
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int width, int height, int pixels) {
@@ -39,6 +47,25 @@ public class BitMapClass {
 
         return output;
     }
+    public static Bitmap compressBitmap(Bitmap originalBitmap, int quality) {
+        // Compress the original bitmap to a byte array
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        originalBitmap.compress(Bitmap.CompressFormat.JPEG, quality, out);
+        // Decode the byte array back into a bitmap
+        byte[] bitmapData = out.toByteArray();
+        return BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+    }
+
+    public static Bitmap resizeBitmap(Bitmap bitmap, float maxWidth, float maxHeight) {
+        int originalWidth = bitmap.getWidth();
+        int originalHeight = bitmap.getHeight();
+        float scaleWidth = maxWidth / originalWidth;
+        float scaleHeight = maxHeight / originalHeight;
+        float scaleFactor = Math.min(scaleWidth, scaleHeight); // Maintains the aspect ratio
+        return Bitmap.createScaledBitmap(bitmap, (int)(originalWidth * scaleFactor),
+                (int)(originalHeight * scaleFactor), true);
+    }
+    /*
     public static Bitmap resizeBitmap(Bitmap bitmap, float newWidth, float newHeight) {
         // Get the current dimensions of the bitmap
         int width = bitmap.getWidth();
@@ -58,6 +85,19 @@ public class BitMapClass {
         return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
     }
 
+     */
+
+    // Convert Bitmap to Base64-encoded String
+    public static String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] byteFormat = stream.toByteArray();
+        // Get the Base64 string
+        String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+
+        return imgString;
+    }
+
     public static String bitmapToString(Bitmap bitmap) {
         /*
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -66,8 +106,14 @@ public class BitMapClass {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
          */
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream); // Compress Bitmap
+        byte[] byteArray = outputStream.toByteArray();
+        String base64Image = "";
+        if (byteArray != null && byteArray.length > 0) {
+            String base64EncodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+            base64Image = "data:image/jpeg;base64," + base64EncodedImage;
+        }
+        return base64Image;
     }
 
     public static int bitmapToInt(Bitmap bitmap) {
@@ -94,11 +140,41 @@ public class BitMapClass {
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(),
+                inImage, "Title", null);
         return Uri.parse(path);
     }
 
     public static Drawable bitmapToDrawable(Context context, Bitmap bitmap) {
         return new BitmapDrawable(context.getResources(), bitmap);
+    }
+
+    public static Bitmap loadImageAsync(String imageUrl) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
+
+        try {
+            return future.get();
+        } catch (Exception e) {
+            // Handle exceptions during image loading
+            return null;
+        } finally {
+            // Shutdown the executor to release resources
+            executorService.shutdown();
+        }
+    }
+
+    public static Bitmap convertUrlToBitmap(String image) {
+        Bitmap bitmap;
+        try {
+            URL url = new URL(image);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            InputStream inputStream = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (Exception e) {
+            bitmap = null;
+        }
+        return bitmap;
     }
 }

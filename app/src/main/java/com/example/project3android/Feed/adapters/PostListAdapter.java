@@ -20,6 +20,7 @@ import com.example.project3android.Feed.Feed;
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.R;
+import com.example.project3android.User.CurrentUser;
 
 import java.io.Serializable;
 import java.util.List;
@@ -58,7 +59,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             editBtn = itemView.findViewById(R.id.edit_post);
             postView = itemView;
             likeBtn = itemView.findViewById(R.id.likeBtn);
-            likeBtn.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.add_like_selector, 0, 0);
+            likeBtn.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.add_like_selector,
+                    0, 0);
 
         }
     }
@@ -89,10 +91,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.tvAuthor.setText(current.getName());
             holder.date.setText(current.getDate());
             holder.tvContent.setText(current.getText());
-            holder.ivPic.setImageBitmap(current.getPic());
-            holder.likesNum.setText(current.getLikes());
-            holder.commentsNum.setText(current.getCommentsSize());
-            holder.profilePic.setImageBitmap(current.getProfileImage());
+            holder.ivPic.setImageBitmap(current.getBitmapPic());
+            holder.likesNum.setText(current.getLikesString());
+            holder.commentsNum.setText(current.getCommentsSizeString());
+            holder.profilePic.setImageBitmap(current.getBitmapProfileImage());
             if (isNightMode()) {
                 holder.postView.setBackgroundColor(Color.BLACK);
             } else {
@@ -100,12 +102,13 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             }
 
             holder.commentsBtn.setOnClickListener(view -> {
-                this.context.addComment(current, position);
+                this.context.addComment(current.getUserId());
                 notifyDataSetChanged();
             });
 
             holder.likeBtn.setOnClickListener(view -> {
-                int imageLike = current.isLiked() ? R.drawable.add_like_selector : R.drawable.ic_like_pressed;
+                int imageLike = current.isLiked() ?
+                        R.drawable.add_like_selector : R.drawable.ic_like_pressed;
                 current.toggleLike(holder.likeBtn, imageLike);
                 holder.likeBtn.setPressed(current.isLiked());
                 notifyDataSetChanged();
@@ -114,7 +117,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.shareBtn.setOnClickListener(v -> {
                 // Create and show the share popup window
                 View popupView = mInflater.inflate(R.layout.share_layout, null);
-                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                PopupWindow popupWindow = new PopupWindow(popupView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
@@ -123,15 +127,15 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
             });
 
-            if (current.getName().equals(FeedData.getInstance().getUserName())) {
+            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {
-                    context.editPost(current, position);
+                    context.editPost(current.getUserId());
                     notifyDataSetChanged();
                 });
                 holder.deleteBtn.setOnClickListener(v -> {
-                    posts.remove(current);
+                    context.deletePost(current);
                     notifyDataSetChanged();
                 });
             } else {

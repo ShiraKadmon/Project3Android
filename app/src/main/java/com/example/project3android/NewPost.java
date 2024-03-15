@@ -1,5 +1,7 @@
 package com.example.project3android;
 
+import static com.example.project3android.Image.BitMapClass.bitmapToString;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,8 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.User.CurrentUser;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class NewPost extends AppCompatActivity {
@@ -50,8 +57,8 @@ public class NewPost extends AppCompatActivity {
                                                             "position" , 0));
             postText.setText(post.getText());
             ImageView userImage = findViewById(R.id.user_post_image);
-            userImage.setImageBitmap(post.getPic());
-            selectedBitmap = post.getPic();
+            userImage.setImageBitmap(post.getBitmapPic());
+            selectedBitmap = post.getBitmapPic();
         }
 
         GetImageFromUser.checkReadExternalStoragePermission(this);
@@ -64,10 +71,17 @@ public class NewPost extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(postText, selectedBitmap)) {
                 // if both username and password are valid - log in
-                //GetImageFromUser.saveImageToGallery(this, selectedBitmap);
+                String selectedBase64 = bitmapToString(selectedBitmap);
+                String profileBase64 = bitmapToString(profileImage);
+                Post newPost = new Post(CurrentUser.getInstance().getJwtToken(),
+                        username, postText.getText().toString(),
+                        selectedBase64, DateFormat.getDateInstance().format(new Date()),
+                        profileBase64, new ArrayList<>());
+                /*
                 Post newPost = new Post(username, postText.getText().toString(),
-                        selectedBitmap, "2024-15-02 15:23",
+                        selectedBitmap, DateFormat.getDateInstance().format(new Date()),
                         profileImage, new ArrayList<>());
+                */
                 if (getIntent().getIntExtra("position" , -1) != -1) {
                     FeedData.getInstance().replacePost(getIntent().getIntExtra(
                                                         "position" , 0), newPost);
@@ -86,9 +100,11 @@ public class NewPost extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        GetImageFromUser.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        GetImageFromUser.onRequestPermissionsResult(this, requestCode,
+                permissions, grantResults);
     }
 
 
@@ -124,5 +140,6 @@ public class NewPost extends AppCompatActivity {
                 image.getWidth() > 0 &&
                 image.getHeight() > 0);
     }
+
 }
 
