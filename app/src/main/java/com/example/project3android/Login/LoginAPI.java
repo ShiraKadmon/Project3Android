@@ -46,6 +46,7 @@ public class LoginAPI {
                     LoginResponse jwtResponse = response.body();
                     CurrentUser.getInstance().setJwtToken(jwtResponse.getToken());
                     CurrentUser.getInstance().setId(jwtResponse.getUserId());
+                    //CurrentUser.getInstance().setCurrentUser();
                     Log.d("LOGIN_API_RESPONSE", response.body().getToken() + " " + response.body().getUserId());
                     isSucceeded.postValue("succeeded");
                 } else {

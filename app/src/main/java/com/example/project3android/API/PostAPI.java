@@ -65,12 +65,14 @@ public class PostAPI {
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     // Log the response body
-                    Log.d("POST_API_RESPONSE", String.valueOf(response.body()));
 
                     new Thread(() -> {
                         //dao.clear();
                         dao.insert(response.body());
                         postListData.postValue(dao.index());
+                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
+                                + " " + response.body().toString());
+
                     }).start();
                 } else {
                     // Handle unsuccessful response

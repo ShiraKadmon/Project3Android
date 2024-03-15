@@ -1,5 +1,7 @@
 package com.example.project3android.User.API;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.API.TokenInterceptor;
@@ -56,11 +58,17 @@ public class UserAPI {
                     //dao.clear();
                     dao.insert(response.body());
                     user.postValue(response.body());
+                    Log.d("USER_API_RESPONSE", response.body().get_id() + " "
+                            + response.body().getFirstName() + " "
+                            + response.body().getLastName() + " "
+                            + response.body().getUsername());
                 }).start();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {}
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("USER_API_RESPONSE", t.getMessage());
+            }
         });
     }
 }
