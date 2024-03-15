@@ -15,9 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.Image.GetImageFromUser;
 import com.example.project3android.User.CurrentUser;
@@ -28,6 +29,7 @@ import java.util.Date;
 
 
 public class NewPost extends AppCompatActivity {
+    private PostsViewModel postsViewModel;
     private ImageView addImageBtn;
     private Button shareBtn;
     private Bitmap selectedBitmap;
@@ -37,9 +39,11 @@ public class NewPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
+        postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+
         String userName = CurrentUser.getInstance().getCurrentUser().getFirstName() +
                 CurrentUser.getInstance().getCurrentUser().getLastName();
-        Bitmap profileImage = FeedData.getInstance().getProfileImage();
+        Bitmap profileImage = CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage();
 
         // set the username
         TextView tvUsername = findViewById(R.id.username);
@@ -53,9 +57,8 @@ public class NewPost extends AppCompatActivity {
 
         EditText postText = findViewById(R.id.text_input_editText);
         // if this is edit post, set the current data
-        if (getIntent().getIntExtra("position" , -1) != -1) {
-            Post post = FeedData.getInstance().getPosts().get(getIntent().getIntExtra(
-                                                            "position" , 0));
+        if (getIntent().getSerializableExtra("post") != null) {
+           Post post = (Post) getIntent().getSerializableExtra("post");
             postText.setText(post.getText());
             ImageView userImage = findViewById(R.id.user_post_image);
             userImage.setImageBitmap(post.getBitmapPic());
@@ -82,11 +85,10 @@ public class NewPost extends AppCompatActivity {
                         selectedBitmap, DateFormat.getDateInstance().format(new Date()),
                         profileImage, new ArrayList<>());
                 */
-                if (getIntent().getIntExtra("position" , -1) != -1) {
-                    FeedData.getInstance().replacePost(getIntent().getIntExtra(
-                                                        "position" , 0), newPost);
+                if (getIntent().getSerializableExtra("post") != null) {
+                    postsViewModel.update(newPost);
                 } else {
-                    FeedData.getInstance().addPost(newPost);
+                    postsViewModel.add(newPost);
                 }
                 finish();
             } else if (selectedBitmap == null) {

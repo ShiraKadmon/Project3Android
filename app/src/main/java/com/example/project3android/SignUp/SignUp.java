@@ -25,8 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Image.GetImageFromUser;
 import com.example.project3android.MainActivity;
 import com.example.project3android.MyApplication;

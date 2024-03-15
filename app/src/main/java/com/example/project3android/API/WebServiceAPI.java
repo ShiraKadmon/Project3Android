@@ -22,8 +22,8 @@ public interface WebServiceAPI {
     Call<Void> createPost(@Body Post post);
 
     @PUT("api/users/{id}/posts/{pid}")
-    Call<Void> updatePost(@Path("id") String username, @Path("pid") int pid);
+    Call<Void> updatePost(@Path("id") String username, @Path("pid") String pid);
 
     @DELETE("api/users/{id}/posts/{pid}")
-    Call<Void> deletePost(@Path("id") String username, @Path("pid") int pid);
+    Call<Void> deletePost(@Path("id") String username, @Path("pid") String pid);
 }

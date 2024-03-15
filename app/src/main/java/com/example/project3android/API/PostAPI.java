@@ -90,13 +90,36 @@ public class PostAPI {
     public void delete(Post post) {
         //dao.delete(post);
         Call<Void> call = webServiceAPI.deletePost(
-                CurrentUser.getInstance().getCurrentUser().getUsername(), post.getId());
+                CurrentUser.getInstance().getCurrentUser().get_id(), String.valueOf(post.getId()));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         dao.delete(post);
+                        postListData.postValue(dao.index());
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+
+    public void update(Post post) {
+        Call<Void> call = webServiceAPI.updatePost(
+                CurrentUser.getInstance().getCurrentUser().getUsername(), String.valueOf(post.getId()));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                        dao.update(post);
                         postListData.postValue(dao.index());
                     }).start();
                 } else {

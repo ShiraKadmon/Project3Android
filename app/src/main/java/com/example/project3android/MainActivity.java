@@ -19,7 +19,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.FeedData;
 import com.example.project3android.Login.LoginViewModel;
 import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;

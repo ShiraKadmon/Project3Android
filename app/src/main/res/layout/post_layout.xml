@@ -44,7 +44,9 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:gravity="start"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/date"
