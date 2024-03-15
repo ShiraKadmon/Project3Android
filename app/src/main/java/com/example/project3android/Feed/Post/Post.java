@@ -111,7 +111,11 @@ public class Post implements Serializable {
     public List<Comment> getComments() {
         Gson gson = new Gson();
         Type listType = new TypeToken<List<Comment>>() {}.getType();
-        return gson.fromJson(commentsJson, listType);
+        List<Comment> comments = gson.fromJson(commentsJson, listType);
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        return comments;
     }
 
     public User getUser() {
