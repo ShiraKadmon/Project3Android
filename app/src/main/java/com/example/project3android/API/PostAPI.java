@@ -1,5 +1,7 @@
 package com.example.project3android.API;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.Post.Post;
@@ -51,16 +53,35 @@ public class PostAPI {
         Call<List<Post>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            /*public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 new Thread(() -> {
+                    // Log the response body
+                    Log.d("POST_API_RESPONSE", String.valueOf(response.body()));
                     //dao.clear();
                     dao.insert(response.body());
                     postListData.postValue(dao.index());
                 }).start();
-        }
+            }*/
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    // Log the response body
+                    Log.d("POST_API_RESPONSE", String.valueOf(response.body()));
 
-        @Override
-        public void onFailure(Call<List<Post>> call, Throwable t) {}
+                    new Thread(() -> {
+                        //dao.clear();
+                        dao.insert(response.body());
+                        postListData.postValue(dao.index());
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("POST_API_RESPONSE", "Unsuccessful response: " + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                // Log the error message
+                Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
+            }
         });
     }
 
