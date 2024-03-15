@@ -11,7 +11,6 @@ import com.example.project3android.User.UserDao;
 
 public class LoginRepository {
     private UserDao dao;
-
     private LoginRepository.State state;
     private LoginAPI api;
 
