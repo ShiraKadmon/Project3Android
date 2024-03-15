@@ -28,8 +28,6 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
-<<<<<<< HEAD
-=======
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -66,13 +64,11 @@
     </LinearLayout>
 
     <LinearLayout
->>>>>>> 0381a4e1e19d3bc6963c28a000b00ae8f105a84e
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-<<<<<<< HEAD
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,43 +78,13 @@
 
         <ImageView
             android:id="@+id/profileImageProfilePage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-=======
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <ImageView
-            android:id="@+id/profileImageProfilePage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
->>>>>>> 0381a4e1e19d3bc6963c28a000b00ae8f105a84e
             android:contentDescription="@string/picture"
             android:padding="5dp"
             app:srcCompat="@drawable/man" />
-
-        <TextView
-<<<<<<< HEAD
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/login_etLogo"
-            android:textAlignment="center"
-            android:textSize="23sp" />
-=======
-            android:id="@+id/nameProfilePage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="@string/first_name"
-            android:textAlignment="center"
-            android:textSize="18sp" />
->>>>>>> 0381a4e1e19d3bc6963c28a000b00ae8f105a84e
 
     </LinearLayout>
 
