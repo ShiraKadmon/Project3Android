@@ -73,9 +73,44 @@ public class SignUp extends AppCompatActivity {
             GetImageFromUser.pickImage(this, 1);
         });
 
+        if (getIntent().getIntExtra("edit", 0) == 1) {
+            userName.setText(CurrentUser.getInstance().getCurrentUser().getUsername());
+            firstName.setText(CurrentUser.getInstance().getCurrentUser().getFirstName());
+            lastName.setText(CurrentUser.getInstance().getCurrentUser().getLastName());
+            selectedBitmap = CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage();
+            ImageView profileImage = findViewById(R.id.newProfile);
+            profileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage());
+        }
+
         signUpBtn.setOnClickListener(v -> {
             // check input validity before logging in
             if (checkContentDetails(userName, password, confirmPassword, firstName, lastName, selectedBitmap)) {
+                if (getIntent().getIntExtra("edit", 0) == 1) {
+                    UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                    User user = new User(firstName.getText().toString(),
+                            lastName.getText().toString(), userName.getText().toString(),
+                            password.getText().toString(), bitmapToString(selectedBitmap));
+                    userViewModel.edit(user);
+
+                    View popupView = LayoutInflater.from(MyApplication.context).
+                            inflate(R.layout.signup_popup_window, null);
+                    PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
+                            LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                    TextView textView = popupView.findViewById(R.id.problem_description);
+
+                    // Update TextView content if needed
+                    textView.setText("Editing Completed Successfully! \n please Login Again");
+                    // Set touch listener to dismiss the popup window when tapped outside of it
+                    ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+                    closeButton.setOnClickListener(closeView -> {
+                        popupWindow.dismiss();
+                            Intent i = new Intent(MyApplication.context, MainActivity.class);
+                            startActivity(i);
+                        });
+                }
                 // if both username and password are valid - log in
                 SignUpViewModel signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
                 User user = new User(firstName.getText().toString(),
