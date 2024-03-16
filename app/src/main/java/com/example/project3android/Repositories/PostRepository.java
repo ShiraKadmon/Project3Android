@@ -79,8 +79,8 @@ public class PostRepository {
         api.update(post);
     }
 
-
     public void reload() {
         api.get();
     }
+
 }

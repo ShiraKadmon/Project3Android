@@ -22,4 +22,10 @@ public class HashMapConverter {
         hash.put("profile_picture", user.getPassword());
         return hash;
     }
+
+    public static HashMap<String, String> getIdHashMap(String id) {
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put("id", id);
+        return hash;
+    }
 }

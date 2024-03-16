@@ -26,4 +26,7 @@ public interface WebServiceAPI {
 
     @DELETE("api/users/{id}/posts/{pid}")
     Call<Void> deletePost(@Path("id") String username, @Path("pid") String pid);
+
+    @GET("api/users/{id}/posts")
+    Call<List<Post>> getUserPosts(@Path("id") String userId);
 }

@@ -25,7 +25,7 @@ public interface UserWebServiceAPI {
     Call<Void> createUser(@Body HashMap<String, String> body);
 
     @GET("api/users/{id}")
-    Call<User> getUser(@Path("id") String id);
+    Call<User> getUser(@Path("id") HashMap<String, String> id);
 
     @PUT("api/users/{id}")
     Call<Void> updateUser(@Body HashMap<String, String> body);

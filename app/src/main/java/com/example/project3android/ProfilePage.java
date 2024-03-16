@@ -1,6 +1,7 @@
 package com.example.project3android;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.project3android.FriendPosts.FriendPostsRepository;
+import com.example.project3android.FriendPosts.FriendPostsViewModel;
 import com.example.project3android.User.Friends.FriendsViewModel;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
@@ -24,42 +27,47 @@ import com.example.project3android.User.UserViewModel;
 
 public class ProfilePage extends AppCompatActivity {
     private PostListAdapter adapter;
-    private PostsViewModel postViewModel;
-    private UserViewModel userViewModel;
+    private FriendPostsViewModel friendPostsViewModel;
     private FriendsViewModel friendsViewModel;
+    private List<User> friends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
-        String userId = getIntent().getStringExtra("userId");
+        User user = (User) getIntent().getSerializableExtra("user");
 
-        friendsViewModel.getFriends().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
+        friendsViewModel.getFriends().observe(this, users -> friends = users);
 
-            }
-        });
+        friendPostsViewModel = new ViewModelProvider(this).get(FriendPostsViewModel.class);
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+        String fullName = user.getFirstName() + " " + user.getLastName();
 
-        String fullname = CurrentUser.getInstance().getCurrentUser().getFirstName()
-                + " " + CurrentUser.getInstance().getCurrentUser().getLastName();
-
-        //TextView ivName = findViewById(R.id.nameProfilePage);
-        //ivName.setText(fullname);
+        TextView ivName = findViewById(R.id.nameProfilePage);
+        ivName.setText(fullName);
 
         ImageView ivProfileImage = findViewById(R.id.profileImageProfilePage);
-        ivProfileImage.setImageBitmap(CurrentUser.getInstance()
-                .getCurrentUser().getBitmapProfileImage());
+        ivProfileImage.setImageBitmap(user.getBitmapProfileImage());
 
-        RecyclerView lstPosts = findViewById(R.id.lstPosts);
-        adapter = new PostListAdapter(this);
-        lstPosts.setAdapter(adapter);
-        lstPosts.setLayoutManager(new LinearLayoutManager(this));
+        if (friends.contains(user)) {
+            RecyclerView lstPosts = findViewById(R.id.lstPosts);
+            adapter = new PostListAdapter(this);
+            lstPosts.setAdapter(adapter);
+            lstPosts.setLayoutManager(new LinearLayoutManager(this));
+            friendPostsViewModel.get().observe(this, posts -> adapter.setPosts(posts));
 
-        postViewModel.get().observe(this, posts -> adapter.setPosts(posts));
+            Button friendship = findViewById(R.id.friendshipStatus);
+            friendship.setText(R.string.delete_from_friends);
+            friendship.setOnClickListener(v -> friendsViewModel.delete(
+                    CurrentUser.getInstance().getId(), user.get_id()));
+        }
+        else {
+            Button friendship = findViewById(R.id.friendshipStatus);
+            friendship.setText(R.string.ask_friendship);
+            friendship.setOnClickListener(v -> friendsViewModel.add(user.get_id()));
+            friendship.setText(R.string.asking_friendship);
+        }
+
     }
 }

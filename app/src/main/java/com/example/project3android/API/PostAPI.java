@@ -156,4 +156,34 @@ public class PostAPI {
             }
         });
     }
+
+    public void getUserPost(String id) {
+        Call<List<Post>> call = webServiceAPI.getUserPosts(id);
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    // Log the response body
+
+                    new Thread(() -> {
+                        //dao.clear();
+                        dao.insert(response.body());
+                        postListData.postValue(dao.index());
+                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
+                                + " " + response.body().toString());
+
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("POST_API_RESPONSE", "Unsuccessful response: " + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                // Log the error message
+                Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
+            }
+        });
+    }
+
 }

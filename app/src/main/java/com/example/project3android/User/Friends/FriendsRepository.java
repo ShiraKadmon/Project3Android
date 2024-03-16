@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.User;
@@ -43,11 +44,16 @@ public class FriendsRepository {
         return friendsListData;
     }
 
-    public void delete(final User user) {
-        //api.delete(post);
+    public void delete(String userId, String fId) {
+        api.delete(userId, fId);
     }
 
     public void reload() {
-        //api.get();
+        api.getFriends();
     }
+
+    public void add(String userId) {
+        api.add(userId);
+    }
+
 }
