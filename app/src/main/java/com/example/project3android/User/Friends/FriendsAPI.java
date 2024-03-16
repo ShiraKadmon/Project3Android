@@ -3,6 +3,7 @@ package com.example.project3android.User.Friends;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.API.TokenInterceptor;
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.API.UserWebServiceAPI;
@@ -57,6 +58,49 @@ public class FriendsAPI {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {}
+        });
+    }
+
+    public void add(String userId) {
+        Call<Void> call = webServiceAPI.newFriendsRequest(userId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+
+    public void delete(String userId, String fId) {
+        //dao.delete(post);
+        Call<Void> call = webServiceAPI.deleteFriend(userId, fId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                        //dao.delete(userId, fId);
+                        friendsListData.postValue(dao.index());
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
         });
     }
 }

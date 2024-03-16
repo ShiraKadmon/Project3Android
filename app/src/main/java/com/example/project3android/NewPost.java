@@ -41,7 +41,7 @@ public class NewPost extends AppCompatActivity {
 
         postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
 
-        String userName = CurrentUser.getInstance().getCurrentUser().getFirstName() +
+        String userName = CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
                 CurrentUser.getInstance().getCurrentUser().getLastName();
         Bitmap profileImage = CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage();
 

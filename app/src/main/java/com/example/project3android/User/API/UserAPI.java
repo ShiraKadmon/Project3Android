@@ -8,6 +8,7 @@ import com.example.project3android.API.TokenInterceptor;
 import com.example.project3android.API.WebServiceAPI;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -64,6 +65,44 @@ public class UserAPI {
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e("USER_API_RESPONSE", t.getMessage());
+            }
+        });
+    }
+
+    public void delete() {
+        Call<Void> call = webServiceAPI.deleteUser(CurrentUser.getInstance().getId());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void update() {
+        Call<Void> call = webServiceAPI.updateUser(HashMapConverter.signUpHashMap(
+                CurrentUser.getInstance().getCurrentUser()));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                        get();
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
             }
         });
     }

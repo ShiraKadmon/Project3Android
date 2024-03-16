@@ -21,4 +21,13 @@ public class UserViewModel extends ViewModel {
     public LiveData<User> getUser() {
         return user;
     }
+
+    public void delete() {
+        repository.delete();
+    }
+
+    public void edit() {
+        repository.edit();
+    }
+
 }

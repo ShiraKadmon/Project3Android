@@ -6,14 +6,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -29,6 +36,7 @@ import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.Feed.data.PostConverter;
+import com.example.project3android.MyApplication;
 import com.example.project3android.NewPost;
 import com.example.project3android.ProfilePage;
 import com.example.project3android.R;
@@ -65,6 +73,28 @@ public class Feed extends AppCompatActivity {
         ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
         ivProfileImage.setImageBitmap(CurrentUser.getInstance()
                 .getCurrentUser().getBitmapProfileImage());
+        ivProfileImage.setOnClickListener(v -> {
+            View popupView = LayoutInflater.from(MyApplication.context).inflate(
+                    R.layout.edit_user_popup_window, null);
+            PopupWindow popupWindow = new PopupWindow(popupView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+            Button deleteBtn = popupView.findViewById(R.id.delete);
+            deleteBtn.setOnClickListener(deleteView -> {
+                userViewModel.delete();
+                currentActivity.finish();
+            });
+
+            Button editBtn = popupView.findViewById(R.id.edit);
+            editBtn.setOnClickListener(editView -> {
+
+            });
+            // Set touch listener to dismiss the popup window when tapped outside of it
+            ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+            closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
+        });
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapter = new PostListAdapter(this);
@@ -154,8 +184,7 @@ public class Feed extends AppCompatActivity {
 
     public void profilePage(User user) {
         Intent i = new Intent(this, ProfilePage.class);
-        i.putExtra("userId", user.get_id());
+        i.putExtra("user", user);
         startActivity(i);
     }
 }
-

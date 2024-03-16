@@ -23,7 +23,7 @@ public class HashMapConverter {
         return hash;
     }
 
-    public static HashMap<String, String> getUserHashMap(String id) {
+    public static HashMap<String, String> getIdHashMap(String id) {
         HashMap<String, String> hash = new HashMap<>();
         hash.put("id", id);
         return hash;

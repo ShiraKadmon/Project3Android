@@ -13,6 +13,8 @@ import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -77,8 +79,8 @@ public class PostRepository {
         api.update(post);
     }
 
-
     public void reload() {
         api.get();
     }
+
 }

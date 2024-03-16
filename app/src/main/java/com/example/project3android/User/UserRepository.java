@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.API.UserAPI;
 import com.example.project3android.User.Data.UserAppDB;
@@ -41,6 +42,14 @@ public class UserRepository {
     }
     public LiveData<User> get() {
         return userData;
+    }
+
+    public void delete() {
+        api.delete();
+    }
+
+    public void edit() {
+        api.update();
     }
 
 }

@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostViewHolder>
-                                                                        implements Serializable{
+        implements Serializable{
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
@@ -100,9 +100,12 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.postView.setBackgroundColor(Color.WHITE);
             }
 
+            holder.tvAuthor.setOnClickListener(view -> {
+                this.context.profilePage(current.getUser());
+            });
+
             holder.profilePic.setOnClickListener(view -> {
                 this.context.profilePage(current.getUser());
-                notifyDataSetChanged();
             });
 
             holder.commentsBtn.setOnClickListener(view -> {
