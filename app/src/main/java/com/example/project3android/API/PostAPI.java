@@ -67,7 +67,7 @@ public class PostAPI {
                     // Log the response body
 
                     new Thread(() -> {
-                        //dao.clear();
+                        dao.clear();
                         dao.insert(response.body());
                         postListData.postValue(dao.index());
                         Log.d("POST_API_RESPONSE", String.valueOf(response.body())
