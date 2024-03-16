@@ -48,8 +48,8 @@ public class ProfilePage extends AppCompatActivity {
         String fullname = CurrentUser.getInstance().getCurrentUser().getFirstName()
                 + " " + CurrentUser.getInstance().getCurrentUser().getLastName();
 
-        TextView ivName = findViewById(R.id.nameProfilePage);
-        ivName.setText(fullname);
+        //TextView ivName = findViewById(R.id.nameProfilePage);
+        //ivName.setText(fullname);
 
         ImageView ivProfileImage = findViewById(R.id.profileImageProfilePage);
         ivProfileImage.setImageBitmap(CurrentUser.getInstance()

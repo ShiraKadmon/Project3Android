@@ -5,10 +5,7 @@ public class CurrentUser {
     private final static CurrentUser INSTANCE = new CurrentUser();
     private User currentUser;
     private String jwtToken;
-<<<<<<< HEAD
-=======
     private String id;
->>>>>>> 0381a4e1e19d3bc6963c28a000b00ae8f105a84e
 
     public static CurrentUser getInstance() {
         return INSTANCE;
@@ -35,8 +32,6 @@ public class CurrentUser {
     public void setCurrentUser(User user) {
         this.currentUser = user;
     }
-<<<<<<< HEAD
-=======
 
     public String getId() {
         return id;
@@ -45,5 +40,4 @@ public class CurrentUser {
     public void setId(String id) {
         this.id = id;
     }
->>>>>>> 0381a4e1e19d3bc6963c28a000b00ae8f105a84e
 }
