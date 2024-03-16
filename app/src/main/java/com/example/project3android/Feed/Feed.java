@@ -40,6 +40,7 @@ import com.example.project3android.MyApplication;
 import com.example.project3android.NewPost;
 import com.example.project3android.ProfilePage;
 import com.example.project3android.R;
+import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
@@ -89,7 +90,9 @@ public class Feed extends AppCompatActivity {
 
             Button editBtn = popupView.findViewById(R.id.edit);
             editBtn.setOnClickListener(editView -> {
-
+                Intent i = new Intent(this, SignUp.class);
+                i.putExtra("edit", 1);
+                startActivity(i);
             });
             // Set touch listener to dismiss the popup window when tapped outside of it
             ImageButton closeButton = popupView.findViewById(R.id.closeBtn);

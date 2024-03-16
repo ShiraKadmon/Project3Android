@@ -48,8 +48,8 @@ public class UserRepository {
         api.delete();
     }
 
-    public void edit() {
-        api.update();
+    public void edit(User user) {
+        api.update(user);
     }
 
 }

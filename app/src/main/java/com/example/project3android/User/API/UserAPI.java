@@ -85,9 +85,8 @@ public class UserAPI {
         });
     }
 
-    public void update() {
-        Call<Void> call = webServiceAPI.updateUser(HashMapConverter.signUpHashMap(
-                CurrentUser.getInstance().getCurrentUser()));
+    public void update(User user) {
+        Call<Void> call = webServiceAPI.updateUser(HashMapConverter.signUpHashMap(user));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
