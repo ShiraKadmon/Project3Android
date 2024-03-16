@@ -3,11 +3,11 @@ package com.example.project3android.Login;
 public class LoginResponse {
 
     private String token;
-    private String id;
+    private String userId;
 
-    public LoginResponse(String token, String id) {
+    public LoginResponse(String token, String userId) {
         this.token = token;
-        this.id = id;
+        this.userId = userId;
     }
 
     public String getToken() {
@@ -18,11 +18,11 @@ public class LoginResponse {
         this.token = token;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -8,19 +8,26 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class User {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    @SerializedName("_id")
     private String _id;
+    @SerializedName("first_name")
     private String firstName;
+    @SerializedName("last_name")
     private String lastName;
+    @SerializedName("email")
     private String username;
     private String password;
     private String profileImage;
 
     public User(String firstName, String lastName, String username, String password, String profileImage) {
+        this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -30,6 +37,7 @@ public class User {
 
     @Ignore
     public User(String username, String password) {
+        this.id = 0;
         this.firstName = null;
         this.lastName = null;
         this.username = username;

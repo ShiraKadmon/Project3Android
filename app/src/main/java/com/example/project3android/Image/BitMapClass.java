@@ -106,7 +106,7 @@ public class BitMapClass {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
          */
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream); // Compress Bitmap
+        //bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream); // Compress Bitmap
         byte[] byteArray = outputStream.toByteArray();
         String base64Image = "";
         if (byteArray != null && byteArray.length > 0) {

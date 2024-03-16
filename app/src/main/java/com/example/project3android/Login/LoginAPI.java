@@ -1,5 +1,7 @@
 package com.example.project3android.Login;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.data.HashMapConverter;
@@ -43,7 +45,9 @@ public class LoginAPI {
                 if (response.isSuccessful()) {
                     LoginResponse jwtResponse = response.body();
                     CurrentUser.getInstance().setJwtToken(jwtResponse.getToken());
-                    CurrentUser.getInstance().setId(jwtResponse.getId());
+                    CurrentUser.getInstance().setId(jwtResponse.getUserId());
+                    //CurrentUser.getInstance().setCurrentUser();
+                    Log.d("LOGIN_API_RESPONSE", response.body().getToken() + " " + response.body().getUserId());
                     isSucceeded.postValue("succeeded");
                 } else {
                     if (response.code() == 401) {

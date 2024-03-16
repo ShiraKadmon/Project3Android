@@ -12,6 +12,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
 import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.User.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,7 +26,7 @@ import java.util.List;
 public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String user_id;
+    private String userJson;
     private String author_image;
     private String author_name;
     private String content;
@@ -40,7 +41,7 @@ public class Post implements Serializable {
     private String pic;
 
     public Post(){
-        this.user_id = null;
+        this.userJson = null;
         this.author_name = null;
         this.content = null;
         this.pic = null;
@@ -52,24 +53,9 @@ public class Post implements Serializable {
         this.isLiked = false;
     }
 
-    public Post(String user_id, String author, String content, Bitmap pic,
-                String date, Bitmap profilePic, List<Comment> comments) {
-        this.user_id = user_id;
-        this.author_name = author;
-        this.content = content;
-        this.title = author;
-        //this.pic = pic;
-        this.likes_count = 0;
-        this.share_count = 0;
-        this.date = date;
-        //this.profileImage = profilePic;
-        setComments(comments);
-        this.commentsSize = comments.size();
-    }
-
-    public Post(String user_id, String author, String content, String pic, String date,
+    public Post(User user, String author, String content, String pic, String date,
                 String profilePic, List<Comment> comments) {
-        this.user_id = user_id;
+        setUser(user);
         this.author_name = author;
         this.content = content;
         this.pic = pic;
@@ -86,13 +72,6 @@ public class Post implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public void setUserId(String user_id) {
-        this.user_id = user_id;
-    }
-
-    /* public void setProfileImage(Bitmap profileImage) {
-        this.profileImage = profileImage;
-    } */
 
     public void setProfileImage(String profileImage) {
         this.author_image = profileImage;
@@ -118,20 +97,39 @@ public class Post implements Serializable {
         this.commentsSize = commentsSize;
     }
 
-    /* public void setPic(Bitmap pic) {
-        this.pic = pic;
-    } */
-
     public void setComments(List<Comment> comments) {
         Gson gson = new Gson();
         this.commentsJson = gson.toJson(comments);
         this.commentsSize = comments.size();
     }
 
+    public void setUser(User user) {
+        Gson gson = new Gson();
+        this.userJson = gson.toJson(user);
+    }
+
     public List<Comment> getComments() {
         Gson gson = new Gson();
         Type listType = new TypeToken<List<Comment>>() {}.getType();
-        return gson.fromJson(commentsJson, listType);
+        List<Comment> comments = gson.fromJson(commentsJson, listType);
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        return comments;
+    }
+
+    public User getUser() {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<User>() {}.getType();
+        return gson.fromJson(userJson, listType);
+    }
+
+    public void setUserJson(String userJson) {
+        this.userJson = userJson;
+    }
+
+    public String getUserJson() {
+        return userJson;
     }
 
     public void setPic(String pic) {
@@ -140,10 +138,6 @@ public class Post implements Serializable {
 
     public void setLiked(boolean liked) {
         isLiked = liked;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
     }
 
     public void setAuthor_image(String author_image) {
@@ -185,9 +179,6 @@ public class Post implements Serializable {
     public int getId() {
         return this.id;
     }
-    public String getUserId() {
-        return this.user_id;
-    }
 
     public String getName() {
         return this.author_name;
@@ -213,10 +204,6 @@ public class Post implements Serializable {
         return this.commentsSize;
     }
 
-    /*public List<Comment> getComments() {
-        return comments;
-    }*/
-
     public String getPic() {
         return pic;
     }
@@ -230,7 +217,9 @@ public class Post implements Serializable {
     }
 
     public void addComment(Comment comment) {
-        //comments.add(comment);
+        List<Comment> commentsList = getComments();
+        commentsList.add(comment);
+        setComments(commentsList);
         this.commentsSize++;
     }
 
@@ -248,10 +237,6 @@ public class Post implements Serializable {
 
     public Bitmap getBitmapProfileImage() {
         return loadImageAsync(this.author_image);
-    }
-
-    public String getUser_id() {
-        return user_id;
     }
 
     public String getAuthor_image() {
@@ -282,11 +267,6 @@ public class Post implements Serializable {
         return postId;
     }
 
-    public void addComment(String author, String text) {
-        //comments.add(new Comment(author, text));
-        this.commentsSize++;
-    }
-
     @Ignore
     public boolean isLiked() {
         return isLiked;
@@ -308,6 +288,19 @@ public class Post implements Serializable {
     }
 
     public void refreshCommentsSize(){
-        //this.commentsSize = comments.size();
+        this.commentsSize = getComments().size();
+    }
+
+    public void deleteComment(Comment comment) {
+        List<Comment> commentsList = getComments();
+        commentsList.remove(comment);
+        setComments(commentsList);
+        this.commentsSize--;
+    }
+
+    public void editComment(int position, String text) {
+        List<Comment> commentsList = getComments();
+        commentsList.get(position).setComment(text);
+        setComments(commentsList);
     }
 }

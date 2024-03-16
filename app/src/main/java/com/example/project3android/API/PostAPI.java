@@ -65,12 +65,14 @@ public class PostAPI {
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     // Log the response body
-                    Log.d("POST_API_RESPONSE", String.valueOf(response.body()));
 
                     new Thread(() -> {
                         //dao.clear();
                         dao.insert(response.body());
                         postListData.postValue(dao.index());
+                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
+                                + " " + response.body().toString());
+
                     }).start();
                 } else {
                     // Handle unsuccessful response
@@ -111,7 +113,7 @@ public class PostAPI {
     public void delete(Post post) {
         //dao.delete(post);
         Call<Void> call = webServiceAPI.deletePost(
-              CurrentUser.getInstance().getCurrentUser().getUsername(), post.getUserId());
+              CurrentUser.getInstance().getCurrentUser().getUsername(), post.getUser().get_id());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

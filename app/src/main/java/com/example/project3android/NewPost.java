@@ -78,8 +78,8 @@ public class NewPost extends AppCompatActivity {
                 String selectedBase64 = bitmapToString(selectedBitmap);
                 String profileBase64 = bitmapToString(profileImage);
 
-                Post newPost = new Post(CurrentUser.getInstance().getJwtToken(),
-                        username, postText.getText().toString(),
+                Post newPost = new Post(CurrentUser.getInstance().getCurrentUser(),
+                        userName, postText.getText().toString(),
                         selectedBase64, DateFormat.getDateInstance().format(new Date()),
                         profileBase64, new ArrayList<>());
                
