@@ -29,7 +29,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
-        private final ImageView profilePic;
+        private final ImageButton profilePic;
         private final TextView tvAuthor;
         private final TextView date;
         private final TextView tvContent;
@@ -100,7 +100,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.postView.setBackgroundColor(Color.WHITE);
             }
 
-            //holder.tvAuthor.onTouchEvent(context.profilePage(current.getName());)
+            holder.profilePic.setOnClickListener(view -> {
+                this.context.profilePage(current.getUser());
+                notifyDataSetChanged();
+            });
 
             holder.commentsBtn.setOnClickListener(view -> {
                 this.context.addComment(current);

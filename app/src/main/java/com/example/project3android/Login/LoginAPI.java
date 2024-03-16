@@ -45,8 +45,10 @@ public class LoginAPI {
                 if (response.isSuccessful()) {
                     LoginResponse jwtResponse = response.body();
                     CurrentUser.getInstance().setJwtToken(jwtResponse.getToken());
-                    CurrentUser.getInstance().setId("65f2c58af7c657942338476d");
-                    Log.d("LOGIN_API_RESPONSE", response.body().getToken() + " " + response.body().getId());
+
+                    CurrentUser.getInstance().setId(jwtResponse.getUserId());
+                    //CurrentUser.getInstance().setCurrentUser();
+                    Log.d("LOGIN_API_RESPONSE", response.body().getToken() + " " + response.body().getUserId());
                     isSucceeded.postValue("succeeded");
                 } else {
                     if (response.code() == 401) {
