@@ -67,8 +67,10 @@ public class ProfilePage extends AppCompatActivity {
         else {
             Button friendship = findViewById(R.id.friendshipStatus);
             friendship.setText(R.string.ask_friendship);
-            friendship.setOnClickListener(v -> friendsViewModel.add(user.get_id()));
-            friendship.setText(R.string.asking_friendship);
+            friendship.setOnClickListener(v -> {
+                friendsViewModel.add(user.get_id());
+                friendship.setText(R.string.asking_friendship);
+            });
         }
 
     }

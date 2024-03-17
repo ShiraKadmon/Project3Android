@@ -1,6 +1,7 @@
 package com.example.project3android.SignUp;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
+import static com.example.project3android.Image.BitMapClass.getImageUri;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -89,7 +90,8 @@ public class SignUp extends AppCompatActivity {
                     UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
                     User user = new User(firstName.getText().toString(),
                             lastName.getText().toString(), userName.getText().toString(),
-                            password.getText().toString(), bitmapToString(selectedBitmap));
+                            password.getText().toString(),
+                            getImageUri(this, selectedBitmap).getPath());
                     userViewModel.edit(user);
 
                     View popupView = LayoutInflater.from(MyApplication.context).

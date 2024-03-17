@@ -3,17 +3,17 @@ package com.example.project3android.Feed;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.project3android.User.User;
+
 import java.io.Serializable;
 
-@Entity
 public class Comment implements Serializable {
-    @PrimaryKey(autoGenerate = true)
     private int authorId;
-    private String user_id;
+    private User user_id;
     //private final String name;
     private String comment;
 
-    public Comment(String author, String content) {
+    public Comment(User author, String content) {
         this.user_id = author;
         this.comment = content;
     }
@@ -47,11 +47,11 @@ public class Comment implements Serializable {
         this.authorId = authorId;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
 
-    public String getUser_id() {
+    public User getUser_id() {
         return user_id;
     }
 }

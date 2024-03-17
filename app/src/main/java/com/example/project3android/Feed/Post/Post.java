@@ -329,6 +329,6 @@ public class Post implements Serializable {
         Date date = new Date(this.date);
         return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
                 this.author_image, this.author_name, date, this.content, "",
-                this.pic, this.title, "", this.likes_count, this.share_count);
+                this.pic, this.title, "", this.likes_count, this.share_count, this.getComments());
     }
 }

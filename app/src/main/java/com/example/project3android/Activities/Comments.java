@@ -130,7 +130,7 @@ public class Comments extends AppCompatActivity {
         addCommentBtn.setOnClickListener(v -> {
             String commentText = comment.getText().toString();
             if (commentText.length() > 0) {
-                post.addComment(new Comment(username, commentText));
+                post.addComment(new Comment(post.getUser(), commentText));
                 commentsAdapter.notifyDataSetChanged();
             }
         });
