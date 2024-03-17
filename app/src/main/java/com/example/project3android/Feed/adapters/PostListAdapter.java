@@ -134,7 +134,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
             });
 
-            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
+            if (current.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {

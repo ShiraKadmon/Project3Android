@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.http.HEAD;
+
 
 @Entity
 public class Post implements Serializable {
@@ -327,8 +329,16 @@ public class Post implements Serializable {
 
     public PostResponse getPostResponse() {
         Date date = new Date(this.date);
+        /*return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
+                this.author_image,
+                this.author_name, date, this.content, "",
+                this.pic, this.title, "", this.likes_count, this.share_count, new ArrayList<>());*/
         return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
-                this.author_image, this.author_name, date, this.content, "",
-                this.pic, this.title, "", this.likes_count, this.share_count, this.getComments());
+                this.author_image,
+                CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
+                        CurrentUser.getInstance().getCurrentUser().getLastName(),
+                date, this.content, "",
+                this.pic, this.title, "", this.likes_count, this.share_count,
+                new ArrayList<>());
     }
 }

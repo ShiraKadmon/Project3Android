@@ -25,6 +25,7 @@ public class User implements Serializable {
     @SerializedName("email")
     private String username;
     private String password;
+    @SerializedName("profile_picture")
     private String profileImage;
 
     public User(String firstName, String lastName, String username, String password, String profileImage) {

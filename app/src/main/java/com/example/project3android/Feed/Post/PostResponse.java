@@ -1,6 +1,7 @@
 package com.example.project3android.Feed.Post;
 
 import com.example.project3android.Feed.Comment;
+import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 
 import java.util.ArrayList;
@@ -147,7 +148,9 @@ public class PostResponse {
     }
 
     public Post getPost() {
-        return new Post(this._id, this.user_id, this.author_name, this.content,
+        return new Post(this._id, this.user_id,
+                this.user_id.getFirstName() + " " +
+                this.user_id.getLastName(), this.content,
                 this.post_image_url, this.created_at.toString(), this.author_image,
                 this.comments);
     }

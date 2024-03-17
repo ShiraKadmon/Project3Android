@@ -49,17 +49,16 @@ public class Feed extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+        ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
 
         userViewModel.getUser().observe(this, user -> {
             if (user != null) {
                 CurrentUser.getInstance().setCurrentUser(user);
+                ivProfileImage.setImageBitmap(CurrentUser.getInstance()
+                        .getCurrentUser().getBitmapProfileImage());
             }
         });
 
-
-        ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
-        ivProfileImage.setImageBitmap(CurrentUser.getInstance()
-                .getCurrentUser().getBitmapProfileImage());
         ivProfileImage.setOnClickListener(v -> {
             View popupView = LayoutInflater.from(MyApplication.context).inflate(
                     R.layout.edit_user_popup_window, null);
@@ -90,7 +89,19 @@ public class Feed extends AppCompatActivity {
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        postViewModel.get().observe(this, posts -> adapter.setPosts(posts));
+        postViewModel.get().observe(this, posts -> {
+            for (Post post : posts) {
+                if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
+                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
+                            + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
+                    post.setAuthor_image(CurrentUser.getInstance().getCurrentUser()
+                            .getProfileImage());
+                    post.setUser(CurrentUser.getInstance().getCurrentUser());
+                    postViewModel.update(post);
+                }
+            }
+            adapter.setPosts(posts);
+        });
 
         //logout
         Button logoutButton = findViewById(R.id.logoutBtn);

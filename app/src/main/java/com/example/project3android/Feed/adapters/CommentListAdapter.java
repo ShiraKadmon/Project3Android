@@ -101,7 +101,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
     }
 
     // add comment
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
         comments.add(comment);
         notifyDataSetChanged();
     }
