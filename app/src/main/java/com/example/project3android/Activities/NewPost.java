@@ -83,8 +83,11 @@ public class NewPost extends AppCompatActivity {
                         userName, postText.getText().toString(),
                         selectedBase64, DateFormat.getDateInstance().format(new Date()),
                         profileBase64, new ArrayList<>());
-               
+
                 if (getIntent().getSerializableExtra("post") != null) {
+                    Post post = (Post) getIntent().getSerializableExtra("post");
+                    newPost.setPostId(post.getPostId());
+                    newPost.setAuthor_image(post.getAuthor_image());
                     postsViewModel.update(newPost);
                 } else {
                     postsViewModel.add(newPost);

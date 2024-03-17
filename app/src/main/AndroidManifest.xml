@@ -50,6 +50,9 @@
             android:name=".Activities.NewPost"
             android:exported="false" />
         <activity
+            android:name=".Activities.ProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".Activities.MainActivity"
             android:exported="true"
             tools:ignore="DuplicateActivity">
