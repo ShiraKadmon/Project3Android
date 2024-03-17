@@ -12,7 +12,9 @@ import com.example.project3android.Feed.Post.PostResponse;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
+import com.example.project3android.User.UserDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -24,11 +26,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FriendPostsAPI {
     private MutableLiveData<List<Post>> postListData;
-    private PostDao dao;
+    private UserDao dao;
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public FriendPostsAPI(MutableLiveData<List<Post>> postListData, PostDao dao) {
+    public FriendPostsAPI(MutableLiveData<List<Post>> postListData, UserDao dao) {
         this.postListData = postListData;
         this.dao = dao;
 
@@ -46,8 +48,8 @@ public class FriendPostsAPI {
 
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-    public void get() {
-        Call<List<PostResponse>> call = webServiceAPI.getPosts();
+    public void getUserPost(String fid) {
+        Call<List<PostResponse>> call = webServiceAPI.getUserPosts(fid);
         call.enqueue(new Callback<List<PostResponse>>() {
             @Override
             public void onResponse(Call<List<PostResponse>> call,
@@ -56,7 +58,14 @@ public class FriendPostsAPI {
                     // Log the response body
 
                     new Thread(() -> {
-                        postListData.postValue(dao.index());
+                        List<Post> posts = new ArrayList<>();
+                        for (PostResponse postResponse : response.body()) {
+                            posts.add(postResponse.getPost());
+                        }
+                        postListData.postValue(posts);
+                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
+                                + " " + response.body().toString());
+
                     }).start();
                 } else {
                     // Handle unsuccessful response

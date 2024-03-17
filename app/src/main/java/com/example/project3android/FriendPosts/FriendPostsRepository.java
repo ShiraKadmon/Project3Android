@@ -9,27 +9,30 @@ import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
 import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
+import com.example.project3android.User.API.UserAPI;
+import com.example.project3android.User.Data.UserAppDB;
+import com.example.project3android.User.UserDao;
 
 import java.util.List;
 
 public class FriendPostsRepository {
-    private PostDao dao;
-    private FriendPostsRepository.PostListData postListData;
-    private PostAPI api;
+    private UserDao dao;
+    private FriendPostsRepository.FriendPostListData postListData;
+    private FriendPostsAPI api;
     private String userId;
 
     public FriendPostsRepository(String id) {
-        AppDB db = Room.databaseBuilder(MyApplication.context,
-                        AppDB.class, "FeedDB")
+        UserAppDB db = Room.databaseBuilder(MyApplication.context,
+                        UserAppDB.class, "UserDB")
                 .allowMainThreadQueries().build();
-        dao = db.postDao();
-        postListData = new FriendPostsRepository.PostListData();
-        api = new PostAPI(postListData, dao);
+        dao = db.userDao();
+        postListData = new FriendPostsRepository.FriendPostListData();
+        api = new FriendPostsAPI(postListData, dao);
         userId = id;
     }
 
-    class PostListData extends MutableLiveData<List<Post>> {
-        public PostListData() {
+    class FriendPostListData extends MutableLiveData<List<Post>> {
+        public FriendPostListData() {
             super();
         }
 
