@@ -137,4 +137,10 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
         this.nightMode = nightMode;
         notifyDataSetChanged();
     }
+
+    public void editComment(int position, Comment comment) {
+        comments.remove(position);
+        comments.add(position, comment);
+        notifyDataSetChanged();
+    }
 }

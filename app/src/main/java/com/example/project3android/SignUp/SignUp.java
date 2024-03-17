@@ -91,7 +91,7 @@ public class SignUp extends AppCompatActivity {
                     User user = new User(firstName.getText().toString(),
                             lastName.getText().toString(), userName.getText().toString(),
                             password.getText().toString(),
-                            getImageUri(this, selectedBitmap).getPath());
+                            bitmapToString(selectedBitmap));
                     userViewModel.edit(user);
 
                     View popupView = LayoutInflater.from(MyApplication.context).
