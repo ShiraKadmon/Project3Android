@@ -21,11 +21,13 @@ public class PostResponse {
     private String label;
     private int likes_count;
     private int share_count;
+    private List<Comment> comments = new ArrayList<>();
     //private comments;
 
     public PostResponse(String _id, User user_id, String author_image, String author_name,
                         Date created_at, String content, String description, String post_image_url,
-                        String title, String label, int likes_count, int share_count) {
+                        String title, String label, int likes_count, int share_count,
+                        List<Comment> comments) {
         this._id = _id;
         this.user_id = user_id;
         this.author_image = author_image;
@@ -38,6 +40,7 @@ public class PostResponse {
         this.label = label;
         this.likes_count = likes_count;
         this.share_count = share_count;
+        this.comments = comments;
     }
 
     public String get_id() {
@@ -88,6 +91,10 @@ public class PostResponse {
         return share_count;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
     public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
@@ -136,11 +143,15 @@ public class PostResponse {
         this.share_count = share_count;
     }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public Post getPost() {
         return new Post(this._id, this.user_id,
                 this.user_id.getFirstName() + " " +
                 this.user_id.getLastName(), this.content,
                 this.post_image_url, this.created_at.toString(), this.author_image,
-                new ArrayList<>());
+                this.comments);
     }
 }

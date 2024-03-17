@@ -29,6 +29,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import retrofit2.http.HEAD;
+
 
 public class NewPost extends AppCompatActivity {
     private PostsViewModel postsViewModel;
@@ -77,13 +79,15 @@ public class NewPost extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(postText, selectedBitmap)) {
                 // if both username and password are valid - log in
-                String selectedBase64 = getImageUri(this, selectedBitmap).getPath();//bitmapToString(selectedBitmap);
-                String profileBase64 = getImageUri(this, profileImage).getPath();//bitmapToString(profileImage);
+                String pic = getImageUri(this, selectedBitmap).getPath();
+                String profilePic = getImageUri(this, profileImage).getPath();
+                //String selectedBase64 = bitmapToString(selectedBitmap);
+                //String profileBase64 = bitmapToString(profileImage);
 
                 Post newPost = new Post(CurrentUser.getInstance().getCurrentUser(),
                         userName, postText.getText().toString(),
-                        selectedBase64, DateFormat.getDateInstance().format(new Date()),
-                        profileBase64, new ArrayList<>());
+                        pic, DateFormat.getDateInstance().format(new Date()),
+                        profilePic, new ArrayList<>());
 
                 if (getIntent().getSerializableExtra("post") != null) {
                     Post post = (Post) getIntent().getSerializableExtra("post");
