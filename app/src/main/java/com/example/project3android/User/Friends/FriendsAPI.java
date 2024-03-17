@@ -9,7 +9,10 @@ import com.example.project3android.User.API.UserWebServiceAPI;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
+import com.example.project3android.User.UserRepository;
+import com.example.project3android.User.UserResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -43,20 +46,24 @@ public class FriendsAPI {
         webServiceAPI = retrofit.create(UserWebServiceAPI.class);
     }
     public void getFriends() {
-        Call<List<User>> call = webServiceAPI.getUserFriends(
+        Call<List<UserResponse>> call = webServiceAPI.getUserFriends(
                 CurrentUser.getInstance().getCurrentUser().getUsername());
-        call.enqueue(new Callback<List<User>>() {
+        call.enqueue(new Callback<List<UserResponse>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<List<UserResponse>> call,
+                                   Response<List<UserResponse>> response) {
                 new Thread(() -> {
                     //dao.clear();
-                    dao.insert(response.body());
-                    friendsListData.postValue(dao.index());
+                    List<User> friends = new ArrayList<>();
+                    for (UserResponse userResponse : response.body()) {
+                        friends.add(userResponse.getUser());
+                    }
+                    friendsListData.postValue(friends);
                 }).start();
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {}
+            public void onFailure(Call<List<UserResponse>> call, Throwable t) {}
         });
     }
 

@@ -11,6 +11,7 @@ import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
+import com.example.project3android.User.UserResponse;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -44,24 +45,19 @@ public class UserAPI {
         webServiceAPI = retrofit.create(UserWebServiceAPI.class);
     }
     public void get() {
-        Call<User> call = webServiceAPI.getUser(
-                HashMapConverter.getIdHashMap(CurrentUser.getInstance().getId()));
-        call.enqueue(new Callback<User>() {
+        Call<UserResponse> call = webServiceAPI.getUser(
+                CurrentUser.getInstance().getId());
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 new Thread(() -> {
-                    //dao.clear();
-                    dao.insert(response.body());
-                    user.postValue(response.body());
-                    Log.d("USER_API_RESPONSE", response.body().get_id() + " "
-                            + response.body().getFirstName() + " "
-                            + response.body().getLastName() + " "
-                            + response.body().getUsername());
+                    UserResponse userResponse = response.body();
+                    user.postValue(userResponse.getUser());
                 }).start();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e("USER_API_RESPONSE", t.getMessage());
             }
         });

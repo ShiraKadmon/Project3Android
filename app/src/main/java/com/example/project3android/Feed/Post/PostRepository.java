@@ -19,29 +19,20 @@ public class PostRepository {
     public PostRepository() {
         AppDB db = Room.databaseBuilder(MyApplication.context,
                         AppDB.class, "FeedDB")
-                .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2,
-                        AppDB.MIGRATION_2_3).build();
+                .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2).build();
                 //.fallbackToDestructiveMigration().build();
         dao = db.postDao();
-        postListData = new PostListData(this);
+        postListData = new PostListData();
         api = new PostAPI(postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
-        private final PostRepository mRepository;
+        //private final PostRepository mRepository;
 
-        public PostListData(PostRepository repository) {
+        public PostListData() {
             super();
-            this.mRepository = repository;
+            //this.mRepository = repository;
 
-            // Read the JSON file from the raw directory
-            /* InputStream inputStream = MyApplication.context.getResources().openRawResource(R.raw.posts);
-
-            // Convert InputStream to String
-            String jsonString = convertStreamToString(inputStream);
-            PostConverter postConverter = new PostConverter(jsonString);
-            List<Post> posts = postConverter.convertJsonToPostList();
-            //FeedData.getInstance().setPosts(posts); */
             setValue(dao.index());
         }
 

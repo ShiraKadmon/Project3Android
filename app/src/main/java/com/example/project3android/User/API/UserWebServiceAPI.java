@@ -1,9 +1,11 @@
 package com.example.project3android.User.API;
 
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.Post.PostResponse;
 import com.example.project3android.Login.LoginRequest;
 import com.example.project3android.Login.LoginResponse;
 import com.example.project3android.User.User;
+import com.example.project3android.User.UserResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public interface UserWebServiceAPI {
     Call<Void> createUser(@Body HashMap<String, String> body);
 
     @GET("api/users/{id}")
-    Call<User> getUser(@Path("id") HashMap<String, String> id);
+    Call<UserResponse> getUser(@Path("id") String id);
 
     @PUT("api/users/{id}")
     Call<Void> updateUser(@Body HashMap<String, String> body);
@@ -34,10 +36,10 @@ public interface UserWebServiceAPI {
     Call<Void> deleteUser(@Path("id") String username);
 
     @GET("api/users/{id}/posts")
-    Call<List<Post>> getUserPosts(@Path("id") String username);
+    Call<List<PostResponse>> getUserPosts(@Path("id") String username);
 
     @GET("api/users/{id}/friends")
-    Call<List<User>> getUserFriends(@Path("id") String username);
+    Call<List<UserResponse>> getUserFriends(@Path("id") String username);
 
     @POST("api/users/{id}/friends")
     Call<Void> newFriendsRequest(@Path("id") String username);

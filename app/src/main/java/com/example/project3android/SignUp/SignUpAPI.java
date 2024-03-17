@@ -42,7 +42,7 @@ public class SignUpAPI {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         dao.insert(user);
-                        isSucceeded.postValue("Welcome! \n please Login");
+                        isSucceeded.postValue("Welcome! \n Please Login");
                     }).start();
                 } else {
                     if (response.code() == 403) {
