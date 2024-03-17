@@ -4,10 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.project3android.API.TokenInterceptor;
-import com.example.project3android.API.WebServiceAPI;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.Post.API.TokenInterceptor;
 import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
@@ -15,9 +12,6 @@ import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
 import com.example.project3android.User.UserResponse;
-
-import java.util.List;
-import java.util.concurrent.Executors;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;

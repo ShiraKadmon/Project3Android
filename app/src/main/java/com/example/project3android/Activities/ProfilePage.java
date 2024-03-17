@@ -1,29 +1,26 @@
-package com.example.project3android;
+package com.example.project3android.Activities;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.project3android.FriendPosts.FriendPostsRepository;
 import com.example.project3android.FriendPosts.FriendPostsViewModel;
+import com.example.project3android.R;
 import com.example.project3android.User.Friends.FriendsViewModel;
 import com.example.project3android.User.User;
-import com.example.project3android.User.UserViewModel;
 
 import java.util.List;
-import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.User.CurrentUser;
-import com.example.project3android.User.UserViewModel;
 
 public class ProfilePage extends AppCompatActivity {
     private PostListAdapter adapter;
@@ -49,6 +46,9 @@ public class ProfilePage extends AppCompatActivity {
 
         ImageView ivProfileImage = findViewById(R.id.profileImageProfilePage);
         ivProfileImage.setImageBitmap(user.getBitmapProfileImage());
+
+        ImageButton closeBtn = findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(v -> finish());
 
         if (friends.contains(user)) {
             RecyclerView lstPosts = findViewById(R.id.lstPosts);

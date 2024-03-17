@@ -1,22 +1,14 @@
-package com.example.project3android.Repositories;
-
-import android.os.AsyncTask;
+package com.example.project3android.Feed.Post;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.example.project3android.API.PostAPI;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.Post.API.PostAPI;
 import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class PostRepository {

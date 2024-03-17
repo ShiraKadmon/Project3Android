@@ -26,7 +26,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Image.GetImageFromUser;
-import com.example.project3android.MainActivity;
+import com.example.project3android.Activities.MainActivity;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;

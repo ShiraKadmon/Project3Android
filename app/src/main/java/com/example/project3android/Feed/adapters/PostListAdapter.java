@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.Feed;
+import com.example.project3android.Activities.Feed;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -29,7 +29,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
-        private final ImageButton profilePic;
+        private final ImageView profilePic;
         private final TextView tvAuthor;
         private final TextView date;
         private final TextView tvContent;

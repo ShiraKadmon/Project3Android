@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
 
@@ -18,9 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
 import java.text.DateFormat;
@@ -82,8 +83,11 @@ public class NewPost extends AppCompatActivity {
                         userName, postText.getText().toString(),
                         selectedBase64, DateFormat.getDateInstance().format(new Date()),
                         profileBase64, new ArrayList<>());
-               
+
                 if (getIntent().getSerializableExtra("post") != null) {
+                    Post post = (Post) getIntent().getSerializableExtra("post");
+                    newPost.setPostId(post.getPostId());
+                    newPost.setAuthor_image(post.getAuthor_image());
                     postsViewModel.update(newPost);
                 } else {
                     postsViewModel.add(newPost);

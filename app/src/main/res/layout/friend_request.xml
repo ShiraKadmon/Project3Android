@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/friendRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/profile"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="@string/profile_picture"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/user_name"
+            android:textSize="30sp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/approve"
+            style="@style/btn_sToFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/approve"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

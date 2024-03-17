@@ -1,4 +1,4 @@
-package com.example.project3android.API;
+package com.example.project3android.Feed.Post.API;
 
 import android.util.Log;
 
@@ -10,13 +10,10 @@ import com.example.project3android.Feed.Post.PostResponse;
 import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
-import com.example.project3android.Repositories.PostRepository;
 import com.example.project3android.User.CurrentUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;

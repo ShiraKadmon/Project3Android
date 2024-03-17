@@ -2,9 +2,7 @@ package com.example.project3android.User.Friends;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.project3android.API.TokenInterceptor;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostResponse;
+import com.example.project3android.Feed.Post.API.TokenInterceptor;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.API.UserWebServiceAPI;
@@ -108,6 +106,22 @@ public class FriendsAPI {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure
+            }
+        });
+    }
+
+    public void approve(String userId, String fId) {
+        Call<Void> call = webServiceAPI.approveRequest(userId, fId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
             }
         });
     }

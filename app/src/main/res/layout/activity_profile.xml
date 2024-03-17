@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilePage"
+    tools:context=".Activities.ProfilePage"
     android:orientation="vertical">
 
 
@@ -55,13 +55,14 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/close_tag_new_post"
+        <ImageButton
+            android:id="@+id/closeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/close_tag"
-            app:srcCompat="@drawable/close_tag" />
+            app:srcCompat="@drawable/close_tag"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
     <LinearLayout
