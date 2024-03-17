@@ -1,6 +1,7 @@
 package com.example.project3android.Activities;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,18 +25,17 @@ public class NotificationsActivity extends AppCompatActivity {
     private FriendsViewModel friendsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notifications);
 
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
 
         FriendsRequestListAdapter adapter = new FriendsRequestListAdapter(this);
         List<FriendsRequest> friendsRequests = new ArrayList<>();
-        RecyclerView lstPosts = findViewById(R.id.lstFriendsRequest);
-        lstPosts.setAdapter(adapter);
-        lstPosts.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView lstFriendsRequest = findViewById(R.id.lstFriendsRequest);
+        lstFriendsRequest.setAdapter(adapter);
+        lstFriendsRequest.setLayoutManager(new LinearLayoutManager(this));
         adapter.setFriendsRequests(friendsRequests);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
 
         String fullName = CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
                 CurrentUser.getInstance().getCurrentUser().getLastName();
@@ -49,6 +49,9 @@ public class NotificationsActivity extends AppCompatActivity {
 
         ImageButton closeBtn = findViewById(R.id.closeBtn);
         closeBtn.setOnClickListener(v -> finish());
+
+        Button homeBtn = findViewById(R.id.home);
+        homeBtn.setOnClickListener(v -> finish());
     }
 
     public void approve(FriendsRequest request) {

@@ -1,6 +1,7 @@
 package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
+import static com.example.project3android.Image.BitMapClass.getImageUri;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -76,8 +77,8 @@ public class NewPost extends AppCompatActivity {
             // check input validity before logging in
             if (checkContentDetails(postText, selectedBitmap)) {
                 // if both username and password are valid - log in
-                String selectedBase64 = bitmapToString(selectedBitmap);
-                String profileBase64 = bitmapToString(profileImage);
+                String selectedBase64 = getImageUri(this, selectedBitmap).getPath();//bitmapToString(selectedBitmap);
+                String profileBase64 = getImageUri(this, profileImage).getPath();//bitmapToString(profileImage);
 
                 Post newPost = new Post(CurrentUser.getInstance().getCurrentUser(),
                         userName, postText.getText().toString(),
