@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
 
@@ -18,9 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
 import java.text.DateFormat;

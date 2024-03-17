@@ -1,10 +1,8 @@
-package com.example.project3android.Feed;
+package com.example.project3android.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,35 +18,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.project3android.API.PostAPI;
-import com.example.project3android.Feed.Comments;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
-import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.MyApplication;
-import com.example.project3android.NewPost;
-import com.example.project3android.NotificationsActivity;
-import com.example.project3android.ProfilePage;
 import com.example.project3android.R;
 import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
-
-import java.io.InputStream;
-import java.util.List;
-import java.util.Scanner;
 
 public class Feed extends AppCompatActivity {
     private Activity currentActivity;

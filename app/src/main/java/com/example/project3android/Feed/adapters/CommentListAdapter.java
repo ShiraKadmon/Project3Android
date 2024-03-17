@@ -2,24 +2,16 @@ package com.example.project3android.Feed.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3android.Feed.Comment;
-import com.example.project3android.Feed.Comments;
-import com.example.project3android.Feed.Feed;
+import com.example.project3android.Activities.Comments;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 

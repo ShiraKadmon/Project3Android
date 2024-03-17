@@ -1,4 +1,4 @@
-package com.example.project3android.Feed;
+package com.example.project3android.Activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -23,14 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project3android.Feed.Comment;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Feed.adapters.CommentListAdapter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Comments extends AppCompatActivity {

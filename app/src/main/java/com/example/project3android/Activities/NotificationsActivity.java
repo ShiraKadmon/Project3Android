@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Activities;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.FriendsRequest.FriendsRequest;
 import com.example.project3android.FriendsRequest.FriendsRequestListAdapter;
+import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.Friends.FriendsViewModel;
 

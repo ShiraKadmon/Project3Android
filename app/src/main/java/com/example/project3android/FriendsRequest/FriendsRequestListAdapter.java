@@ -11,10 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.Feed;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.adapters.PostListAdapter;
-import com.example.project3android.NotificationsActivity;
+import com.example.project3android.Activities.NotificationsActivity;
 import com.example.project3android.R;
 
 import java.io.Serializable;
