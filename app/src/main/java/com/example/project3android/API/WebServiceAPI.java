@@ -20,10 +20,11 @@ public interface WebServiceAPI {
     Call<List<PostResponse>> getPosts();
 
     @POST("api/users/{id}/posts")
-    Call<Void> createPost(@Body Post post);
+    Call<Void> createPost(@Body PostResponse postResponse);
 
     @PUT("api/users/{id}/posts/{pid}")
-    Call<Void> updatePost(@Path("id") String username, @Path("pid") String pid);
+    Call<Void> updatePost(@Path("id") String username, @Path("pid") String pid,
+                          @Body PostResponse postResponse);
 
     @DELETE("api/users/{id}/posts/{pid}")
     Call<Void> deletePost(@Path("id") String username, @Path("pid") String pid);

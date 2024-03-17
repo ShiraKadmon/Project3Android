@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
 import com.example.project3android.Feed.Post.PostResponse;
+import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.Repositories.PostRepository;
@@ -55,15 +56,6 @@ public class PostAPI {
         Call<List<PostResponse>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<PostResponse>>() {
             @Override
-            /*public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                new Thread(() -> {
-                    // Log the response body
-                    Log.d("POST_API_RESPONSE", String.valueOf(response.body()));
-                    //dao.clear();
-                    dao.insert(response.body());
-                    postListData.postValue(dao.index());
-                }).start();
-            }*/
             public void onResponse(Call<List<PostResponse>> call,
                                    Response<List<PostResponse>> response) {
                 if (response.isSuccessful()) {
@@ -96,7 +88,9 @@ public class PostAPI {
 
     public void add(Post post) {
         // dao.insert(post);
-        Call<Void> call = webServiceAPI.createPost(post);
+        //Call<Void> call = webServiceAPI.createPost(post);
+        Call<Void> call = webServiceAPI.createPost(post.getPostResponse());
+        //Call<Void> call = webServiceAPI.createPost(HashMapConverter.getIdHashMap(post));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -143,12 +137,13 @@ public class PostAPI {
 
     public void update(Post post) {
         Call<Void> call = webServiceAPI.updatePost(
-                CurrentUser.getInstance().getId(), post.getPostId());
+                CurrentUser.getInstance().getId(), post.getPostId(), post.getPostResponse());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
+                        //response.body().setUser()
                         dao.update(post);
                         postListData.postValue(dao.index());
                     }).start();

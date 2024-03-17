@@ -12,6 +12,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
 import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -20,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -321,5 +323,12 @@ public class Post implements Serializable {
         List<Comment> commentsList = getComments();
         commentsList.get(position).setComment(text);
         setComments(commentsList);
+    }
+
+    public PostResponse getPostResponse() {
+        Date date = new Date(this.date);
+        return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
+                this.author_image, this.author_name, date, this.content, "",
+                this.pic, this.title, "", this.likes_count, this.share_count);
     }
 }
