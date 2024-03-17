@@ -1,3 +1,4 @@
+/*
 package com.example.project3android.User.Data;
 
 import androidx.room.Dao;
@@ -12,4 +13,4 @@ import com.example.project3android.User.UserDao;
 @Database(entities = {User.class}, version = 1)
 public abstract class UsersAppDB extends RoomDatabase {
     public abstract UserDao userDao();
-}
+}*/

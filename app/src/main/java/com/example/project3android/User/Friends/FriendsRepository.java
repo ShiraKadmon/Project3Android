@@ -20,9 +20,10 @@ public class FriendsRepository {
     public FriendsRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
                         UserAppDB.class, "UsersDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                .allowMainThreadQueries()
+                .addMigrations(UserAppDB.MIGRATION_1_2).build();
         dao = db.userDao();
-        friendsListData = new FriendsRepository().friendsListData;
+        friendsListData = new FriendsRepository.FriendsListData();
         api = new FriendsAPI(friendsListData, dao);
     }
 
