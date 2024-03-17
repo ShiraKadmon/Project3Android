@@ -15,6 +15,7 @@ import com.example.project3android.R;
 import com.example.project3android.User.Friends.FriendsViewModel;
 import com.example.project3android.User.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,7 +28,7 @@ public class ProfilePage extends AppCompatActivity {
     private PostListAdapter adapter;
     private FriendPostsViewModel friendPostsViewModel;
     private FriendsViewModel friendsViewModel;
-    private List<User> friends;
+    private List<User> friends = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +68,10 @@ public class ProfilePage extends AppCompatActivity {
         else {
             Button friendship = findViewById(R.id.friendshipStatus);
             friendship.setText(R.string.ask_friendship);
-            friendship.setOnClickListener(v -> friendsViewModel.add(user.get_id()));
-            friendship.setText(R.string.asking_friendship);
+            friendship.setOnClickListener(v -> {
+                friendsViewModel.add(user.get_id());
+                friendship.setText(R.string.asking_friendship);
+            });
         }
 
     }

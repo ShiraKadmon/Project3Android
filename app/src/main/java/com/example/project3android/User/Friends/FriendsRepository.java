@@ -37,7 +37,7 @@ public class FriendsRepository {
         protected void onActive() {
             super.onActive();
 
-            new Thread(() -> friendsListData.setValue(dao.index())).start();
+            //new Thread(() -> friendsListData.setValue(dao.index())).start();
             api.getFriends();
         }
     }

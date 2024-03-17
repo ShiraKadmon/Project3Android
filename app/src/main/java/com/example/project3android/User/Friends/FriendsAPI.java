@@ -47,7 +47,7 @@ public class FriendsAPI {
     }
     public void getFriends() {
         Call<List<UserResponse>> call = webServiceAPI.getUserFriends(
-                CurrentUser.getInstance().getCurrentUser().getUsername());
+                CurrentUser.getInstance().getId());
         call.enqueue(new Callback<List<UserResponse>>() {
             @Override
             public void onResponse(Call<List<UserResponse>> call,

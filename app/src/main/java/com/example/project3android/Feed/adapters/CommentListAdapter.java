@@ -98,6 +98,12 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
         notifyDataSetChanged();
     }
 
+    // add comment
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        notifyDataSetChanged();
+    }
+
     // get the number of the comments
     @Override
     public int getItemCount() {

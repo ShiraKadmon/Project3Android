@@ -138,8 +138,8 @@ public class PostResponse {
 
     public Post getPost() {
         return new Post(this._id, this.user_id,
-                CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
-                CurrentUser.getInstance().getCurrentUser().getLastName(), this.content,
+                this.user_id.getFirstName() + " " +
+                this.user_id.getLastName(), this.content,
                 this.post_image_url, this.created_at.toString(), this.author_image,
                 new ArrayList<>());
     }
