@@ -59,5 +59,9 @@
     <string name="asking_friendship">"Asking for Friendship..."</string>
     <string name="delete_my_user">Delete My User</string>
     <string name="edit_my_user">Edit My User</string>
+    <string name="friends_requests">Friends Requests</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="user_name">user name</string>
+    <string name="approve">Approve</string>
 
 </resources>

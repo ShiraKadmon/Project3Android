@@ -30,4 +30,8 @@ public class FriendsViewModel extends ViewModel {
         repository.add(userId);
     }
 
+    public void approve(String userId, String fId) {
+        repository.approve(userId, fId);
+    }
+
 }

@@ -56,4 +56,8 @@ public class FriendsRepository {
         api.add(userId);
     }
 
+    public void approve(String userId, String fId) {
+        api.approve(userId, fId);
+    }
+
 }

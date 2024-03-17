@@ -38,6 +38,7 @@ import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.Feed.data.PostConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.NewPost;
+import com.example.project3android.NotificationsActivity;
 import com.example.project3android.ProfilePage;
 import com.example.project3android.R;
 import com.example.project3android.SignUp.SignUp;
@@ -165,6 +166,14 @@ public class Feed extends AppCompatActivity {
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             postViewModel.reload();
+            refreshLayout.setRefreshing(false);
+        });
+
+        //friends request
+        Button notificationBtn = findViewById(R.id.notifications);
+        notificationBtn.setOnClickListener(v -> {
+            Intent i = new Intent(this, NotificationsActivity.class);
+            startActivity(i);
         });
     }
 

@@ -29,7 +29,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
-        private final ImageButton profilePic;
+        private final ImageView profilePic;
         private final TextView tvAuthor;
         private final TextView date;
         private final TextView tvContent;

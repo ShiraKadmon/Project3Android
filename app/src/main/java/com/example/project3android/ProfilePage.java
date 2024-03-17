@@ -2,6 +2,7 @@ package com.example.project3android;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +50,9 @@ public class ProfilePage extends AppCompatActivity {
 
         ImageView ivProfileImage = findViewById(R.id.profileImageProfilePage);
         ivProfileImage.setImageBitmap(user.getBitmapProfileImage());
+
+        ImageButton closeBtn = findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(v -> finish());
 
         if (friends.contains(user)) {
             RecyclerView lstPosts = findViewById(R.id.lstPosts);

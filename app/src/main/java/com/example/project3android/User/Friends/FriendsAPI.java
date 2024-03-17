@@ -103,4 +103,20 @@ public class FriendsAPI {
             }
         });
     }
+
+    public void approve(String userId, String fId) {
+        Call<Void> call = webServiceAPI.approveRequest(userId, fId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
 }
