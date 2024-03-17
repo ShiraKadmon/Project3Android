@@ -136,7 +136,7 @@ public class Comments extends AppCompatActivity {
         });
     }
 
-    public void editComment(View v, int position) {
+    public void editComment(View v, int position, Comment comment) {
         isEditing = true;
         // Create and show the share popup window
         View popupView = LayoutInflater.from(MyApplication.context).
@@ -181,6 +181,8 @@ public class Comments extends AppCompatActivity {
             String commentText = editText.getText().toString();
             if (!commentText.isEmpty()) {
                 // Set the comment text
+                comment.setComment(commentText);
+                commentsAdapter.editComment(position, comment);
                 post.editComment(position, commentText);
                 // Dismiss the popup window
                 popupWindow.dismiss();

@@ -177,4 +177,11 @@ public class BitMapClass {
         }
         return bitmap;
     }
+
+    public static Bitmap base64ToBitmap(String base64) {
+        byte[] decodeString = Base64.decode(base64, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodeString,
+                0, decodeString.length);
+        return decodedByte;
+    }
 }
