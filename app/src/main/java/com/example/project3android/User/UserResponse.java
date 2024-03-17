@@ -1,10 +1,12 @@
 package com.example.project3android.User;
 
+import com.example.project3android.FriendsRequest.FriendshipStatus;
+
 public class UserResponse {
     private User user;
-    private String friendshipStatus;
+    private FriendshipStatus friendshipStatus;
 
-    public UserResponse(User user, String friendshipStatus) {
+    public UserResponse(User user, FriendshipStatus friendshipStatus) {
         this.user = user;
         this.friendshipStatus = friendshipStatus;
     }
@@ -13,7 +15,7 @@ public class UserResponse {
         return user;
     }
 
-    public String getFriendshipStatus() {
+    public FriendshipStatus getFriendshipStatus() {
         return friendshipStatus;
     }
 
@@ -21,7 +23,7 @@ public class UserResponse {
         this.user = user;
     }
 
-    public void setFriendshipStatus(String friendshipStatus) {
+    public void setFriendshipStatus(FriendshipStatus friendshipStatus) {
         this.friendshipStatus = friendshipStatus;
     }
 }

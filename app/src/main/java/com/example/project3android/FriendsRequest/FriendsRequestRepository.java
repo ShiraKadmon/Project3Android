@@ -1,33 +1,38 @@
-package com.example.project3android.User;
+package com.example.project3android.FriendsRequest;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.FriendPosts.FriendId;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.API.UserAPI;
+import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.Data.UserAppDB;
+import com.example.project3android.User.UserDao;
+import com.example.project3android.User.UserRepository;
+import com.example.project3android.User.UserResponse;
 
-public class UserRepository {
+public class FriendsRequestRepository {
+
     private UserDao dao;
-    private UserRepository.UserData userData;
-    private UserAPI api;
+    private FriendsRequestRepository.UserData userData;
+    private FriendsRequestAPI api;
 
-    public UserRepository() {
+    public FriendsRequestRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
                         UserAppDB.class, "UsersDB")
                 .allowMainThreadQueries().addMigrations(UserAppDB.MIGRATION_1_2).build();
         dao = db.userDao();
-        userData = new UserRepository.UserData();
-        api = new UserAPI(userData, dao);
+        userData = new FriendsRequestRepository.UserData();
+        api = new FriendsRequestAPI(userData);
     }
 
     class UserData extends MutableLiveData<UserResponse> {
         public UserData() {
             super();
 
-            setValue(dao.get(CurrentUser.getInstance().getId()));
+            setValue(dao.get(FriendId.getInstance().getfId()));
         }
 
         @Override
@@ -35,7 +40,7 @@ public class UserRepository {
             super.onActive();
 
             new Thread(() -> {
-                userData.postValue(dao.get(CurrentUser.getInstance().getId()));
+                userData.postValue(dao.get(FriendId.getInstance().getfId()));
                 api.get();
             }).start();
         }
@@ -43,13 +48,4 @@ public class UserRepository {
     public LiveData<UserResponse> get() {
         return userData;
     }
-
-    public void delete() {
-        api.delete();
-    }
-
-    public void edit(User user) {
-        api.update(user);
-    }
-
 }

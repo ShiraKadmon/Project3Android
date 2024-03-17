@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.FriendsRequest.FriendsRequest;
 import com.example.project3android.FriendsRequest.FriendsRequestListAdapter;
+import com.example.project3android.FriendsRequest.FriendsRequestViewModel;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.Friends.FriendsViewModel;
@@ -23,12 +24,14 @@ import java.util.List;
 
 public class NotificationsActivity extends AppCompatActivity {
     private FriendsViewModel friendsViewModel;
+    private FriendsRequestViewModel requestViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
+        requestViewModel = new ViewModelProvider(this).get(FriendsRequestViewModel.class);
 
         FriendsRequestListAdapter adapter = new FriendsRequestListAdapter(this);
         List<FriendsRequest> friendsRequests = new ArrayList<>();

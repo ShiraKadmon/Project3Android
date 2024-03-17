@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 public class UserViewModel extends ViewModel {
     private UserRepository repository;
-    private LiveData<User> user;
+    private LiveData<UserResponse> user;
 
 
     public UserViewModel() {
@@ -13,7 +13,7 @@ public class UserViewModel extends ViewModel {
         this.user = repository.get();
     }
 
-    public LiveData<User> getUser() {
+    public LiveData<UserResponse> getUser() {
         return user;
     }
 
