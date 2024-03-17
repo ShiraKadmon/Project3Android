@@ -79,9 +79,11 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
                 holder.deleteComment.setEnabled(true);
 
                 holder.editComment.setOnClickListener(v -> {
-                    context.editComment(v, position);
+                    context.editComment(v, position, current);
+                    notifyDataSetChanged();
                 });
                 holder.deleteComment.setOnClickListener(v -> {
+                    comments.remove(position);
                     context.deleteComment(current);
                     notifyDataSetChanged();
                 });
@@ -101,6 +103,12 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
     // add comment
     public void addComment(Comment comment){
         comments.add(comment);
+        notifyDataSetChanged();
+    }
+
+    public void editComment(int position, Comment comment) {
+        comments.remove(position);
+        comments.add(position, comment);
         notifyDataSetChanged();
     }
 
