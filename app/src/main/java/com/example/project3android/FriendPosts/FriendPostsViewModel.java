@@ -11,8 +11,8 @@ public class FriendPostsViewModel extends ViewModel {
     private FriendPostsRepository mRepository;
     private LiveData<List<Post>> posts;
 
-    public FriendPostsViewModel(String id) {
-        this.mRepository = new FriendPostsRepository(id);
+    public FriendPostsViewModel() {
+        this.mRepository = new FriendPostsRepository();
         this.posts = mRepository.getAll();
     }
 

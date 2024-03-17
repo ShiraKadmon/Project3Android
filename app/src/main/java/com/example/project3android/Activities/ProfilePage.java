@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.project3android.FriendPosts.FriendId;
 import com.example.project3android.FriendPosts.FriendPostsViewModel;
 import com.example.project3android.R;
 import com.example.project3android.User.Friends.FriendsViewModel;
@@ -34,6 +35,7 @@ public class ProfilePage extends AppCompatActivity {
 
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         User user = (User) getIntent().getSerializableExtra("user");
+        FriendId.getInstance().setfId(user.get_id());
 
         friendsViewModel.getFriends().observe(this, users -> friends = users);
 

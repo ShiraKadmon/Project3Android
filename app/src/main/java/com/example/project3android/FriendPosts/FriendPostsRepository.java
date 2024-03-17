@@ -21,14 +21,14 @@ public class FriendPostsRepository {
     private FriendPostsAPI api;
     private String userId;
 
-    public FriendPostsRepository(String id) {
+    public FriendPostsRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
                         UserAppDB.class, "UserDB")
                 .allowMainThreadQueries().build();
         dao = db.userDao();
         postListData = new FriendPostsRepository.FriendPostListData();
         api = new FriendPostsAPI(postListData, dao);
-        userId = id;
+        userId = FriendId.getInstance().getfId();
     }
 
     class FriendPostListData extends MutableLiveData<List<Post>> {
