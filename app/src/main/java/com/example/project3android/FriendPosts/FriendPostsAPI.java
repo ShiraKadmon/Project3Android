@@ -8,6 +8,7 @@ import com.example.project3android.API.TokenInterceptor;
 import com.example.project3android.API.WebServiceAPI;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.Post.PostResponse;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -46,10 +47,11 @@ public class FriendPostsAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
     public void get() {
-        Call<List<Post>> call = webServiceAPI.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
+        Call<List<PostResponse>> call = webServiceAPI.getPosts();
+        call.enqueue(new Callback<List<PostResponse>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<PostResponse>> call,
+                                   Response<List<PostResponse>> response) {
                 if (response.isSuccessful()) {
                     // Log the response body
 
@@ -62,7 +64,7 @@ public class FriendPostsAPI {
                 }
             }
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<PostResponse>> call, Throwable t) {
                 // Log the error message
                 Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }

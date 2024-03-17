@@ -3,6 +3,7 @@ package com.example.project3android.API;
 import androidx.room.Delete;
 
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.Post.PostResponse;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface WebServiceAPI {
     @GET("api/posts")
-    Call<List<Post>> getPosts();
+    Call<List<PostResponse>> getPosts();
 
     @POST("api/users/{id}/posts")
     Call<Void> createPost(@Body Post post);
@@ -28,5 +29,5 @@ public interface WebServiceAPI {
     Call<Void> deletePost(@Path("id") String username, @Path("pid") String pid);
 
     @GET("api/users/{id}/posts")
-    Call<List<Post>> getUserPosts(@Path("id") String userId);
+    Call<List<PostResponse>> getUserPosts(@Path("id") String userId);
 }

@@ -165,6 +165,7 @@ public class Feed extends AppCompatActivity {
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             postViewModel.reload();
+            refreshLayout.setRefreshing(false);
         });
     }
 

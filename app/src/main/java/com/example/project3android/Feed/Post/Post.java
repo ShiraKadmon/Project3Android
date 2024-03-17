@@ -14,6 +14,7 @@ import com.example.project3android.Feed.Comment;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.User.User;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
@@ -33,7 +34,8 @@ public class Post implements Serializable {
     private String title;
     private int likes_count;
     private int share_count;
-    private String commentsJson; // Store comments as JSON string
+    //@SerializedName("comments")
+    private String commentsJson;
     private String postId;
     private String date;
     private boolean isLiked;
@@ -50,6 +52,23 @@ public class Post implements Serializable {
         this.title = null;
         this.likes_count = 0;
         this.commentsSize = 0;
+        this.isLiked = false;
+    }
+
+    public Post(String id, User user, String author, String content, String pic, String date,
+                String profilePic, List<Comment> comments) {
+        this.postId = id;
+        setUser(user);
+        this.author_name = author;
+        this.content = content;
+        this.pic = pic;
+        this.title = author;
+        this.likes_count = 0;
+        this.share_count = 0;
+        this.date = date;
+        this.author_image = profilePic;
+        setComments(comments);
+        this.commentsSize = comments.size();
         this.isLiked = false;
     }
 
