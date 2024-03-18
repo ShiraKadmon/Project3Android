@@ -84,11 +84,8 @@ public class PostAPI {
     }
 
     public void add(Post post) {
-        // dao.insert(post);
-        //Call<Void> call = webServiceAPI.createPost(post);
         Call<Void> call = webServiceAPI.createPost(CurrentUser.getInstance().getId(),
                 post.getPostResponse());
-        //Call<Void> call = webServiceAPI.createPost(HashMapConverter.getIdHashMap(post));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -158,22 +155,17 @@ public class PostAPI {
     }
 
     public void getUserPost(String id) {
-        Call<List<PostResponse>> call = webServiceAPI.getUserPosts(id);
-        call.enqueue(new Callback<List<PostResponse>>() {
+        Call<List<Post>> call = webServiceAPI.getUserPosts(id);
+        call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<List<PostResponse>> call,
-                                   Response<List<PostResponse>> response) {
+            public void onResponse(Call<List<Post>> call,
+                                   Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     // Log the response body
 
                     new Thread(() -> {
                         //dao.clear();
-                        dao.clear();
-                        List<Post> posts = new ArrayList<>();
-                        for (PostResponse postResponse : response.body()) {
-                            posts.add(postResponse.getPost());
-                        }
-                        dao.insert(posts);
+                        dao.insert(response.body());
                         postListData.postValue(dao.index());
                         Log.d("POST_API_RESPONSE", String.valueOf(response.body())
                                 + " " + response.body().toString());
@@ -185,7 +177,7 @@ public class PostAPI {
                 }
             }
             @Override
-            public void onFailure(Call<List<PostResponse>> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 // Log the error message
                 Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }

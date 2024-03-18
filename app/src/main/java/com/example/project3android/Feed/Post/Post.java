@@ -34,18 +34,28 @@ public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String userJson;
-    private String author_image;
-    private String author_name;
-    private String content;
-    private String title;
-    private int likes_count;
-    private int share_count;
+
+    private int commentsSize;
     //@SerializedName("comments")
     private String commentsJson;
+    @SerializedName("author_image")
+    private String author_image;
+    @SerializedName("author_name")
+    private String author_name;
+    @SerializedName("content")
+    private String content;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("likes_count")
+    private int likes_count;
+    @SerializedName("share_count")
+    private int share_count;
+    @SerializedName("_id")
     private String postId;
+    @SerializedName("created_at")
     private String date;
     private boolean isLiked;
-    private int commentsSize;
+    @SerializedName("post_image_url")
     private String pic;
 
     public Post(){

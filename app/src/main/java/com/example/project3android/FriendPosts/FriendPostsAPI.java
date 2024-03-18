@@ -49,20 +49,16 @@ public class FriendPostsAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
     public void getUserPost(String fid) {
-        Call<List<PostResponse>> call = webServiceAPI.getUserPosts(fid);
-        call.enqueue(new Callback<List<PostResponse>>() {
+        Call<List<Post>> call = webServiceAPI.getUserPosts(fid);
+        call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<List<PostResponse>> call,
-                                   Response<List<PostResponse>> response) {
+            public void onResponse(Call<List<Post>> call,
+                                   Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     // Log the response body
 
                     new Thread(() -> {
-                        List<Post> posts = new ArrayList<>();
-                        for (PostResponse postResponse : response.body()) {
-                            posts.add(postResponse.getPost());
-                        }
-                        postListData.postValue(posts);
+                        postListData.postValue(response.body());
                         Log.d("POST_API_RESPONSE", String.valueOf(response.body())
                                 + " " + response.body().toString());
 
@@ -73,7 +69,7 @@ public class FriendPostsAPI {
                 }
             }
             @Override
-            public void onFailure(Call<List<PostResponse>> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 // Log the error message
                 Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }

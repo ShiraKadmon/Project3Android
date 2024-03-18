@@ -36,7 +36,8 @@ public class Comment implements Serializable {
     }
 
     public String getName() {
-        return "John Doe";
+        return this.user_id.getFirstName() + " " +
+                this.user_id.getLastName();
     }
 
     public String getComment() {

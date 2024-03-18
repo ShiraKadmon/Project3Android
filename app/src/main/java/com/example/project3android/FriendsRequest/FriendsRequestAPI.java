@@ -44,20 +44,36 @@ public class FriendsRequestAPI {
         webServiceAPI = retrofit.create(UserWebServiceAPI.class);
     }
     public void get() {
+        Log.d("FRIEND_API", "before call");
         Call<UserResponse> call = webServiceAPI.getUser(
                 FriendId.getInstance().getfId());
+        Log.d("FRIEND_API", "after call");
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                new Thread(() -> {
-                    UserResponse userResponse = response.body();
-                    user.postValue(userResponse);
-                }).start();
+                if (response.isSuccessful()) {
+                    Log.e("FRIEND_API_RESPONSE", "response is successful");
+                    new Thread(() -> {
+                        //Log.d("FRIEND_API_RESPONSE", response.body().getFriendshipStatus().getStatus());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().get_id());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().getFirstName());
+                        UserResponse userResponse = response.body();
+                        //Log.d("FRIEND_API_RESPONSE", response.body().getFriendshipStatus().getStatus());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().get_id());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().getFirstName());
+                        user.postValue(userResponse);
+                        //Log.d("FRIEND_API_RESPONSE", response.body().getFriendshipStatus().getStatus());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().get_id());
+                        Log.d("FRIEND_API_RESPONSE", response.body().getUser().getFirstName());
+                    }).start();
+                } else {
+                    Log.e("FRIEND_API_RESPONSE", "response not successful");
+                }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Log.e("USER_API_RESPONSE", t.getMessage());
+                Log.e("FRIEND_API_RESPONSE", t.getMessage());
             }
         });
     }

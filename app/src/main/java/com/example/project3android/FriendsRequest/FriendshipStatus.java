@@ -1,17 +1,28 @@
 package com.example.project3android.FriendsRequest;
 
-public class FriendshipStatus {
-    private int fid;
-    private String user_id;
-    private String friend_id;
-    private String status;
-    private String f_id;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public FriendshipStatus(String user_id, String friend_id, String status, String f_id) {
+import com.google.gson.annotations.SerializedName;
+
+@Entity
+public class FriendshipStatus {
+    @PrimaryKey(autoGenerate = true)
+    private int fid;
+    @SerializedName("user_id")
+    private String user_id;
+    @SerializedName("friend_id")
+    private String friend_id;
+    @SerializedName("status")
+    private String status;
+    //@SerializedName("f_id")
+    //private String f_id;
+
+    public FriendshipStatus(String user_id, String friend_id, String status) {
         this.user_id = user_id;
         this.friend_id = friend_id;
         this.status = status;
-        this.f_id = f_id;
+        //this.f_id = f_id;
     }
 
     public int getFid() {
@@ -30,9 +41,9 @@ public class FriendshipStatus {
         return status;
     }
 
-    public String getF_id() {
+    /*public String getF_id() {
         return f_id;
-    }
+    }*/
 
     public void setFid(int id) {
         this.fid = id;
@@ -50,7 +61,7 @@ public class FriendshipStatus {
         this.status = status;
     }
 
-    public void setF_id(String _id) {
+    /*public void setF_id(String _id) {
         this.f_id = _id;
-    }
+    }*/
 }

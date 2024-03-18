@@ -30,5 +30,5 @@ public interface WebServiceAPI {
     Call<Void> deletePost(@Path("id") String username, @Path("pid") String pid);
 
     @GET("api/users/{id}/posts")
-    Call<List<PostResponse>> getUserPosts(@Path("id") String userId);
+    Call<List<Post>> getUserPosts(@Path("id") String userId);
 }
