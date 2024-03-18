@@ -1,21 +1,21 @@
 package com.example.project3android.FriendsRequest;
 
 public class FriendshipStatus {
-    private int id;
+    private int fid;
     private String user_id;
     private String friend_id;
     private String status;
-    private String _id;
+    private String f_id;
 
-    public FriendshipStatus(String user_id, String friend_id, String status, String _id) {
+    public FriendshipStatus(String user_id, String friend_id, String status, String f_id) {
         this.user_id = user_id;
         this.friend_id = friend_id;
         this.status = status;
-        this._id = _id;
+        this.f_id = f_id;
     }
 
-    public int getId() {
-        return id;
+    public int getFid() {
+        return fid;
     }
 
     public String getUser_id() {
@@ -30,12 +30,12 @@ public class FriendshipStatus {
         return status;
     }
 
-    public String get_id() {
-        return _id;
+    public String getF_id() {
+        return f_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFid(int id) {
+        this.fid = id;
     }
 
     public void setUser_id(String user_id) {
@@ -50,7 +50,7 @@ public class FriendshipStatus {
         this.status = status;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setF_id(String _id) {
+        this.f_id = _id;
     }
 }

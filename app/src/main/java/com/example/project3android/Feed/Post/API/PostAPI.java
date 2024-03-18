@@ -86,7 +86,8 @@ public class PostAPI {
     public void add(Post post) {
         // dao.insert(post);
         //Call<Void> call = webServiceAPI.createPost(post);
-        Call<Void> call = webServiceAPI.createPost(post.getPostResponse());
+        Call<Void> call = webServiceAPI.createPost(CurrentUser.getInstance().getId(),
+                post.getPostResponse());
         //Call<Void> call = webServiceAPI.createPost(HashMapConverter.getIdHashMap(post));
         call.enqueue(new Callback<Void>() {
             @Override

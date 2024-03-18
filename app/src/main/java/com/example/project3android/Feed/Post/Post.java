@@ -7,6 +7,7 @@ import static com.example.project3android.Image.BitMapClass.loadImageAsync;
 import android.graphics.Bitmap;
 import android.widget.Button;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
