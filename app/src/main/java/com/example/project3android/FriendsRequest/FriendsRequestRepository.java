@@ -1,5 +1,6 @@
 package com.example.project3android.FriendsRequest;
 
+
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -8,11 +9,8 @@ import androidx.room.Room;
 
 import com.example.project3android.FriendPosts.FriendId;
 import com.example.project3android.MyApplication;
-import com.example.project3android.User.API.UserAPI;
-import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.UserDao;
-import com.example.project3android.User.UserRepository;
 import com.example.project3android.User.UserResponse;
 
 public class FriendsRequestRepository {
@@ -43,9 +41,7 @@ public class FriendsRequestRepository {
 
             new Thread(() -> {
                 userData.postValue(dao.get(FriendId.getInstance().getfId()));
-                Log.d("FRIEND_REPO_THREAD", "after useData");
                 api.get();
-                Log.d("FRIEND_REPO_THREAD", "after api.get");
             }).start();
         }
     }

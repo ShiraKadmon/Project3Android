@@ -20,18 +20,7 @@ public class PostConverter {
 
     public List<Post> convertJsonToPostList() {
         Gson gson = new Gson();
-        //List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
         List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
-
-        /*for (Post post : posts) {
-
-        List<Post> posts = gson.fromJson(jsonString, new TypeToken<List<Post>>() {}.getType());
-
-        for (Post post : posts) {
-            post.setComments(new CommentConverter(gson.
-                    toJson(post.getComments())).convertJsonToCommentList());
-        }*/
-
         return posts;
     }
 }

@@ -7,14 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.project3android.Feed.Post.API.TokenInterceptor;
 import com.example.project3android.Feed.Post.API.WebServiceAPI;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
-import com.example.project3android.Feed.Post.PostResponse;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -59,19 +56,12 @@ public class FriendPostsAPI {
 
                     new Thread(() -> {
                         postListData.postValue(response.body());
-                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
-                                + " " + response.body().toString());
-
                     }).start();
                 } else {
-                    // Handle unsuccessful response
-                    Log.e("POST_API_RESPONSE", "Unsuccessful response: " + response.message());
                 }
             }
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                // Log the error message
-                Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }
         });
     }

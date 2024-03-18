@@ -15,7 +15,6 @@ import com.example.project3android.FriendPosts.FriendId;
 import com.example.project3android.FriendPosts.FriendPostListAdapter;
 import com.example.project3android.FriendPosts.FriendPostsViewModel;
 import com.example.project3android.FriendsRequest.FriendsRequestViewModel;
-import com.example.project3android.FriendsRequest.FriendshipStatus;
 import com.example.project3android.R;
 import com.example.project3android.User.Friends.FriendsViewModel;
 import com.example.project3android.User.User;
@@ -26,7 +25,6 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.UserResponse;
 
@@ -57,7 +55,6 @@ public class ProfilePage extends AppCompatActivity {
         friendsRequestViewModel.getUser().observe(this, friend -> {
             userResponse = friend;
             if (userResponse != null) {
-                //if (friends.contains(user)) {
                 if (userResponse.getFriendshipStatus() == null) {
 
                     Button friendship = findViewById(R.id.friendshipStatus);

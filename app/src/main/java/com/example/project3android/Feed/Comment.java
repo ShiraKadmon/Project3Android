@@ -1,7 +1,5 @@
 package com.example.project3android.Feed;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import com.example.project3android.User.User;
 
@@ -10,7 +8,6 @@ import java.io.Serializable;
 public class Comment implements Serializable {
     private int authorId;
     private User user_id;
-    //private final String name;
     private String comment;
 
     public Comment(User author, String content) {
@@ -19,7 +16,6 @@ public class Comment implements Serializable {
     }
 
     public Comment(String content) {
-        //this.authorId = author;
         this.comment = content;
     }
 

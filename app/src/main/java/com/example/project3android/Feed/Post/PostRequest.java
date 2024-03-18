@@ -16,7 +16,7 @@ public class PostRequest {
         this.author_name = author_name;
         this.content = content;
         this.post_image_url = post_image_url;
-        this.title = "ttt";
+        this.title = "title";
     }
 
     public String getUser_id() {

@@ -21,19 +21,14 @@ public class PostRepository {
                         AppDB.class, "FeedDB")
                 .allowMainThreadQueries().addMigrations(AppDB.MIGRATION_1_2,
                         AppDB.MIGRATION_2_3).build();
-                //.fallbackToDestructiveMigration().build();
         dao = db.postDao();
         postListData = new PostListData();
         api = new PostAPI(postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
-        //private final PostRepository mRepository;
-
         public PostListData() {
             super();
-            //this.mRepository = repository;
-
             setValue(dao.index());
         }
 

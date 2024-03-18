@@ -173,17 +173,13 @@ public class BitMapClass {
         return bitmap;
     }
 
-    public static Bitmap base64ToBitmap(String base64Str) {
-        // Check for and remove data URI scheme if present
-        if (base64Str.startsWith("data:image/png;base64,")) {
-            base64Str = base64Str.substring("data:image/png;base64,".length());
-        } else if (base64Str.startsWith("data:image/jpeg;base64,")) {
-            base64Str = base64Str.substring("data:image/jpeg;base64,".length());
+    public static Bitmap base64ToBitmap(String base64) {
+        if (base64.startsWith("data:image/png;base64,")) {
+            base64 = base64.substring("data:image/png;base64,".length());
+        } else if (base64.startsWith("data:image/jpeg;base64,")) {
+            base64 = base64.substring("data:image/jpeg;base64,".length());
         }
-        // Decode base64 string
-        byte[] decodedBytes = Base64.decode(base64Str, Base64.DEFAULT);
-
-        // Convert the byte array to Bitmap
+        byte[] decodedBytes = Base64.decode(base64, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }
