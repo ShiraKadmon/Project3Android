@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostDao;
 import com.example.project3android.Feed.Post.PostResponse;
-import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -44,9 +43,6 @@ public class PostAPI {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        //retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
-        //        .callbackExecutor(Executors.newSingleThreadExecutor())
-        //        .addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
     public void get() {
@@ -66,28 +62,21 @@ public class PostAPI {
                         }
                         dao.insert(posts);
                         postListData.postValue(dao.index());
-                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
-                                + " " + response.body().toString());
 
                     }).start();
                 } else {
                     // Handle unsuccessful response
-                    Log.e("POST_API_RESPONSE", "Unsuccessful response: " + response.message());
                 }
             }
             @Override
             public void onFailure(Call<List<PostResponse>> call, Throwable t) {
-                // Log the error message
-                Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }
         });
     }
 
     public void add(Post post) {
-        Log.d("FRIEND_API_RESPONSE", "before call");
         Call<Void> call = webServiceAPI.createPost(CurrentUser.getInstance().getId(),
                 post.getPostRequest());
-        Log.d("FRIEND_API_RESPONSE", "after call");
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -97,15 +86,11 @@ public class PostAPI {
                         postListData.postValue(dao.index());
                     }).start();
                 } else {
-                    // Handle unsuccessful response
-                    Log.d("FRIEND_API_RESPONSE", response.errorBody().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
-                Log.d("FRIEND_API_RESPONSE", t.getMessage().toString());
             }
         });
     }
@@ -123,13 +108,11 @@ public class PostAPI {
                         postListData.postValue(dao.index());
                     }).start();
                 } else {
-                    // Handle unsuccessful response
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
             }
         });
     }
@@ -142,18 +125,15 @@ public class PostAPI {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
-                        //response.body().setUser()
                         dao.update(post);
                         postListData.postValue(dao.index());
                     }).start();
                 } else {
-                    // Handle unsuccessful response
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
             }
         });
     }
@@ -165,25 +145,17 @@ public class PostAPI {
             public void onResponse(Call<List<Post>> call,
                                    Response<List<Post>> response) {
                 if (response.isSuccessful()) {
-                    // Log the response body
 
                     new Thread(() -> {
                         //dao.clear();
                         dao.insert(response.body());
                         postListData.postValue(dao.index());
-                        Log.d("POST_API_RESPONSE", String.valueOf(response.body())
-                                + " " + response.body().toString());
-
                     }).start();
                 } else {
-                    // Handle unsuccessful response
-                    Log.e("POST_API_RESPONSE", "Unsuccessful response: " + response.message());
                 }
             }
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                // Log the error message
-                Log.e("API_Call", "Failed to fetch posts: " + t.getMessage());
             }
         });
     }

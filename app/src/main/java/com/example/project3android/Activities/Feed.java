@@ -71,15 +71,10 @@ public class Feed extends AppCompatActivity {
             userViewModel.getDeleteMess().observe(this, message ->{
                     if(message == true)   {
                         CurrentUser.getInstance().logout();
-                        //currentActivity.finish();
                         Intent i = new Intent(this, MainActivity.class);
-                        //i.putExtra("edit", 1);
                         startActivity(i);
-
                     }
-
-
-        });
+            });
             deleteBtn.setOnClickListener(deleteView -> {
 
                 for (Post post : adapter.getPosts()) {
@@ -88,11 +83,6 @@ public class Feed extends AppCompatActivity {
                     }
                 }
                 userViewModel.delete();
-//                CurrentUser.getInstance().logout();
-//                //currentActivity.finish();
-//                Intent i = new Intent(this, MainActivity.class);
-//                //i.putExtra("edit", 1);
-//                startActivity(i);
             });
             Button editBtn = popupView.findViewById(R.id.edit);
             editBtn.setOnClickListener(editView -> {
@@ -111,16 +101,6 @@ public class Feed extends AppCompatActivity {
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
         postViewModel.get().observe(this, posts -> {
-            /*for (Post post : posts) {
-                if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
-                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
-                            + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
-                    post.setAuthor_image(CurrentUser.getInstance().getCurrentUser()
-                            .getProfileImage());
-                    post.setUser(CurrentUser.getInstance().getCurrentUser());
-                    postViewModel.update(post);
-                }
-            }*/
             adapter.setPosts(posts);
         });
 
@@ -186,13 +166,6 @@ public class Feed extends AppCompatActivity {
             postViewModel.reload();
             refreshLayout.setRefreshing(false);
         });
-
-        //friends request
-        /*Button notificationBtn = findViewById(R.id.notifications);
-        notificationBtn.setOnClickListener(v -> {
-            Intent i = new Intent(this, NotificationsActivity.class);
-            startActivity(i);
-        });*/
     }
 
     public void editPost(Post post) {

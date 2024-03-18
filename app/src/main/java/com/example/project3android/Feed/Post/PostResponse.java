@@ -1,7 +1,6 @@
 package com.example.project3android.Feed.Post;
 
 import com.example.project3android.Feed.Comment;
-import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 
 import java.util.ArrayList;

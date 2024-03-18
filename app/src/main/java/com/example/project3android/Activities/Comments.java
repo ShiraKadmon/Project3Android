@@ -89,13 +89,6 @@ public class Comments extends AppCompatActivity {
         // Close button
         ImageButton closeBtn = findViewById(R.id.close_comments);
         closeBtn.setOnClickListener(v -> {
-            /*
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("post", (Serializable) post);
-            resultIntent.putExtra("position",
-                    getIntent().getIntExtra("position", 0));
-            setResult(Activity.RESULT_OK, resultIntent);
-            */
             post.refreshCommentsSize();
             postsViewModel.update(post);
             finish();

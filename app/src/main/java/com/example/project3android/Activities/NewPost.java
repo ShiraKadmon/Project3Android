@@ -1,7 +1,6 @@
 package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
-import static com.example.project3android.Image.BitMapClass.getImageUri;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,8 +27,6 @@ import com.example.project3android.User.CurrentUser;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import retrofit2.http.HEAD;
 
 
 public class NewPost extends AppCompatActivity {

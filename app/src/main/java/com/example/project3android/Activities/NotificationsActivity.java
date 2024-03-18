@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.FriendsRequest.FriendsRequest;
 import com.example.project3android.FriendsRequest.FriendsRequestListAdapter;
 import com.example.project3android.FriendsRequest.FriendsRequestViewModel;

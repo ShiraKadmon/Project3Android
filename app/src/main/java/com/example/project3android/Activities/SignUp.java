@@ -1,7 +1,6 @@
 package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
-import static com.example.project3android.Image.BitMapClass.getImageUri;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +28,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Image.GetImageFromUser;
-import com.example.project3android.Activities.MainActivity;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.SignUp.SignUpViewModel;
@@ -83,14 +81,17 @@ public class SignUp extends AppCompatActivity {
             lastName.setText(CurrentUser.getInstance().getCurrentUser().getLastName());
             selectedBitmap = CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage();
             ImageView profileImage = findViewById(R.id.newProfile);
-            profileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser().getBitmapProfileImage());
+            profileImage.setImageBitmap(CurrentUser.getInstance().getCurrentUser()
+                    .getBitmapProfileImage());
         }
 
         signUpBtn.setOnClickListener(v -> {
             // check input validity before logging in
-            if (checkContentDetails(userName, password, confirmPassword, firstName, lastName, selectedBitmap)) {
+            if (checkContentDetails(userName, password, confirmPassword, firstName, lastName,
+                    selectedBitmap)) {
                 if (getIntent().getIntExtra("edit", 0) == 1) {
-                    UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                    UserViewModel userViewModel = new ViewModelProvider(this)
+                            .get(UserViewModel.class);
                     User user = new User(firstName.getText().toString(),
                             lastName.getText().toString(), userName.getText().toString(),
                             password.getText().toString(),
@@ -111,12 +112,15 @@ public class SignUp extends AppCompatActivity {
                     // Set touch listener to dismiss the popup window when tapped outside of it
                     ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
                     closeButton.setOnClickListener(closeView -> {
-                        PostsViewModel postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+                        PostsViewModel postsViewModel = new ViewModelProvider(this)
+                                .get(PostsViewModel.class);
                         postsViewModel.get().observe(this, posts -> {
                             for (Post post : posts) {
-                                if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
-                                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
-                                            + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
+                                if (post.getUser().get_id().equals(CurrentUser.getInstance()
+                                        .getId())) {
+                                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser()
+                                            .getFirstName() + " " + CurrentUser.getInstance()
+                                            .getCurrentUser().getLastName());
                                     post.setAuthor_image(CurrentUser.getInstance().getCurrentUser()
                                             .getProfileImage());
                                     post.setUser(CurrentUser.getInstance().getCurrentUser());
@@ -131,7 +135,8 @@ public class SignUp extends AppCompatActivity {
                     });
                 }
                 // if both username and password are valid - log in
-                SignUpViewModel signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+                SignUpViewModel signUpViewModel = new ViewModelProvider(this)
+                        .get(SignUpViewModel.class);
                 User user = new User(firstName.getText().toString(),
                         lastName.getText().toString(), userName.getText().toString(),
                         password.getText().toString(), bitmapToString(selectedBitmap));
@@ -191,11 +196,13 @@ public class SignUp extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             int cornerRadius = 50; // Adjust the corner radius
             ImageView showProfilePic = findViewById(R.id.newProfile);
-            selectedBitmap = GetImageFromUser.handleImageResult(this, data, cornerRadius);
+            selectedBitmap = GetImageFromUser.handleImageResult(this,
+                    data, cornerRadius);
             if (selectedBitmap != null) {
                 showProfilePic.setImageBitmap(selectedBitmap);
             } else {
-                Toast.makeText(this, "Please add an image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please add an image",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

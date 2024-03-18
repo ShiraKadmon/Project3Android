@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         PasswordValidator passwordValidator = new PasswordValidator(password, validator); // Password validator
         password.addTextChangedListener(passwordValidator);
 
-
         // use Log In button to go to Feed page
         Button login_btn = findViewById(R.id.login_btn);
         login_btn.setOnClickListener(v -> {

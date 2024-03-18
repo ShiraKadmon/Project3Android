@@ -24,7 +24,8 @@ import com.example.project3android.R;
 import java.io.Serializable;
 import java.util.List;
 
-public class FriendPostListAdapter extends RecyclerView.Adapter<FriendPostListAdapter.FriendPostViewHolder>
+public class FriendPostListAdapter extends RecyclerView.Adapter<FriendPostListAdapter
+        .FriendPostViewHolder>
         implements Serializable{
 
     class FriendPostViewHolder extends RecyclerView.ViewHolder implements Serializable {

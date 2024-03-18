@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.project3android.Image.BitMapClass;
 
 import java.io.File;
 import java.io.IOException;

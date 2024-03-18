@@ -4,12 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.example.project3android.Feed.Post.API.PostAPI;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
-import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
-import com.example.project3android.User.API.UserAPI;
 import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.UserDao;
 
@@ -39,7 +35,6 @@ public class FriendPostsRepository {
             super.onActive();
 
             new Thread(() -> {
-                //postListData.postValue(dao.index());
                 api.getUserPost(FriendId.getInstance().getfId());
             }).start();
         }

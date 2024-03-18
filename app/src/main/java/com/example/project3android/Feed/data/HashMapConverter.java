@@ -30,13 +30,6 @@ public class HashMapConverter {
         hash.put("user_id", post.getUserJson());
         hash.put("author_image", post.getAuthor_image());
         hash.put("author_name", post.getAuthor_name());
-        /*hash.put("", post.getContent());
-        hash.put("", post.getTitle());
-        hash.put("", post.getLikes_count().toString());
-        hash.put("", post.);
-        hash.put("", post.);
-        hash.put("", post.);
-        hash.put("", post.);*/
         return hash;
     }
 

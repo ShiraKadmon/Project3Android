@@ -17,7 +17,8 @@ import com.example.project3android.R;
 import java.io.Serializable;
 import java.util.List;
 
-public class FriendsRequestListAdapter extends RecyclerView.Adapter<FriendsRequestListAdapter.FriendsRequestViewHolder> {
+public class FriendsRequestListAdapter extends RecyclerView.Adapter<FriendsRequestListAdapter
+        .FriendsRequestViewHolder> {
 
     class FriendsRequestViewHolder extends RecyclerView.ViewHolder implements Serializable {
         private final ImageView profilePic;
@@ -55,7 +56,8 @@ public class FriendsRequestListAdapter extends RecyclerView.Adapter<FriendsReque
         if (friendsRequests != null) {
             final FriendsRequest current = friendsRequests.get(position);
             holder.profilePic.setImageBitmap(current.getUser().getBitmapProfileImage());
-            holder.userName.setText(current.getUser().getFirstName() + " " + current.getUser().getLastName());
+            holder.userName.setText(current.getUser().getFirstName() + " " + current.getUser()
+                    .getLastName());
 
             holder.approveBtn.setOnClickListener(v -> {
                 context.approve(current);
