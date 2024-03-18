@@ -1,11 +1,14 @@
 package com.example.project3android.User;
 
+import com.example.project3android.FriendsRequest.FriendshipStatus;
+
 public class CurrentUser {
 
     private final static CurrentUser INSTANCE = new CurrentUser();
     private User currentUser;
     private String jwtToken;
     private String id;
+    private FriendshipStatus friendshipStatus;
 
     public static CurrentUser getInstance() {
         return INSTANCE;
@@ -19,6 +22,14 @@ public class CurrentUser {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    public FriendshipStatus getFriendshipStatus() {
+        return friendshipStatus;
+    }
+
+    public void setFriendshipStatus(FriendshipStatus friendshipStatus) {
+        this.friendshipStatus = friendshipStatus;
     }
 
     public void setJwtToken(String jwtToken) {
@@ -39,5 +50,12 @@ public class CurrentUser {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void logout() {
+        this.currentUser = null;
+        this.id = null;
+        this.jwtToken = null;
+        this.friendshipStatus = null;
     }
 }

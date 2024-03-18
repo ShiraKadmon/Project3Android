@@ -1,44 +1,38 @@
-package com.example.project3android.Feed;
+package com.example.project3android.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.project3android.API.PostAPI;
-import com.example.project3android.Feed.Comments;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
-import com.example.project3android.Feed.data.PostConverter;
-import com.example.project3android.NewPost;
-import com.example.project3android.ProfilePage;
+import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
-
-import java.io.InputStream;
-import java.util.List;
-import java.util.Scanner;
 
 public class Feed extends AppCompatActivity {
     private Activity currentActivity;
@@ -54,28 +48,86 @@ public class Feed extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         postViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+        ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
 
-        userViewModel.getUser().observe(this, user -> {
-            if (user != null) {
-                CurrentUser.getInstance().setCurrentUser(user);
+        userViewModel.getUser().observe(this, userResponse -> {
+            if (userResponse != null) {
+                CurrentUser.getInstance().setCurrentUser(userResponse.getUser());
+                CurrentUser.getInstance().setFriendshipStatus(userResponse.getFriendshipStatus());
+                ivProfileImage.setImageBitmap(CurrentUser.getInstance()
+                        .getCurrentUser().getBitmapProfileImage());
             }
         });
 
+        ivProfileImage.setOnClickListener(v -> {
+            View popupView = LayoutInflater.from(MyApplication.context).inflate(
+                    R.layout.edit_user_popup_window, null);
+            PopupWindow popupWindow = new PopupWindow(popupView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+            Button deleteBtn = popupView.findViewById(R.id.delete);
+            userViewModel.getDeleteMess().observe(this, message ->{
+                    if(message == true)   {
+                        CurrentUser.getInstance().logout();
+                        //currentActivity.finish();
+                        Intent i = new Intent(this, MainActivity.class);
+                        //i.putExtra("edit", 1);
+                        startActivity(i);
 
-        ImageView ivProfileImage = findViewById(R.id.profileImageFeed);
-        ivProfileImage.setImageBitmap(CurrentUser.getInstance()
-                .getCurrentUser().getBitmapProfileImage());
+                    }
+
+
+        });
+            deleteBtn.setOnClickListener(deleteView -> {
+
+                for (Post post : adapter.getPosts()) {
+                    if (CurrentUser.getInstance().getId().equals(post.getUser().get_id())) {
+                        postViewModel.delete(post);
+                    }
+                }
+                userViewModel.delete();
+//                CurrentUser.getInstance().logout();
+//                //currentActivity.finish();
+//                Intent i = new Intent(this, MainActivity.class);
+//                //i.putExtra("edit", 1);
+//                startActivity(i);
+            });
+            Button editBtn = popupView.findViewById(R.id.edit);
+            editBtn.setOnClickListener(editView -> {
+                Intent i = new Intent(this, SignUp.class);
+                i.putExtra("edit", 1);
+                startActivity(i);
+            });
+            // Set touch listener to dismiss the popup window when tapped outside of it
+            ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+            closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
+        });
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapter = new PostListAdapter(this);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        postViewModel.get().observe(this, posts -> adapter.setPosts(posts));
+        postViewModel.get().observe(this, posts -> {
+            /*for (Post post : posts) {
+                if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
+                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
+                            + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
+                    post.setAuthor_image(CurrentUser.getInstance().getCurrentUser()
+                            .getProfileImage());
+                    post.setUser(CurrentUser.getInstance().getCurrentUser());
+                    postViewModel.update(post);
+                }
+            }*/
+            adapter.setPosts(posts);
+        });
 
         //logout
         Button logoutButton = findViewById(R.id.logoutBtn);
         logoutButton.setOnClickListener(v -> {
+            CurrentUser.getInstance().logout();
             finish();
         });
 
@@ -132,7 +184,15 @@ public class Feed extends AppCompatActivity {
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             postViewModel.reload();
+            refreshLayout.setRefreshing(false);
         });
+
+        //friends request
+        /*Button notificationBtn = findViewById(R.id.notifications);
+        notificationBtn.setOnClickListener(v -> {
+            Intent i = new Intent(this, NotificationsActivity.class);
+            startActivity(i);
+        });*/
     }
 
     public void editPost(Post post) {
@@ -154,8 +214,7 @@ public class Feed extends AppCompatActivity {
 
     public void profilePage(User user) {
         Intent i = new Intent(this, ProfilePage.class);
-        i.putExtra("userId", user.get_id());
+        i.putExtra("user", user);
         startActivity(i);
     }
 }
-

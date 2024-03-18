@@ -53,4 +53,16 @@
     <string name="BaseUrl">http://10.0.2.2:3000/</string>
     <string name="last_name">Last Name</string>
     <string name="profile_page">Profile Page</string>
+    <string name="friendship_status">friendship status</string>
+    <string name="delete_from_friends">Delete from Friends</string>
+    <string name="ask_friendship">"Ask for Friendship"</string>
+    <string name="asking_friendship">"Asking for Friendship..."</string>
+    <string name="delete_my_user">Delete My User</string>
+    <string name="edit_my_user">Edit My User</string>
+    <string name="friends_requests">Friends Requests</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="user_name">user name</string>
+    <string name="approve">Approve</string>
+    <string name="approve_friends_request">Approve Friends Request</string>
+
 </resources>

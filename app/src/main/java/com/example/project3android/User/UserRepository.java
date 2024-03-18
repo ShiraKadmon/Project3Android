@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.API.UserAPI;
 import com.example.project3android.User.Data.UserAppDB;
@@ -22,7 +23,7 @@ public class UserRepository {
         api = new UserAPI(userData, dao);
     }
 
-    class UserData extends MutableLiveData<User> {
+    class UserData extends MutableLiveData<UserResponse> {
         public UserData() {
             super();
 
@@ -39,8 +40,16 @@ public class UserRepository {
             }).start();
         }
     }
-    public LiveData<User> get() {
+    public LiveData<UserResponse> get() {
         return userData;
+    }
+
+    public void delete(MutableLiveData<Boolean> data) {
+        api.delete(data);
+    }
+
+    public void edit(User user) {
+        api.update(user);
     }
 
 }

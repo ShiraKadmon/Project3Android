@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.User;
@@ -19,9 +20,10 @@ public class FriendsRepository {
     public FriendsRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
                         UserAppDB.class, "UsersDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                .allowMainThreadQueries()
+                .addMigrations(UserAppDB.MIGRATION_1_2).build();
         dao = db.userDao();
-        friendsListData = new FriendsRepository().friendsListData;
+        friendsListData = new FriendsRepository.FriendsListData();
         api = new FriendsAPI(friendsListData, dao);
     }
 
@@ -35,7 +37,7 @@ public class FriendsRepository {
         protected void onActive() {
             super.onActive();
 
-            new Thread(() -> friendsListData.setValue(dao.index())).start();
+            //new Thread(() -> friendsListData.setValue(dao.index())).start();
             api.getFriends();
         }
     }
@@ -43,11 +45,20 @@ public class FriendsRepository {
         return friendsListData;
     }
 
-    public void delete(final User user) {
-        //api.delete(post);
+    public void delete(String userId, String fId) {
+        api.delete(userId, fId);
     }
 
     public void reload() {
-        //api.get();
+        api.getFriends();
     }
+
+    public void add(String userId) {
+        api.add(userId);
+    }
+
+    public void approve(String userId, String fId) {
+        api.approve(userId, fId);
+    }
+
 }

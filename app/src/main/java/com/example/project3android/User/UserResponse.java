@@ -1,10 +1,16 @@
 package com.example.project3android.User;
 
-public class UserResponse {
-    private User user;
-    private String friendshipStatus;
+import androidx.room.Embedded;
 
-    public UserResponse(User user, String friendshipStatus) {
+import com.example.project3android.FriendsRequest.FriendshipStatus;
+
+public class UserResponse {
+    @Embedded
+    private User user;
+    @Embedded
+    private FriendshipStatus friendshipStatus;
+
+    public UserResponse(User user, FriendshipStatus friendshipStatus) {
         this.user = user;
         this.friendshipStatus = friendshipStatus;
     }
@@ -13,7 +19,7 @@ public class UserResponse {
         return user;
     }
 
-    public String getFriendshipStatus() {
+    public FriendshipStatus getFriendshipStatus() {
         return friendshipStatus;
     }
 
@@ -21,7 +27,7 @@ public class UserResponse {
         this.user = user;
     }
 
-    public void setFriendshipStatus(String friendshipStatus) {
+    public void setFriendshipStatus(FriendshipStatus friendshipStatus) {
         this.friendshipStatus = friendshipStatus;
     }
 }

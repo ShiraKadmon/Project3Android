@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
-            <ImageButton
+
+            <ImageView
                 android:id="@+id/profileImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

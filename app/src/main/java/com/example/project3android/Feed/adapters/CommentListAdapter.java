@@ -2,24 +2,16 @@ package com.example.project3android.Feed.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3android.Feed.Comment;
-import com.example.project3android.Feed.Comments;
-import com.example.project3android.Feed.Feed;
+import com.example.project3android.Activities.Comments;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
@@ -82,14 +74,16 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
                 holder.commentView.setBackgroundColor(Color.WHITE);
             }
 
-            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
+            if (current.getUser_id().get_id().equals(CurrentUser.getInstance().getId())) {
                 holder.editComment.setEnabled(true);
                 holder.deleteComment.setEnabled(true);
 
                 holder.editComment.setOnClickListener(v -> {
-                    context.editComment(v, position);
+                    context.editComment(v, position, current);
+                    notifyDataSetChanged();
                 });
                 holder.deleteComment.setOnClickListener(v -> {
+                    comments.remove(position);
                     context.deleteComment(current);
                     notifyDataSetChanged();
                 });
@@ -103,6 +97,18 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
     // set the comments
     public void setComments(List<Comment> s){
         comments = s;
+        notifyDataSetChanged();
+    }
+
+    // add comment
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        notifyDataSetChanged();
+    }
+
+    public void editComment(int position, Comment comment) {
+        comments.remove(position);
+        comments.add(position, comment);
         notifyDataSetChanged();
     }
 

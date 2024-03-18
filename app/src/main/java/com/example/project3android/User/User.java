@@ -9,9 +9,10 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -24,6 +25,7 @@ public class User {
     @SerializedName("email")
     private String username;
     private String password;
+    @SerializedName("profile_picture")
     private String profileImage;
 
     public User(String firstName, String lastName, String username, String password, String profileImage) {

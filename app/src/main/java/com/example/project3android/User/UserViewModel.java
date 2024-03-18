@@ -1,24 +1,34 @@
 package com.example.project3android.User;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Repositories.PostRepository;
-
-import java.util.List;
 
 public class UserViewModel extends ViewModel {
     private UserRepository repository;
-    private LiveData<User> user;
+    private LiveData<UserResponse> user;
+    private MutableLiveData<Boolean> deleteMess;
 
+    public MutableLiveData<Boolean> getDeleteMess() {
+        return deleteMess;
+    }
 
     public UserViewModel() {
         this.repository = new UserRepository();
         this.user = repository.get();
+        this.deleteMess = new MutableLiveData<>();
     }
 
-    public LiveData<User> getUser() {
+    public LiveData<UserResponse> getUser() {
         return user;
     }
+
+    public void delete() {
+        repository.delete(deleteMess);
+    }
+
+    public void edit(User user) {
+        repository.edit(user);
+    }
+
 }

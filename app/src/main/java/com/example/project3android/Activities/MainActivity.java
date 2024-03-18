@@ -1,4 +1,4 @@
-package com.example.project3android;
+package com.example.project3android.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,12 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.project3android.Feed.Feed;
 import com.example.project3android.Login.LoginViewModel;
-import com.example.project3android.SignUp.SignUp;
+import com.example.project3android.MyApplication;
+import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
-import com.example.project3android.User.UserViewModel;
 import com.example.project3android.Validation.PasswordValidator;
 import com.example.project3android.Validation.UserNameValidator;
 import com.example.project3android.Validation.Validation;

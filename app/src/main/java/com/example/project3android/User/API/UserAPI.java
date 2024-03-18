@@ -4,19 +4,14 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.project3android.API.TokenInterceptor;
-import com.example.project3android.API.WebServiceAPI;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.Post.API.TokenInterceptor;
+import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
 import com.example.project3android.User.UserResponse;
-
-import java.util.List;
-import java.util.concurrent.Executors;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -27,12 +22,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserAPI {
 
-    private MutableLiveData<User> user;
+    private MutableLiveData<UserResponse> user;
     private UserDao dao;
     Retrofit retrofit;
     UserWebServiceAPI webServiceAPI;
 
-    public UserAPI(MutableLiveData<User> user, UserDao dao) {
+    public UserAPI(MutableLiveData<UserResponse> user, UserDao dao) {
         this.user = user;
         this.dao = dao;
 
@@ -57,13 +52,51 @@ public class UserAPI {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 new Thread(() -> {
                     UserResponse userResponse = response.body();
-                    user.postValue(userResponse.getUser());
+                    user.postValue(userResponse);
                 }).start();
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e("USER_API_RESPONSE", t.getMessage());
+            }
+        });
+    }
+
+    public void delete(MutableLiveData<Boolean> data) {
+        Call<Void> call = webServiceAPI.deleteUser(CurrentUser.getInstance().getId());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                dao.delete(CurrentUser.getInstance().getCurrentUser());
+                data.postValue(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void update(User user) {
+        Call<Void> call = webServiceAPI.updateUser(HashMapConverter.signUpHashMap(user));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                        get();
+                    }).start();
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
             }
         });
     }

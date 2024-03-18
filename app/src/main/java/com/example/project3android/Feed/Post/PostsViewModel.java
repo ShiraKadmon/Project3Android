@@ -1,10 +1,7 @@
-package com.example.project3android.Feed.ViewModels;
+package com.example.project3android.Feed.Post;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Repositories.PostRepository;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.example.project3android.Feed.data;
 
+import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.User.User;
 
 import java.util.HashMap;
@@ -23,7 +24,23 @@ public class HashMapConverter {
         return hash;
     }
 
-    public static HashMap<String, String> getUserHashMap(String id) {
+    public static HashMap<String, String> getPostHashMap(Post post) {
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put("_id", post.getPostId());
+        hash.put("user_id", post.getUserJson());
+        hash.put("author_image", post.getAuthor_image());
+        hash.put("author_name", post.getAuthor_name());
+        /*hash.put("", post.getContent());
+        hash.put("", post.getTitle());
+        hash.put("", post.getLikes_count().toString());
+        hash.put("", post.);
+        hash.put("", post.);
+        hash.put("", post.);
+        hash.put("", post.);*/
+        return hash;
+    }
+
+    public static HashMap<String, String> getIdHashMap(String id) {
         HashMap<String, String> hash = new HashMap<>();
         hash.put("id", id);
         return hash;

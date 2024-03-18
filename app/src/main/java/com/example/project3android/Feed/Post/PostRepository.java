@@ -1,20 +1,14 @@
-package com.example.project3android.Repositories;
-
-import android.os.AsyncTask;
+package com.example.project3android.Feed.Post;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.example.project3android.API.PostAPI;
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostDao;
+import com.example.project3android.Feed.Post.API.PostAPI;
 import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
 
-import java.io.InputStream;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class PostRepository {
@@ -29,25 +23,17 @@ public class PostRepository {
                         AppDB.MIGRATION_2_3).build();
                 //.fallbackToDestructiveMigration().build();
         dao = db.postDao();
-        postListData = new PostListData(this);
+        postListData = new PostListData();
         api = new PostAPI(postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
-        private final PostRepository mRepository;
+        //private final PostRepository mRepository;
 
-        public PostListData(PostRepository repository) {
+        public PostListData() {
             super();
-            this.mRepository = repository;
+            //this.mRepository = repository;
 
-            // Read the JSON file from the raw directory
-            /* InputStream inputStream = MyApplication.context.getResources().openRawResource(R.raw.posts);
-
-            // Convert InputStream to String
-            String jsonString = convertStreamToString(inputStream);
-            PostConverter postConverter = new PostConverter(jsonString);
-            List<Post> posts = postConverter.convertJsonToPostList();
-            //FeedData.getInstance().setPosts(posts); */
             setValue(dao.index());
         }
 
@@ -77,8 +63,8 @@ public class PostRepository {
         api.update(post);
     }
 
-
     public void reload() {
         api.get();
     }
+
 }

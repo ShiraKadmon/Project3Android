@@ -1,25 +1,32 @@
 package com.example.project3android.Feed.Post;
 
 
+import static com.example.project3android.Image.BitMapClass.base64ToBitmap;
 import static com.example.project3android.Image.BitMapClass.loadImageAsync;
 
 import android.graphics.Bitmap;
 import android.widget.Button;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
 import com.example.project3android.Image.BitMapClass;
+import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import retrofit2.http.HEAD;
 
 
 @Entity
@@ -27,17 +34,28 @@ public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String userJson;
+
+    private int commentsSize;
+    //@SerializedName("comments")
+    private String commentsJson;
+    @SerializedName("author_image")
     private String author_image;
+    @SerializedName("author_name")
     private String author_name;
+    @SerializedName("content")
     private String content;
+    @SerializedName("title")
     private String title;
+    @SerializedName("likes_count")
     private int likes_count;
+    @SerializedName("share_count")
     private int share_count;
-    private String commentsJson; // Store comments as JSON string
+    @SerializedName("_id")
     private String postId;
+    @SerializedName("created_at")
     private String date;
     private boolean isLiked;
-    private int commentsSize;
+    @SerializedName("post_image_url")
     private String pic;
 
     public Post(){
@@ -50,6 +68,23 @@ public class Post implements Serializable {
         this.title = null;
         this.likes_count = 0;
         this.commentsSize = 0;
+        this.isLiked = false;
+    }
+
+    public Post(String id, User user, String author, String content, String pic, String date,
+                String profilePic, List<Comment> comments) {
+        this.postId = id;
+        setUser(user);
+        this.author_name = author;
+        this.content = content;
+        this.pic = pic;
+        this.title = author;
+        this.likes_count = 0;
+        this.share_count = 0;
+        this.date = date;
+        this.author_image = profilePic;
+        setComments(comments);
+        this.commentsSize = comments.size();
         this.isLiked = false;
     }
 
@@ -233,10 +268,12 @@ public class Post implements Serializable {
 
     public Bitmap getBitmapPic() {
         return loadImageAsync(this.pic);
+        //return base64ToBitmap(this.pic);
     }
 
     public Bitmap getBitmapProfileImage() {
         return loadImageAsync(this.author_image);
+        //return base64ToBitmap(this.author_image);
     }
 
     public String getAuthor_image() {
@@ -302,5 +339,24 @@ public class Post implements Serializable {
         List<Comment> commentsList = getComments();
         commentsList.get(position).setComment(text);
         setComments(commentsList);
+    }
+
+    public PostResponse getPostResponse() {
+        Date date = new Date(this.date);
+        /*return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
+                this.author_image,
+                this.author_name, date, this.content, "",
+                this.pic, this.title, "", this.likes_count, this.share_count, new ArrayList<>());*/
+        return new PostResponse(this.postId, getUser(),//CurrentUser.getInstance().getCurrentUser(),
+                this.author_image,
+                CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
+                        CurrentUser.getInstance().getCurrentUser().getLastName(),
+                date, this.content, "",
+                this.pic, this.title, "", this.likes_count, this.share_count,
+                new ArrayList<>());
+    }
+    public PostRequest getPostRequest() {
+        return new PostRequest(getUser().get_id(), this.author_image, this.author_name,
+                this.content, this.pic);
     }
 }

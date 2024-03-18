@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3android.Feed.Feed;
+import com.example.project3android.Activities.Feed;
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
@@ -25,11 +25,11 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostViewHolder>
-                                                                        implements Serializable{
+        implements Serializable{
 
     class PostViewHolder extends RecyclerView.ViewHolder implements Serializable {
         // the post's data
-        private final ImageButton profilePic;
+        private final ImageView profilePic;
         private final TextView tvAuthor;
         private final TextView date;
         private final TextView tvContent;
@@ -100,9 +100,12 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 holder.postView.setBackgroundColor(Color.WHITE);
             }
 
+            holder.tvAuthor.setOnClickListener(view -> {
+                this.context.profilePage(current.getUser());
+            });
+
             holder.profilePic.setOnClickListener(view -> {
                 this.context.profilePage(current.getUser());
-                notifyDataSetChanged();
             });
 
             holder.commentsBtn.setOnClickListener(view -> {
@@ -131,7 +134,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
                 closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
             });
 
-            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
+            if (current.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
                 holder.editBtn.setEnabled(true);
                 holder.deleteBtn.setEnabled(true);
                 holder.editBtn.setOnClickListener(v -> {

@@ -1,4 +1,4 @@
-package com.example.project3android.Feed;
+package com.example.project3android.Activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -23,14 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project3android.Feed.Comment;
 import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.ViewModels.PostsViewModel;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Feed.adapters.CommentListAdapter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Comments extends AppCompatActivity {
@@ -130,13 +130,15 @@ public class Comments extends AppCompatActivity {
         addCommentBtn.setOnClickListener(v -> {
             String commentText = comment.getText().toString();
             if (commentText.length() > 0) {
-                post.addComment(new Comment(username, commentText));
+                Comment newComment = new Comment(CurrentUser.getInstance().getCurrentUser(), commentText);
+                commentsAdapter.addComment(newComment);
+                post.addComment(newComment);
                 commentsAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    public void editComment(View v, int position) {
+    public void editComment(View v, int position, Comment comment) {
         isEditing = true;
         // Create and show the share popup window
         View popupView = LayoutInflater.from(MyApplication.context).
@@ -181,6 +183,8 @@ public class Comments extends AppCompatActivity {
             String commentText = editText.getText().toString();
             if (!commentText.isEmpty()) {
                 // Set the comment text
+                comment.setComment(commentText);
+                commentsAdapter.editComment(position, comment);
                 post.editComment(position, commentText);
                 // Dismiss the popup window
                 popupWindow.dismiss();

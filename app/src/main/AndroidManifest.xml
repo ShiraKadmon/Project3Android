@@ -4,21 +4,22 @@
     <!-- Declare permission to read external storage -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Declare permission for camera -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Declare permission for camera -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" /> <!-- Declare feature for camera hardware, indicating it is not required -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-
-    <!-- Declare feature for camera hardware, indicating it is not required -->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
     </queries>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -29,23 +30,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2Android"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
-            android:name=".Feed.Comments"
+            android:name=".Activities.NotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Comments"
             android:exported="false"
             android:label="@string/title_activity_comments"
             android:theme="@style/Theme.Project2Android" />
         <activity
-            android:name=".Feed.Feed"
+            android:name=".Activities.Feed"
             android:exported="false" />
         <activity
-            android:name=".SignUp.SignUp"
+            android:name=".Activities.SignUp"
             android:exported="false" />
-        <activity android:name=".NewPost"
-            android:exported="false"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.NewPost"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ProfilePage"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:exported="true"
             tools:ignore="DuplicateActivity">
             <intent-filter>
@@ -54,8 +62,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
 
 </manifest>
