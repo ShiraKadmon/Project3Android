@@ -347,7 +347,7 @@ public class Post implements Serializable {
                 this.author_image,
                 this.author_name, date, this.content, "",
                 this.pic, this.title, "", this.likes_count, this.share_count, new ArrayList<>());*/
-        return new PostResponse(this.postId, CurrentUser.getInstance().getCurrentUser(),
+        return new PostResponse(this.postId, getUser(),//CurrentUser.getInstance().getCurrentUser(),
                 this.author_image,
                 CurrentUser.getInstance().getCurrentUser().getFirstName() + " " +
                         CurrentUser.getInstance().getCurrentUser().getLastName(),
