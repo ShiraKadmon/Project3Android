@@ -68,17 +68,32 @@ public class Feed extends AppCompatActivity {
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
             popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
             Button deleteBtn = popupView.findViewById(R.id.delete);
+            userViewModel.getDeleteMess().observe(this, message ->{
+                    if(message == true)   {
+                        CurrentUser.getInstance().logout();
+                        //currentActivity.finish();
+                        Intent i = new Intent(this, MainActivity.class);
+                        //i.putExtra("edit", 1);
+                        startActivity(i);
+
+                    }
+
+
+        });
             deleteBtn.setOnClickListener(deleteView -> {
-                userViewModel.delete();
+
                 for (Post post : adapter.getPosts()) {
                     if (CurrentUser.getInstance().getId().equals(post.getUser().get_id())) {
                         postViewModel.delete(post);
                     }
                 }
-                CurrentUser.getInstance().logout();
-                currentActivity.finish();
+                userViewModel.delete();
+//                CurrentUser.getInstance().logout();
+//                //currentActivity.finish();
+//                Intent i = new Intent(this, MainActivity.class);
+//                //i.putExtra("edit", 1);
+//                startActivity(i);
             });
-
             Button editBtn = popupView.findViewById(R.id.edit);
             editBtn.setOnClickListener(editView -> {
                 Intent i = new Intent(this, SignUp.class);

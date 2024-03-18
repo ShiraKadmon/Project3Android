@@ -63,13 +63,14 @@ public class UserAPI {
         });
     }
 
-    public void delete() {
+    public void delete(MutableLiveData<Boolean> data) {
         Call<Void> call = webServiceAPI.deleteUser(CurrentUser.getInstance().getId());
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 dao.delete(CurrentUser.getInstance().getCurrentUser());
+                data.postValue(response.isSuccessful());
             }
 
             @Override

@@ -44,8 +44,8 @@ public class UserRepository {
         return userData;
     }
 
-    public void delete() {
-        api.delete();
+    public void delete(MutableLiveData<Boolean> data) {
+        api.delete(data);
     }
 
     public void edit(User user) {

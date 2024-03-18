@@ -86,18 +86,15 @@ public class PostAPI {
     public void add(Post post) {
         Log.d("FRIEND_API_RESPONSE", "before call");
         Call<Void> call = webServiceAPI.createPost(CurrentUser.getInstance().getId(),
-                post.getPostResponse());
+                post.getPostRequest());
         Log.d("FRIEND_API_RESPONSE", "after call");
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
-                        Log.d("FRIEND_API_RESPONSE", response.body().toString());
                         dao.insert(post);
-                        Log.d("FRIEND_API_RESPONSE", response.body().toString());
                         postListData.postValue(dao.index());
-                        Log.d("FRIEND_API_RESPONSE", response.body().toString());
                     }).start();
                 } else {
                     // Handle unsuccessful response

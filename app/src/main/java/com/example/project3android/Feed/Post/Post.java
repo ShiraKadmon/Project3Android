@@ -355,4 +355,8 @@ public class Post implements Serializable {
                 this.pic, this.title, "", this.likes_count, this.share_count,
                 new ArrayList<>());
     }
+    public PostRequest getPostRequest() {
+        return new PostRequest(getUser().get_id(), this.author_image, this.author_name,
+                this.content, this.pic);
+    }
 }

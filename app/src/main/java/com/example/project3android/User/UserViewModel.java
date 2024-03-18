@@ -1,16 +1,22 @@
 package com.example.project3android.User;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class UserViewModel extends ViewModel {
     private UserRepository repository;
     private LiveData<UserResponse> user;
+    private MutableLiveData<Boolean> deleteMess;
 
+    public MutableLiveData<Boolean> getDeleteMess() {
+        return deleteMess;
+    }
 
     public UserViewModel() {
         this.repository = new UserRepository();
         this.user = repository.get();
+        this.deleteMess = new MutableLiveData<>();
     }
 
     public LiveData<UserResponse> getUser() {
@@ -18,7 +24,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public void delete() {
-        repository.delete();
+        repository.delete(deleteMess);
     }
 
     public void edit(User user) {

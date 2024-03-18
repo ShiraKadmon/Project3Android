@@ -3,6 +3,7 @@ package com.example.project3android.Feed.Post.API;
 import androidx.room.Delete;
 
 import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.Post.PostRequest;
 import com.example.project3android.Feed.Post.PostResponse;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface WebServiceAPI {
     Call<List<PostResponse>> getPosts();
 
     @POST("api/users/{id}/posts")
-    Call<Void> createPost(@Path("id") String username, @Body PostResponse postResponse);
+    Call<Void> createPost(@Path("id") String username, @Body PostRequest postRequest);
 
     @PUT("api/users/{id}/posts/{pid}")
     Call<Void> updatePost(@Path("id") String username, @Path("pid") String pid,

@@ -99,14 +99,8 @@ public class BitMapClass {
     }
 
     public static String bitmapToString(Bitmap bitmap) {
-        /*
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
-         */
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream); // Compress Bitmap
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream); // Compress Bitmap
         byte[] byteArray = outputStream.toByteArray();
         String base64Image = "";
         if (byteArray != null && byteArray.length > 0) {
@@ -150,19 +144,20 @@ public class BitMapClass {
     }
 
     public static Bitmap loadImageAsync(String imageUrl) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
-
-        try {
-            return future.get();
-        } catch (Exception e) {
-            // Handle exceptions during image loading
-            return null;
-        } finally {
-            // Shutdown the executor to release resources
-            executorService.shutdown();
-        }
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//
+//        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
+//
+//        try {
+//            return future.get();
+//        } catch (Exception e) {
+//            // Handle exceptions during image loading
+//            return null;
+//        } finally {
+//            // Shutdown the executor to release resources
+//            executorService.shutdown();
+//        }
+        return base64ToBitmap(imageUrl);
     }
 
     public static Bitmap convertUrlToBitmap(String image) {
@@ -178,10 +173,17 @@ public class BitMapClass {
         return bitmap;
     }
 
-    public static Bitmap base64ToBitmap(String base64) {
-        byte[] decodeString = Base64.decode(base64, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodeString,
-                0, decodeString.length);
-        return decodedByte;
+    public static Bitmap base64ToBitmap(String base64Str) {
+        // Check for and remove data URI scheme if present
+        if (base64Str.startsWith("data:image/png;base64,")) {
+            base64Str = base64Str.substring("data:image/png;base64,".length());
+        } else if (base64Str.startsWith("data:image/jpeg;base64,")) {
+            base64Str = base64Str.substring("data:image/jpeg;base64,".length());
+        }
+        // Decode base64 string
+        byte[] decodedBytes = Base64.decode(base64Str, Base64.DEFAULT);
+
+        // Convert the byte array to Bitmap
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }
