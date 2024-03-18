@@ -1,4 +1,4 @@
-package com.example.project3android.SignUp;
+package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
 import static com.example.project3android.Image.BitMapClass.getImageUri;
@@ -26,10 +26,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.project3android.Feed.Post.Post;
+import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Image.GetImageFromUser;
 import com.example.project3android.Activities.MainActivity;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
+import com.example.project3android.SignUp.SignUpViewModel;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
@@ -108,10 +111,24 @@ public class SignUp extends AppCompatActivity {
                     // Set touch listener to dismiss the popup window when tapped outside of it
                     ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
                     closeButton.setOnClickListener(closeView -> {
-                        popupWindow.dismiss();
-                            Intent i = new Intent(MyApplication.context, MainActivity.class);
-                            startActivity(i);
+                        PostsViewModel postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+                        postsViewModel.get().observe(this, posts -> {
+                            for (Post post : posts) {
+                                if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
+                                    post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
+                                            + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
+                                    post.setAuthor_image(CurrentUser.getInstance().getCurrentUser()
+                                            .getProfileImage());
+                                    post.setUser(CurrentUser.getInstance().getCurrentUser());
+                                    postsViewModel.update(post);
+                                }
+                            }
                         });
+                        CurrentUser.getInstance().logout();
+                        popupWindow.dismiss();
+                        Intent i = new Intent(MyApplication.context, MainActivity.class);
+                        startActivity(i);
+                    });
                 }
                 // if both username and password are valid - log in
                 SignUpViewModel signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);

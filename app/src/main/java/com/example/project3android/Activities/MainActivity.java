@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.project3android.Login.LoginViewModel;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
-import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.Validation.PasswordValidator;

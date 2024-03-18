@@ -51,4 +51,11 @@ public class CurrentUser {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void logout() {
+        this.currentUser = null;
+        this.id = null;
+        this.jwtToken = null;
+        this.friendshipStatus = null;
+    }
 }

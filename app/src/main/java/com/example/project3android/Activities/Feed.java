@@ -30,7 +30,6 @@ import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Feed.adapters.PostListAdapter;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
-import com.example.project3android.SignUp.SignUp;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserViewModel;
@@ -71,6 +70,12 @@ public class Feed extends AppCompatActivity {
             Button deleteBtn = popupView.findViewById(R.id.delete);
             deleteBtn.setOnClickListener(deleteView -> {
                 userViewModel.delete();
+                for (Post post : adapter.getPosts()) {
+                    if (CurrentUser.getInstance().getId().equals(post.getUser().get_id())) {
+                        postViewModel.delete(post);
+                    }
+                }
+                CurrentUser.getInstance().logout();
                 currentActivity.finish();
             });
 
@@ -107,6 +112,7 @@ public class Feed extends AppCompatActivity {
         //logout
         Button logoutButton = findViewById(R.id.logoutBtn);
         logoutButton.setOnClickListener(v -> {
+            CurrentUser.getInstance().logout();
             finish();
         });
 
@@ -167,11 +173,11 @@ public class Feed extends AppCompatActivity {
         });
 
         //friends request
-        Button notificationBtn = findViewById(R.id.notifications);
+        /*Button notificationBtn = findViewById(R.id.notifications);
         notificationBtn.setOnClickListener(v -> {
             Intent i = new Intent(this, NotificationsActivity.class);
             startActivity(i);
-        });
+        });*/
     }
 
     public void editPost(Post post) {

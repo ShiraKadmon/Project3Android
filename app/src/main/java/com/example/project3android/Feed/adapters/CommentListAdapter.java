@@ -74,7 +74,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<com.example.project
                 holder.commentView.setBackgroundColor(Color.WHITE);
             }
 
-            if (current.getName().equals(CurrentUser.getInstance().getCurrentUser().getUsername())) {
+            if (current.getUser_id().get_id().equals(CurrentUser.getInstance().getId())) {
                 holder.editComment.setEnabled(true);
                 holder.deleteComment.setEnabled(true);
 
