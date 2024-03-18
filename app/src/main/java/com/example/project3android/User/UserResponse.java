@@ -1,9 +1,13 @@
 package com.example.project3android.User;
 
+import androidx.room.Embedded;
+
 import com.example.project3android.FriendsRequest.FriendshipStatus;
 
 public class UserResponse {
+    @Embedded
     private User user;
+    @Embedded
     private FriendshipStatus friendshipStatus;
 
     public UserResponse(User user, FriendshipStatus friendshipStatus) {

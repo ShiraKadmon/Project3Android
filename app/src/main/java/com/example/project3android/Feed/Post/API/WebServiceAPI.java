@@ -20,7 +20,7 @@ public interface WebServiceAPI {
     Call<List<PostResponse>> getPosts();
 
     @POST("api/users/{id}/posts")
-    Call<Void> createPost(@Body PostResponse postResponse);
+    Call<Void> createPost(@Path("id") String username, @Body PostResponse postResponse);
 
     @PUT("api/users/{id}/posts/{pid}")
     Call<Void> updatePost(@Path("id") String username, @Path("pid") String pid,

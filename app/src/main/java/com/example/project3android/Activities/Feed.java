@@ -91,7 +91,7 @@ public class Feed extends AppCompatActivity {
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
         postViewModel.get().observe(this, posts -> {
-            for (Post post : posts) {
+            /*for (Post post : posts) {
                 if (post.getUser().get_id().equals(CurrentUser.getInstance().getId())) {
                     post.setAuthor_name(CurrentUser.getInstance().getCurrentUser().getFirstName()
                             + " " + CurrentUser.getInstance().getCurrentUser().getLastName());
@@ -100,7 +100,7 @@ public class Feed extends AppCompatActivity {
                     post.setUser(CurrentUser.getInstance().getCurrentUser());
                     postViewModel.update(post);
                 }
-            }
+            }*/
             adapter.setPosts(posts);
         });
 
