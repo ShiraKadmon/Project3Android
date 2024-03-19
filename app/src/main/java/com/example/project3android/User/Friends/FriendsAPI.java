@@ -9,7 +9,6 @@ import com.example.project3android.User.API.UserWebServiceAPI;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
-import com.example.project3android.User.UserRepository;
 import com.example.project3android.User.UserResponse;
 
 import java.util.ArrayList;
@@ -53,7 +52,6 @@ public class FriendsAPI {
             public void onResponse(Call<List<UserResponse>> call,
                                    Response<List<UserResponse>> response) {
                 new Thread(() -> {
-                    //dao.clear();
                     List<User> friends = new ArrayList<>();
                     for (UserResponse userResponse : response.body()) {
                         friends.add(userResponse.getUser());
@@ -76,36 +74,30 @@ public class FriendsAPI {
                     new Thread(() -> {
                     }).start();
                 } else {
-                    // Handle unsuccessful response
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
             }
         });
     }
 
     public void delete(String userId, String fId) {
-        //dao.delete(post);
         Call<Void> call = webServiceAPI.deleteFriend(userId, fId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
-                        //dao.delete(userId, fId);
                         friendsListData.postValue(dao.index());
                     }).start();
                 } else {
-                    // Handle unsuccessful response
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
             }
         });
     }

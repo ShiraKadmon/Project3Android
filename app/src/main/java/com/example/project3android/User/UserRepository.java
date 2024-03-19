@@ -2,9 +2,9 @@ package com.example.project3android.User;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
-import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.API.UserAPI;
 import com.example.project3android.User.Data.UserAppDB;
@@ -48,8 +48,19 @@ public class UserRepository {
         api.delete(data);
     }
 
-    public void edit(User user) {
-        api.update(user);
+    public void edit(User user, MutableLiveData<Boolean> data) {
+        api.update(user, data);
+        data.observeForever(new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean success) {
+                if (success) {
+                    dao.update(user);
+                } else {
+                }
+                // Remove the observer after receiving the result
+                data.removeObserver(this);
+            }
+        });
     }
 
 }

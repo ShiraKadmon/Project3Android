@@ -1,10 +1,6 @@
 package com.example.project3android.User.API;
 
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostResponse;
-import com.example.project3android.Login.LoginRequest;
 import com.example.project3android.Login.LoginResponse;
-import com.example.project3android.User.User;
 import com.example.project3android.User.UserResponse;
 
 import java.util.HashMap;
@@ -30,13 +26,10 @@ public interface UserWebServiceAPI {
     Call<UserResponse> getUser(@Path("id") String id);
 
     @PUT("api/users/{id}")
-    Call<Void> updateUser(@Body HashMap<String, String> body);
+    Call<Void> updateUser(@Path("id") String id, @Body HashMap<String, String> body);
 
     @DELETE("api/users/{id}")
     Call<Void> deleteUser(@Path("id") String username);
-
-    @GET("api/users/{id}/posts")
-    Call<List<PostResponse>> getUserPosts(@Path("id") String username);
 
     @GET("api/users/{id}/friends")
     Call<List<UserResponse>> getUserFriends(@Path("id") String username);

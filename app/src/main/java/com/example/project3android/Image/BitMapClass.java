@@ -144,20 +144,18 @@ public class BitMapClass {
     }
 
     public static Bitmap loadImageAsync(String imageUrl) {
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//
-//        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
-//
-//        try {
-//            return future.get();
-//        } catch (Exception e) {
-//            // Handle exceptions during image loading
-//            return null;
-//        } finally {
-//            // Shutdown the executor to release resources
-//            executorService.shutdown();
-//        }
-        return base64ToBitmap(imageUrl);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<Bitmap> future = executorService.submit(() -> convertUrlToBitmap(imageUrl));
+
+        try {
+            return future.get();
+        } catch (Exception e) {
+            // Handle exceptions during image loading
+            return null;
+        } finally {
+            // Shutdown the executor to release resources
+            executorService.shutdown();
+        }
     }
 
     public static Bitmap convertUrlToBitmap(String image) {

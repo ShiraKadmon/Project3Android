@@ -1,7 +1,5 @@
 package com.example.project3android.User.API;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.Post.API.TokenInterceptor;
@@ -13,6 +11,8 @@ import com.example.project3android.User.User;
 import com.example.project3android.User.UserDao;
 import com.example.project3android.User.UserResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserAPI {
 
-    private MutableLiveData<UserResponse> user;
+    private MutableLiveData<UserResponse> userData;
     private UserDao dao;
     Retrofit retrofit;
     UserWebServiceAPI webServiceAPI;
 
     public UserAPI(MutableLiveData<UserResponse> user, UserDao dao) {
-        this.user = user;
+        this.userData = user;
         this.dao = dao;
 
         TokenInterceptor tokenInterceptor = new TokenInterceptor(
@@ -52,13 +52,12 @@ public class UserAPI {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 new Thread(() -> {
                     UserResponse userResponse = response.body();
-                    user.postValue(userResponse);
+                    userData.postValue(userResponse);
                 }).start();
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Log.e("USER_API_RESPONSE", t.getMessage());
             }
         });
     }
@@ -80,23 +79,27 @@ public class UserAPI {
         });
     }
 
-    public void update(User user) {
-        Call<Void> call = webServiceAPI.updateUser(HashMapConverter.signUpHashMap(user));
+    public void update(User user, MutableLiveData<Boolean> data) {
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+        user.setPassword(hashedPassword);
+        Call<Void> call = webServiceAPI.updateUser(user.get_id(),
+                HashMapConverter.signUpHashMap(user));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     new Thread(() -> {
-                        get();
+                        dao.update(user);
+                        data.postValue(true);
                     }).start();
                 } else {
-                    // Handle unsuccessful response
+                    data.postValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
+                data.postValue(false);
             }
         });
     }

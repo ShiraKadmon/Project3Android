@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.project3android.User.User;
-import com.example.project3android.User.UserRepository;
-
-import java.util.List;
 
 public class SignUpViewModel extends ViewModel {
     private SignUpRepository repository;

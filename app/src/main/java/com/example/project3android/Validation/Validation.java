@@ -19,7 +19,8 @@ public class Validation {
     public boolean isValidPass(String input) {
         // define the regex pattern for at least 8 characters
         // input must include: 1 number, 1 lowercase, 1 uppercase, 1 special character
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\\\/-]).{8,}$";
+        String regex =
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\\\/-]).{8,}$";
         // compile the pattern
         Pattern pattern = Pattern.compile(regex);
         // create a matcher with the input string

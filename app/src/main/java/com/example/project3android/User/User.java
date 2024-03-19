@@ -1,6 +1,6 @@
 package com.example.project3android.User;
 
-import static com.example.project3android.Image.BitMapClass.loadImageAsync;
+import static com.example.project3android.Image.BitMapClass.base64ToBitmap;
 
 import android.graphics.Bitmap;
 
@@ -28,7 +28,8 @@ public class User implements Serializable {
     @SerializedName("profile_picture")
     private String profileImage;
 
-    public User(String firstName, String lastName, String username, String password, String profileImage) {
+    public User(String firstName, String lastName, String username, String password,
+                String profileImage) {
         this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,7 +73,8 @@ public class User implements Serializable {
     }
 
     public Bitmap getBitmapProfileImage() {
-        return loadImageAsync(profileImage);
+        return base64ToBitmap(profileImage);
+        //return loadImageAsync(profileImage);
     }
 
     public String get_id() {
@@ -105,5 +107,9 @@ public class User implements Serializable {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public UserResponse getUserResponse() {
+        return new UserResponse(this, CurrentUser.getInstance().getFriendshipStatus());
     }
 }

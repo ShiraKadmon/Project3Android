@@ -3,7 +3,6 @@ package com.example.project3android.User.Friends;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.User.User;
 
 import java.util.List;

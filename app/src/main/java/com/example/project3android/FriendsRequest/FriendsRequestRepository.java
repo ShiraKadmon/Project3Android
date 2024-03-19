@@ -1,8 +1,5 @@
 package com.example.project3android.FriendsRequest;
 
-
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;

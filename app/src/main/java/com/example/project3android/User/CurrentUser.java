@@ -36,7 +36,8 @@ public class CurrentUser {
         this.jwtToken = jwtToken;
     }
 
-    public void setCurrentUser(String firstName, String lastName, String username, String password, String profileImage) {
+    public void setCurrentUser(String firstName, String lastName, String username, String password,
+                               String profileImage) {
         this.currentUser = new User(firstName, lastName, username, password, profileImage);
     }
 
