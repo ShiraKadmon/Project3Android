@@ -28,7 +28,8 @@ public class User implements Serializable {
     @SerializedName("profile_picture")
     private String profileImage;
 
-    public User(String firstName, String lastName, String username, String password, String profileImage) {
+    public User(String firstName, String lastName, String username, String password,
+                String profileImage) {
         this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -105,5 +106,9 @@ public class User implements Serializable {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public UserResponse getUserResponse() {
+        return new UserResponse(this, CurrentUser.getInstance().getFriendshipStatus());
     }
 }

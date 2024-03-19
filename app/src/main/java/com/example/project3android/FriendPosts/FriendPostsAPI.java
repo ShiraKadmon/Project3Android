@@ -52,8 +52,6 @@ public class FriendPostsAPI {
             public void onResponse(Call<List<Post>> call,
                                    Response<List<Post>> response) {
                 if (response.isSuccessful()) {
-                    // Log the response body
-
                     new Thread(() -> {
                         postListData.postValue(response.body());
                     }).start();

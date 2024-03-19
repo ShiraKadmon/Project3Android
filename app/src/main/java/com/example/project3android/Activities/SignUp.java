@@ -96,6 +96,7 @@ public class SignUp extends AppCompatActivity {
                             lastName.getText().toString(), userName.getText().toString(),
                             password.getText().toString(),
                             bitmapToString(selectedBitmap));
+                    user.set_id(CurrentUser.getInstance().getId());
                     userViewModel.edit(user);
 
                     View popupView = LayoutInflater.from(MyApplication.context).

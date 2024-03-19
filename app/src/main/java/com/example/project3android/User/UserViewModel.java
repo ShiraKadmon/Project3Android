@@ -8,6 +8,7 @@ public class UserViewModel extends ViewModel {
     private UserRepository repository;
     private LiveData<UserResponse> user;
     private MutableLiveData<Boolean> deleteMess;
+    private MutableLiveData<Boolean> updateMess;
 
     public MutableLiveData<Boolean> getDeleteMess() {
         return deleteMess;
@@ -17,6 +18,7 @@ public class UserViewModel extends ViewModel {
         this.repository = new UserRepository();
         this.user = repository.get();
         this.deleteMess = new MutableLiveData<>();
+        this.updateMess = new MutableLiveData<>();
     }
 
     public LiveData<UserResponse> getUser() {
@@ -28,7 +30,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public void edit(User user) {
-        repository.edit(user);
+        repository.edit(user, updateMess);
     }
 
 }

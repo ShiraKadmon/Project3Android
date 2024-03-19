@@ -20,7 +20,7 @@ public class HashMapConverter {
         hash.put("last_name", user.getLastName());
         hash.put("email", user.getUsername());
         hash.put("password", user.getPassword());
-        hash.put("profile_picture", user.getPassword());
+        hash.put("profile_picture", user.getProfileImage());
         return hash;
     }
 

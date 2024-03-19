@@ -30,13 +30,10 @@ public interface UserWebServiceAPI {
     Call<UserResponse> getUser(@Path("id") String id);
 
     @PUT("api/users/{id}")
-    Call<Void> updateUser(@Body HashMap<String, String> body);
+    Call<Void> updateUser(@Path("id") String id, @Body HashMap<String, String> body);
 
     @DELETE("api/users/{id}")
     Call<Void> deleteUser(@Path("id") String username);
-
-    @GET("api/users/{id}/posts")
-    Call<List<PostResponse>> getUserPosts(@Path("id") String username);
 
     @GET("api/users/{id}/friends")
     Call<List<UserResponse>> getUserFriends(@Path("id") String username);
