@@ -1,7 +1,5 @@
 package com.example.project3android.FriendPosts;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.Post.API.TokenInterceptor;

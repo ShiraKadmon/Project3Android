@@ -1,6 +1,6 @@
 package com.example.project3android.User;
 
-import static com.example.project3android.Image.BitMapClass.loadImageAsync;
+import static com.example.project3android.Image.BitMapClass.base64ToBitmap;
 
 import android.graphics.Bitmap;
 
@@ -73,7 +73,8 @@ public class User implements Serializable {
     }
 
     public Bitmap getBitmapProfileImage() {
-        return loadImageAsync(profileImage);
+        return base64ToBitmap(profileImage);
+        //return loadImageAsync(profileImage);
     }
 
     public String get_id() {

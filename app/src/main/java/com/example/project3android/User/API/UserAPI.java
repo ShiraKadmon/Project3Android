@@ -1,7 +1,5 @@
 package com.example.project3android.User.API;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.Post.API.TokenInterceptor;
@@ -93,7 +91,6 @@ public class UserAPI {
                     new Thread(() -> {
                         dao.update(user);
                         data.postValue(true);
-                        //userData.postValue(user.getUserResponse());
                     }).start();
                 } else {
                     data.postValue(false);

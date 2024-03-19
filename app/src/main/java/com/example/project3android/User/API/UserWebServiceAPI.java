@@ -1,10 +1,6 @@
 package com.example.project3android.User.API;
 
-import com.example.project3android.Feed.Post.Post;
-import com.example.project3android.Feed.Post.PostResponse;
-import com.example.project3android.Login.LoginRequest;
 import com.example.project3android.Login.LoginResponse;
-import com.example.project3android.User.User;
 import com.example.project3android.User.UserResponse;
 
 import java.util.HashMap;

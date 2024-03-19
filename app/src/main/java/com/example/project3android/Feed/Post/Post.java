@@ -2,18 +2,15 @@ package com.example.project3android.Feed.Post;
 
 
 import static com.example.project3android.Image.BitMapClass.base64ToBitmap;
-import static com.example.project3android.Image.BitMapClass.loadImageAsync;
 
 import android.graphics.Bitmap;
 import android.widget.Button;
 
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.project3android.Feed.Comment;
-import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.User.CurrentUser;
 import com.example.project3android.User.User;
 import com.google.gson.Gson;
@@ -25,8 +22,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.http.HEAD;
 
 
 @Entity
@@ -267,13 +262,13 @@ public class Post implements Serializable {
     }
 
     public Bitmap getBitmapPic() {
-        return loadImageAsync(this.pic);
-        //return base64ToBitmap(this.pic);
+        //return loadImageAsync(this.pic);
+        return base64ToBitmap(this.pic);
     }
 
     public Bitmap getBitmapProfileImage() {
-        return loadImageAsync(this.author_image);
-        //return base64ToBitmap(this.author_image);
+        //return loadImageAsync(this.author_image);
+        return base64ToBitmap(this.author_image);
     }
 
     public String getAuthor_image() {

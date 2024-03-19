@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.Data.UserAppDB;
 import com.example.project3android.User.User;
@@ -36,8 +35,6 @@ public class FriendsRepository {
         @Override
         protected void onActive() {
             super.onActive();
-
-            //new Thread(() -> friendsListData.setValue(dao.index())).start();
             api.getFriends();
         }
     }

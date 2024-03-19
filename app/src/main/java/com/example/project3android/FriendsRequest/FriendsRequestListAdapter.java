@@ -56,8 +56,8 @@ public class FriendsRequestListAdapter extends RecyclerView.Adapter<FriendsReque
         if (friendsRequests != null) {
             final FriendsRequest current = friendsRequests.get(position);
             holder.profilePic.setImageBitmap(current.getUser().getBitmapProfileImage());
-            holder.userName.setText(current.getUser().getFirstName() + " " + current.getUser()
-                    .getLastName());
+            holder.userName.setText(current.getUser().getFirstName() + " "
+                    + current.getUser().getLastName());
 
             holder.approveBtn.setOnClickListener(v -> {
                 context.approve(current);

@@ -16,8 +16,6 @@ public abstract class UserAppDB extends RoomDatabase {
     public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            // Perform migration here
-            // For example, alter table to add a new column
             database.execSQL("ALTER TABLE User ADD COLUMN _id TEXT");        }
     };
 }

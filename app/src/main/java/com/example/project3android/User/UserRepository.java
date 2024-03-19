@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
-import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.MyApplication;
 import com.example.project3android.User.API.UserAPI;
 import com.example.project3android.User.Data.UserAppDB;
@@ -55,10 +54,8 @@ public class UserRepository {
             @Override
             public void onChanged(Boolean success) {
                 if (success) {
-                    // If update operation is successful, update the local database
                     dao.update(user);
                 } else {
-                    // Handle update failure if needed
                 }
                 // Remove the observer after receiving the result
                 data.removeObserver(this);

@@ -4,8 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.example.project3android.Validation.Validation;
-
 public class PasswordValidator implements TextWatcher {
     private EditText passwordEditText;
     private Validation validator;
