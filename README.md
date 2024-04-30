@@ -201,3 +201,5 @@ Throughout the project, we remained adaptable, identifying additional requiremen
 
 Collaboration was central to our approach, with all team members actively contributing to the project's codebase. Despite its challenges, our teamwork and dedication ensured successful progress at every stage of development.
 
+# link to wiki:
+https://github.com/ShiraKadmon/Ex-4-BF/wiki
