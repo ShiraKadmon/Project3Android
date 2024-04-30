@@ -103,7 +103,7 @@ public class SignUp extends AppCompatActivity {
                             inflate(R.layout.signup_popup_window, null);
                     PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
                             LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                     popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                     popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
                     TextView textView = popupView.findViewById(R.id.problem_description);
@@ -150,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                                 inflate(R.layout.signup_popup_window, null);
                         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
                                 LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                         popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
                         TextView textView = popupView.findViewById(R.id.problem_description);

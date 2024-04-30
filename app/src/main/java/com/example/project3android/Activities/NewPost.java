@@ -1,3 +1,4 @@
+
 package com.example.project3android.Activities;
 
 import static com.example.project3android.Image.BitMapClass.bitmapToString;
@@ -70,7 +71,7 @@ public class NewPost extends AppCompatActivity {
         EditText postText = findViewById(R.id.text_input_editText);
         // if this is edit post, set the current data
         if (getIntent().getSerializableExtra("post") != null) {
-           Post post = (Post) getIntent().getSerializableExtra("post");
+            Post post = (Post) getIntent().getSerializableExtra("post");
             postText.setText(post.getText());
             ImageView userImage = findViewById(R.id.user_post_image);
             userImage.setImageBitmap(post.getBitmapPic());
@@ -105,22 +106,29 @@ public class NewPost extends AppCompatActivity {
                     postsViewModel.add(newPost);
                 }
                 postsViewModel.get().observe(this, s -> {
-                    View popupView = LayoutInflater.from(this).
-                            inflate(R.layout.signup_popup_window, null);
-                    PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
-                            LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-                    TextView textView = popupView.findViewById(R.id.problem_description);
+                    if (s.equals("Post contains invalid URL, please rewrite the post")) {
+                        View popupView = LayoutInflater.from(this).
+                                inflate(R.layout.signup_popup_window, null);
+                        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
+                                LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                        popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                        TextView textView = popupView.findViewById(R.id.problem_description);
 
-                    // Update TextView content if needed
-                    textView.setText(s);
-                    // Set touch listener to dismiss the popup window when tapped outside of it
-                    ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
-                    closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
+                        // Update TextView content if needed
+                        textView.setText(s);
+                        // Set touch listener to dismiss the popup window when tapped outside of it
+                        ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+                        closeButton.setOnClickListener(closeView -> {
+                            popupWindow.dismiss();
+                            finish();
+                        });
+                    }
+                    else {
+                        finish();
+                    }
                 });
-                finish();
             } else if (selectedBitmap == null) {
                 //  error message to the user
                 Toast.makeText(this, "Please add an image", Toast.LENGTH_SHORT).show();
@@ -174,4 +182,3 @@ public class NewPost extends AppCompatActivity {
     }
 
 }
-
