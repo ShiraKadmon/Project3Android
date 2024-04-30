@@ -33,7 +33,7 @@ public interface UserWebServiceAPI {
     Call<Void> updateUser(@Body HashMap<String, String> body);
 
     @DELETE("api/users/{id}")
-    Call<Void> deleteUser(@Path("id") String username);
+    Call<Void> deleteUser(@Path("id") String id);
 
     @GET("api/users/{id}/posts")
     Call<List<PostResponse>> getUserPosts(@Path("id") String username);

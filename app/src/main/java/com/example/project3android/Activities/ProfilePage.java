@@ -83,6 +83,12 @@ public class ProfilePage extends AppCompatActivity {
                 friendsViewModel.approve(CurrentUser.getInstance().getId(), user.get_id());
             });
         }
+        else if (userResponse.getFriendshipStatus().getUser_id().equals(
+                CurrentUser.getInstance().getId()) &&
+                userResponse.getFriendshipStatus().getStatus().equals("pending")) {
+            Button friendship = findViewById(R.id.friendshipStatus);
+            friendship.setText(R.string.asking_friendship);
+        }
         else {
             Button friendship = findViewById(R.id.friendshipStatus);
             friendship.setText(R.string.ask_friendship);

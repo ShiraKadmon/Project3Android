@@ -19,7 +19,6 @@ public class FriendPostsRepository {
     private UserDao dao;
     private FriendPostsRepository.FriendPostListData postListData;
     private FriendPostsAPI api;
-    private String userId;
 
     public FriendPostsRepository() {
         UserAppDB db = Room.databaseBuilder(MyApplication.context,
@@ -28,7 +27,6 @@ public class FriendPostsRepository {
         dao = db.userDao();
         postListData = new FriendPostsRepository.FriendPostListData();
         api = new FriendPostsAPI(postListData, dao);
-        userId = FriendId.getInstance().getfId();
     }
 
     class FriendPostListData extends MutableLiveData<List<Post>> {
@@ -42,7 +40,7 @@ public class FriendPostsRepository {
 
             new Thread(() -> {
                 //postListData.postValue(dao.index());
-                api.getUserPost(userId);
+                api.getUserPost(FriendId.getInstance().getfId());
             }).start();
         }
     }
@@ -51,7 +49,7 @@ public class FriendPostsRepository {
     }
 
     public void reload() {
-        api.getUserPost(userId);
+        api.getUserPost(FriendId.getInstance().getfId());
     }
 
 }

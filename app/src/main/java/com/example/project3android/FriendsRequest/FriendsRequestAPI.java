@@ -6,7 +6,6 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.project3android.Feed.Post.API.TokenInterceptor;
-import com.example.project3android.Feed.data.HashMapConverter;
 import com.example.project3android.FriendPosts.FriendId;
 import com.example.project3android.MyApplication;
 import com.example.project3android.R;
