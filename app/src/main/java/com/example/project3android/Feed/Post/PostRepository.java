@@ -7,6 +7,7 @@ import androidx.room.Room;
 import com.example.project3android.Feed.Post.API.PostAPI;
 import com.example.project3android.Feed.data.AppDB;
 import com.example.project3android.MyApplication;
+import com.example.project3android.SignUp.SignUpRepository;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class PostRepository {
     private PostDao dao;
     private PostListData postListData;
+    private PostRepository.State state;
     private PostAPI api;
 
     public PostRepository() {
@@ -23,7 +25,8 @@ public class PostRepository {
                         AppDB.MIGRATION_2_3).build();
         dao = db.postDao();
         postListData = new PostListData();
-        api = new PostAPI(postListData, dao);
+        state = new State();
+        api = new PostAPI(state, postListData, dao);
     }
 
     class PostListData extends MutableLiveData<List<Post>> {
@@ -42,8 +45,23 @@ public class PostRepository {
             }).start();
         }
     }
+
+    class State extends MutableLiveData<String> {
+        public State() {
+            super();
+        }
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+        }
+    }
     public LiveData<List<Post>> getAll() {
         return postListData;
+    }
+
+    public LiveData<String> get() {
+        return state;
     }
 
     public void add(final Post post) {
@@ -57,7 +75,6 @@ public class PostRepository {
     public void update(final Post post) {
         api.update(post);
     }
-
     public void reload() {
         api.get();
     }

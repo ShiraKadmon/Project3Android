@@ -22,12 +22,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostAPI {
+    private MutableLiveData<String> isSucceeded;
     private MutableLiveData<List<Post>> postListData;
     private PostDao dao;
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public PostAPI(MutableLiveData<List<Post>> postListData, PostDao dao) {
+    public PostAPI(MutableLiveData<String> isSucceeded,
+                   MutableLiveData<List<Post>> postListData, PostDao dao) {
+        this.isSucceeded = isSucceeded;
         this.postListData = postListData;
         this.dao = dao;
 
