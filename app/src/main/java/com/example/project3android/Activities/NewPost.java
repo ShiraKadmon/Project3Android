@@ -4,29 +4,40 @@ import static com.example.project3android.Image.BitMapClass.bitmapToString;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project3android.Feed.Post.Post;
 import com.example.project3android.Feed.Post.PostsViewModel;
 import com.example.project3android.Image.BitMapClass;
 import com.example.project3android.Image.GetImageFromUser;
+import com.example.project3android.MyApplication;
 import com.example.project3android.R;
 import com.example.project3android.User.CurrentUser;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class NewPost extends AppCompatActivity {
@@ -89,9 +100,26 @@ public class NewPost extends AppCompatActivity {
                     newPost.setPostId(post.getPostId());
                     newPost.setAuthor_image(post.getAuthor_image());
                     postsViewModel.update(newPost);
+                    // check if its succeeded
                 } else {
                     postsViewModel.add(newPost);
                 }
+                postsViewModel.get().observe(this, s -> {
+                    View popupView = LayoutInflater.from(this).
+                            inflate(R.layout.signup_popup_window, null);
+                    PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
+                            LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                    TextView textView = popupView.findViewById(R.id.problem_description);
+
+                    // Update TextView content if needed
+                    textView.setText(s);
+                    // Set touch listener to dismiss the popup window when tapped outside of it
+                    ImageButton closeButton = popupView.findViewById(R.id.closeBtn);
+                    closeButton.setOnClickListener(closeView -> popupWindow.dismiss());
+                });
                 finish();
             } else if (selectedBitmap == null) {
                 //  error message to the user

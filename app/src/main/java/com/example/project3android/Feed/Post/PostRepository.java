@@ -41,7 +41,7 @@ public class PostRepository {
 
             new Thread(() -> {
                 postListData.postValue(dao.index());
-                api.get();
+                api.getAll();
             }).start();
         }
     }
@@ -76,7 +76,7 @@ public class PostRepository {
         api.update(post);
     }
     public void reload() {
-        api.get();
+        api.getAll();
     }
 
 }

@@ -115,7 +115,7 @@ public class SignUp extends AppCompatActivity {
                     closeButton.setOnClickListener(closeView -> {
                         PostsViewModel postsViewModel = new ViewModelProvider(this)
                                 .get(PostsViewModel.class);
-                        postsViewModel.get().observe(this, posts -> {
+                        postsViewModel.getAll().observe(this, posts -> {
                             for (Post post : posts) {
                                 if (post.getUser().get_id().equals(CurrentUser.getInstance()
                                         .getId())) {

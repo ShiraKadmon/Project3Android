@@ -48,7 +48,7 @@ public class PostAPI {
 
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-    public void get() {
+    public void getAll() {
         Call<List<PostResponse>> call = webServiceAPI.getPosts();
         call.enqueue(new Callback<List<PostResponse>>() {
             @Override

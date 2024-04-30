@@ -16,8 +16,12 @@ public class PostsViewModel extends ViewModel {
         this.state = mRepository.get();
     }
 
-    public LiveData<List<Post>> get() {
+    public LiveData<List<Post>> getAll() {
         return posts;
+    }
+
+    public LiveData<String> get() {
+        return state;
     }
 
     public void add(Post post) {
