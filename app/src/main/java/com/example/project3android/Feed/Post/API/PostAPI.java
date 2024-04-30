@@ -86,6 +86,9 @@ public class PostAPI {
                         postListData.postValue(dao.index());
                     }).start();
                 } else {
+                    if (response.code() == 403) {
+                        isSucceeded.postValue("Post contains invalid URL, please rewrite the post");
+                    }
                 }
             }
 
@@ -129,6 +132,9 @@ public class PostAPI {
                         postListData.postValue(dao.index());
                     }).start();
                 } else {
+                    if (response.code() == 403) {
+                        isSucceeded.postValue("Post contains invalid URL, please rewrite the post");
+                    }
                 }
             }
 
