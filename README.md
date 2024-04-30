@@ -125,70 +125,114 @@ By following these migrations, the app's database structure is updated seamlessl
 
 # Project Run Demonstration
 Trying to log in with invalid user:
-<img width="960" alt="login_invalid_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0506db87-2536-4d53-b0bc-c4fadd7497bb">
+
+<img width="137" alt="login_invalid_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/d6e364e0-888d-43ba-aafa-cddb35b1904e">
+
 
 New user sign up - Hadar:
-<img width="960" alt="signup_done" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/6ef121f5-4aa9-4146-bbf5-97a472cee2f1">
+
+<img width="216" alt="signup_done" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0313e7d4-03f3-4b10-83e0-ccfbd1f8519c">
+
 
 Logging in - empty feed (no posts yet):
-<img width="960" alt="feed_empty" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/96714667-3e4d-49d0-9c0e-7097abbb0809">
+
+<img width="216" alt="feed_empty" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/3087c126-5aa5-4242-ac3e-305dc4e0cdab">
+
 
 Creating a new post from Hadar - by pressing "what's on your mind?" at the top of the feed:
-<img width="960" alt="newpost_page" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/edb15740-9c05-45d4-91ff-8607b3bc2734">
+
+<img width="201" alt="newpost_page" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/cc88fe21-1fa1-4007-9dc3-ed26690f4f60">
+
 
 Seeing the existing posts back in the feed, specifically the new one:
-<img width="960" alt="feed_new_post" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/5e1ff8fb-5295-42d1-9c97-6cefb740ad65">
+
+<img width="199" alt="feed_new_post" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/31ff6ce0-c018-4777-b3a7-42d4efdbeedd">
+
 
 Editing the existing post made by Hadar - by pressing the edit icon on the post:
-<img width="960" alt="feed_post_edit" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/6453011f-7b74-4111-ad3d-b99f80bfcc8b">
+
+<img width="205" alt="feed_post_edit" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/883919c3-a229-4465-95e5-54e6e6b4bd53">
+
 
 Night-mode feed - switching by pressing the switch at the top right of the feed page:
-<img width="960" alt="feed_nightmode" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0d8e73dd-a96e-49f9-936a-6e6fa50ceff9">
+
+<img width="210" alt="feed_nightmode" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/473529f0-9aca-4ee6-b291-86fe8a259731">
+
 
 Creating another new user - Shira - by pressing Logout and then Sign Up:
-<img width="960" alt="signup_new_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/fda543e8-c350-4760-a199-58db7be04617">
+
+<img width="214" alt="signup_new_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/ed477313-1ae1-46c0-a3d8-9127db1f1782">
+
 
 Creating a new post by Shira:
-<img width="960" alt="feed_different_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/1e890829-52c9-4796-aa7f-c03f8c43be21">
+
+<img width="205" alt="feed_different_user" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0b8cff2d-d6c4-455f-8b87-fbfd1a3a70f9">
+
 
 Viewing Hadar's profile page from Shira's user - by pressing Hadar's icon on Hadar's post in the feed:
-<img width="960" alt="profile_not_friend" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/c8d7e17b-ee9c-4965-a019-1301145323d1">
+
+<img width="216" alt="profile_not_friend" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/9a9c358f-0c4a-4351-a89f-006c96637821">
+
 
 Sending friend request from Shira to Hadar:
-<img width="960" alt="friendship_requset" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0cda5a54-2534-4884-a728-12168f19424b">
+
+<img width="201" alt="friendship_requset" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/d33df5a4-3abd-41ef-a493-d8212c817653">
+
 
 Viewing Shira's profile page from Hadar's user:
-<img width="960" alt="friend_request_approve" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/fc2b19db-53c8-46e0-8cb3-2c905500a6d3">
+
+<img width="209" alt="friend_request_approve" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/1f5d0aa6-27d4-4a78-94b9-775329005641">
+
 
 Viewing Shira's posts after approving the friend request sent from Shira to Hadar:
-<img width="960" alt="profile_page_friend" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/4eec004d-fd7e-4908-bc40-40f240a23295">
+
+<img width="203" alt="profile_page_friend" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/075bf5fb-0a87-4db5-8f0d-cebb364e5ce5">
+
 
 Hadar's user liking a post - by pressing the like icon:
-<img width="960" alt="feed_like" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/f776fad3-5698-4abb-a834-460337c53952">
+
+<img width="198" alt="feed_like" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/ed9147a2-391b-4b1e-89c7-3f49f136bb60">
+
 
 Viewing a post's share menu - by pressing the share icon:
-<img width="960" alt="feed_share" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/83b6287d-40e9-45f4-8eb8-662388caf22c">
+
+<img width="208" alt="feed_share" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/362eda86-8829-432a-94f3-79635632e36e">
+
 
 Viewing Shira's post's comment page - by pressing the comment icon:
-<img width="960" alt="cooment_page_empty" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/afd46556-eea9-4f4d-933e-56ca24284fb7">
+
+<img width="202" alt="cooment_page_empty" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/30caeb76-48c7-4855-8485-069c9afcabb7">
+
 
 Adding a comment on Shira's post from Hadar's user:
-<img width="960" alt="comment_new" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/1b0164c5-b6bf-4572-a239-a3492891c1ff">
+
+<img width="209" alt="comment_new" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/f97d66ad-e2ea-46e2-963a-1b75e5632a22">
+
 
 Editing Hadar's comment on the post - by pressing the comment's edit icon:
-<img width="960" alt="comment_edited" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/558ce482-04e7-48e6-9e42-c61fdde57930">
+
+<img width="202" alt="comment_edited" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/12566a1f-e3d7-48bb-bc34-ed26166fbf55">
+
 
 Deleting Hadar's comment - by pressing the comment's delete button:
-<img width="960" alt="comment_delete" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/1e5a5cae-10af-4cbe-afbd-224bfafc23b2">
+
+<img width="213" alt="comment_delete" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/4d75e042-392b-4933-962f-fb6c171e18fe">
+
 
 Viewing Hadar's user menu:
-<img width="960" alt="feed_user_menu" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/5a9ca2fb-0a30-417d-b87e-2ae90c828901">
+
+<img width="209" alt="feed_user_menu" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/918fbcfe-c507-40e1-acde-ba7db230912c">
+
 
 Editing Hadar's user (the name) - by changing the relevant field and pressing Sign Up:
-<img width="960" alt="signup_edit_success" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/186e52e1-5ccd-4697-824f-05a5fca91977">
+
+<img width="181" alt="signup_edit_success" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/b2398a2d-ff9a-444b-8cf3-c4b2c4571847">
+
 
 Viewing the changes to Hadar's user on the feed - after logging in to a different user:
-<img width="960" alt="feed_user_edited" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/0c955e16-9e95-4046-8093-129ad54e2183">
+
+<img width="232" alt="feed_user_edited" src="https://github.com/ShiraKadmon/Project3Android/assets/155539800/71a9c0d9-8cb4-4f6d-8d0e-d2ef1febd5b7">
+
 
 It is also possible to do other things that aren't shown: delete a post, delete a friend, delete a user, view a full feed (25 posts) once there are enough existing posts saved on the server, etc.
 
