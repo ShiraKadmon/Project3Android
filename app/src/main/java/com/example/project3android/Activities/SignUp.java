@@ -103,7 +103,7 @@ public class SignUp extends AppCompatActivity {
                             inflate(R.layout.signup_popup_window, null);
                     PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
                             LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                     popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                     popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
                     TextView textView = popupView.findViewById(R.id.problem_description);
@@ -115,7 +115,7 @@ public class SignUp extends AppCompatActivity {
                     closeButton.setOnClickListener(closeView -> {
                         PostsViewModel postsViewModel = new ViewModelProvider(this)
                                 .get(PostsViewModel.class);
-                        postsViewModel.get().observe(this, posts -> {
+                        postsViewModel.getAll().observe(this, posts -> {
                             for (Post post : posts) {
                                 if (post.getUser().get_id().equals(CurrentUser.getInstance()
                                         .getId())) {
@@ -150,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                                 inflate(R.layout.signup_popup_window, null);
                         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.
                                 LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                         popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
                         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
                         TextView textView = popupView.findViewById(R.id.problem_description);

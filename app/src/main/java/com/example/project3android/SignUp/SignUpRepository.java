@@ -11,7 +11,6 @@ import com.example.project3android.User.UserDao;
 
 public class SignUpRepository {
     private UserDao dao;
-
     private SignUpRepository.State state;
     private SignUpAPI api;
 

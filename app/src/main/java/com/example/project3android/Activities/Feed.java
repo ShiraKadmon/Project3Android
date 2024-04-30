@@ -100,7 +100,7 @@ public class Feed extends AppCompatActivity {
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        postViewModel.get().observe(this, posts -> {
+        postViewModel.getAll().observe(this, posts -> {
             adapter.setPosts(posts);
         });
 
